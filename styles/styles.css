@@ -134,6 +134,10 @@ i {
   margin-right: 10px;
 }
 
+textarea {
+  resize: none;
+}
+
 .form-control {
   padding: 10px 15px;
   border-radius: 8px;
@@ -173,6 +177,7 @@ i {
   border-radius: 15px;
   border: 1px solid lightgray;
   width: 100%;
+  transition: 0.3s;
 }
 
 .text-center {

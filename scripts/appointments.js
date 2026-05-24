@@ -9,4 +9,8 @@ $(document).ready(function () {
       });
     $(this).addClass("active-link");
   });
+
+  $(".view-details-btn").click(function () {
+    location.href = "appointment-details.html";
+  });
 });
