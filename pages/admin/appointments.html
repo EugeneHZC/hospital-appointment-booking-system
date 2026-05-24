@@ -9,31 +9,19 @@
       src="https://kit.fontawesome.com/d29bed84f6.js"
       crossorigin="anonymous"
     ></script>
-    <script src="/scripts/appointments.js"></script>
+    <script src="../../scripts/load-page.js"></script>
+    <script src="../../scripts/appointments.js"></script>
     <title>Hospital Islam Azzahrah Appointment Booking System</title>
+
+    <!-- for testing purposes only -->
+    <input type="hidden" value="admin" name="role" id="role" />
   </head>
   <body>
     <div id="container">
-      <nav id="side-nav">
-        <div id="nav-content">
-          <h2>Hospital Islam Azzahrah</h2>
-          <ul class="nav-links">
-            <li class="nav-link"><a href="">Dashboard</a></li>
-            <li class="nav-link active-link">
-              <a href="/pages/admin/appointments.html">Appointments</a>
-            </li>
-            <li class="nav-link"><a href="">Departments</a></li>
-            <li class="nav-link"><a href="">Doctors</a></li>
-            <li class="nav-link"><a href="">Forum</a></li>
-            <li class="nav-link"><a href="">Profile</a></li>
-          </ul>
-        </div>
-      </nav>
-
       <main>
         <header>
           <h1>Appointments</h1>
-          <p>Admin's View</p>
+          <p id="role-view"></p>
         </header>
 
         <div id="content">
@@ -96,7 +84,12 @@
               </div>
               <div class="display-card-right">
                 <span class="badge badge-info">Scheduled</span>
-                <button class="btn btn-danger">Cancel Appointment</button>
+                <div>
+                  <button class="btn btn-info view-details-btn">
+                    View Details
+                  </button>
+                  <button class="btn btn-danger">Cancel Appointment</button>
+                </div>
               </div>
             </div>
 
