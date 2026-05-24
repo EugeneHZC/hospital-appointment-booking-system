@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $("#appointments-horizontal-nav ul li").click(function (e) {
+  $("#articles-horizontal-nav ul li").click(function (e) {
     e.preventDefault();
 
     $(this)
@@ -7,7 +7,6 @@ $(document).ready(function () {
       .each(function (index, element) {
         element.classList.remove("active-link");
       });
-
     $(this).addClass("active-link");
   });
 

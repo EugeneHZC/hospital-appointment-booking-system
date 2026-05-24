@@ -14,7 +14,7 @@
     <title>Hospital Islam Azzahrah Appointment Booking System</title>
 
     <!-- For testing purposes -->
-    <input type="hidden" value="patient" id="role" name="role" />
+    <input type="hidden" value="admin" id="role" name="role" />
   </head>
   <body>
     <div id="container">
@@ -34,7 +34,20 @@
               class="form-control"
               placeholder="Search for article names or content"
             />
+            <button class="btn btn-info">Post Article</button>
           </div>
+
+          <nav class="horizontal-nav" id="articles-horizontal-nav">
+            <ul class="nav-links">
+              <li class="nav-link active-link">
+                <a>Approved</a>
+              </li>
+              <li class="nav-link">
+                <a>Pending</a>
+              </li>
+              <li class="nav-link"><a>Rejected</a></li>
+            </ul>
+          </nav>
 
           <div class="display-cards">
             <div class="display-card-top-bottom card">
@@ -47,6 +60,11 @@
                   <p class="text-sm text-gray my-half">
                     <i class="fa-solid fa-check"></i>Approved by Admin A
                   </p>
+                </div>
+
+                <div>
+                  <button class="btn btn-info">Edit</button>
+                  <button class="btn btn-danger">Delete</button>
                 </div>
               </div>
 
