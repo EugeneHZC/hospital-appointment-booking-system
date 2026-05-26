@@ -13,4 +13,8 @@ $(document).ready(function () {
   $(".view-details-btn").click(function () {
     location.href = "appointment-details.html";
   });
+
+  $("#post-article-btn").click(function () {
+    location.href = "add-forum.html";
+  });
 });

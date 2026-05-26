@@ -188,6 +188,10 @@ textarea {
   margin: 0.5rem 0;
 }
 
+.float-right {
+  float: right;
+}
+
 .btn {
   padding: 7px 10px;
   border-radius: 5px;
@@ -218,6 +222,30 @@ textarea {
 
 .btn-danger:hover {
   background-color: var(--danger-hover);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-normal);
+  border: 2px solid var(--secondary-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-hover);
+}
+
+.btn-success {
+  background-color: var(--success-normal);
+  border: 2px solid var(--success-border);
+}
+
+.btn-success:hover {
+  background-color: var(--success-hover);
+}
+
+.btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
 .badge {

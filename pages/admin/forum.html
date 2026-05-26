@@ -34,7 +34,9 @@
               class="form-control"
               placeholder="Search for article names or content"
             />
-            <button class="btn btn-info">Post Article</button>
+            <button class="btn btn-info" id="post-article-btn">
+              Post Article
+            </button>
           </div>
 
           <nav class="horizontal-nav" id="articles-horizontal-nav">
@@ -57,14 +59,6 @@
                   <p class="text-sm text-gray my-half">
                     <i class="fa-solid fa-circle-user"></i>Written by Doctor A
                   </p>
-                  <p class="text-sm text-gray my-half">
-                    <i class="fa-solid fa-check"></i>Approved by Admin A
-                  </p>
-                </div>
-
-                <div>
-                  <button class="btn btn-info">Edit</button>
-                  <button class="btn btn-danger">Delete</button>
                 </div>
               </div>
 
@@ -86,6 +80,18 @@
                   ducimus maiores modi recusandae deserunt veniam sequi impedit.
                   Quibusdam qui mollitia commodi neque?
                 </p>
+
+                <br />
+
+                <div class="float-right">
+                  <button class="btn btn-success approve-article-btn">
+                    Approve
+                  </button>
+
+                  <button class="btn btn-danger reject-article-btn">
+                    Reject
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -99,6 +105,11 @@
                   <p class="text-sm text-gray my-half">
                     <i class="fa-solid fa-check"></i>Approved by Admin B
                   </p>
+                </div>
+
+                <div>
+                  <button class="btn btn-info">Edit</button>
+                  <button class="btn btn-danger">Delete</button>
                 </div>
               </div>
 
