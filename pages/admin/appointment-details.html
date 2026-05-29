@@ -9,9 +9,11 @@
       src="https://kit.fontawesome.com/d29bed84f6.js"
       crossorigin="anonymous"
     ></script>
-    <script src="../../scripts/load-page.js"></script    <script src="../../scripts/appointments.js"></script>
+    <script src="../../scripts/load-page.js"></script>
+    <script src="../../scripts/appointments.js"></script>
     <title>Hospital Islam Azzahrah Appointment Booking System</title>
 
+    <!-- for testing purposes only -->
     <input type="hidden" value="admin" name="role" id="role" />
   </head>
   <body>
@@ -37,14 +39,12 @@
               </p>
             </div>
           </div>
+
           <form id="remarks-form">
             <div class="display-cards">
               <div class="display-card-top-bottom card">
                 <div class="display-card-top">
                   <h3>Remarks</h3>
-                  <button type="button" class="btn btn-info btn-sm" id="save-remarks-btn">
-                    <i class="fa-solid fa-save"></i> Save Remarks
-                  </button>
                 </div>
                 <br />
                 <div class="display-card-bottom">
@@ -103,10 +103,13 @@
               <button class="btn btn-secondary" type="button" id="cancel-btn">
                 Cancel
               </button>
+              <button type="button" class="btn btn-info" id="save-remarks-btn">
+                <i class="fa-solid fa-save"></i> Save
+              </button>
             </div>
           </form>
         </div>
       </main>
     </div>
   </body>
- </html>
+</html>
