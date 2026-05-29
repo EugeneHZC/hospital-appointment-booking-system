@@ -10,6 +10,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="../../scripts/load-page.js"></script>
+    <script src="../../scripts/appointments.js"></script>
     <title>Hospital Islam Azzahrah Appointment Booking System</title>
 
     <!-- for testing purposes only -->
@@ -52,7 +53,9 @@
                   class="form-control"
                   rows="5"
                   disabled
+                  placeholder="Doctor's remarks will appear here..."
                 ></textarea>
+                <small class="text-gray" id="remarks-hint">Medical remarks from your doctor will be shown here.</small>
               </div>
             </div>
 
@@ -91,8 +94,14 @@
               </div>
             </div>
           </div>
+          
+          <div class="btns">
+            <button class="btn btn-secondary" type="button" id="back-btn">
+              Back to Appointments
+            </button>
+          </div>
         </div>
       </main>
     </div>
   </body>
-</html>
+  </html>
