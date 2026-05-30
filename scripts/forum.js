@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  // used for the horizontal nav for different article status
   $("#articles-horizontal-nav ul li").click(function (e) {
     e.preventDefault();
 
@@ -11,10 +12,10 @@ $(document).ready(function () {
   });
 
   $(".view-details-btn").click(function () {
-    location.href = "appointment-details.html";
+    location.href = "appointment-details.php";
   });
 
   $("#post-article-btn").click(function () {
-    location.href = "add-forum.html";
+    location.href = "add-forum.php";
   });
 });
