@@ -29,7 +29,7 @@
           <h3>Patient name</h3>
           <div id="user-sub-info">
             <p class="text-gray">
-              <i class="fa-solid fa-book-medical"></i>Appointment Type
+              <i class="fa-solid fa-book-medical"></i>Consultation
             </p>
             <p class="text-gray">
               <i class="fa-solid fa-calendar"></i>20/05/2026

@@ -26,7 +26,7 @@
 
       <div id="content">
         <div id="user-info-card" class="card">
-          <h3>Doctor name</h3>
+          <h3>Dr. Ahmad</h3>
           <div id="user-sub-info">
             <p class="text-gray">
               <i class="fa-solid fa-user-doctor"></i>Senior Paediatrician
