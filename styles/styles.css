@@ -387,6 +387,120 @@ textarea[readonly] {
   bottom: 30px;
   right: 50px;
 }
+/* ---------------------------- Profile ---------------------------- */
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  background-color: var(--primary-blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.profile-badge {
+  background-color: var(--secondary-blue);
+  padding: 0.25rem 1rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.profile-avatar { background-color: var(--primary-blue); }
+ 
+.profile-avatar { background-color: var(--info-normal); }
+
+.profile-avatar { background-color: var(--success-normal); }
+
+.info-row {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.info-label {
+  width: 160px;
+  font-weight: 600;
+  color: #2d3e50;
+}
+
+.info-value {
+  flex: 1;
+  color: #1a2c3e;
+}
+
+.profile-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 1.5rem;
+}
+
+.edit-section {
+  display: none;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: #f9fafb;
+  border-radius: 15px;
+}
+
+.edit-section.active {
+  display: block;
+}
+
+.form-row {
+  margin-bottom: 1rem;
+}
+
+.form-row label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-row input, 
+.form-row textarea, 
+.form-row select {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.schedule-tag {
+  background: #e8f4f8;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display: inline-block;
+  margin: 5px 5px 0 0;
+}
+
+.medical-badge {
+  background: #fff3e0;
+  color: #cc7b00;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
 
 /* ---------------------------- landing page styling ---------------------------- */
 #top-nav-bar {
