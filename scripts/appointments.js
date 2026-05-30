@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  // used for the horizontal nav for different appointment status
   $("#appointments-horizontal-nav ul li").click(function (e) {
     e.preventDefault();
 
@@ -12,7 +13,7 @@ $(document).ready(function () {
   });
 
   $(".view-details-btn").click(function () {
-    location.href = "appointment-details.html";
+    location.href = "appointment-details.php";
   });
 
   $("#save-remarks-btn").click(function (e) {

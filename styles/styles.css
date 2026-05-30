@@ -71,6 +71,12 @@ header h1 {
   height: 100%;
 }
 
+#logo {
+  text-align: center;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
 #nav-content {
   padding: 20px;
 }
@@ -190,6 +196,10 @@ textarea {
 
 .float-right {
   float: right;
+}
+
+.hide {
+  display: none;
 }
 
 .btn {
