@@ -71,4 +71,9 @@ $(document).ready(function () {
     e.preventDefault();
     window.location.href = "appointments.php";
   });
+
+  // if patient clicks on the book appointment button
+  $("#book-appointment-btn").click(function () {
+    window.location.href = "book-appointment.php";
+  });
 });
