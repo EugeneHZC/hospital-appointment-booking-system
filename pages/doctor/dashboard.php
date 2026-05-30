@@ -23,7 +23,7 @@
         <main>
             <header>
                 <h1>Dashboard</h1>
-                <p>Admin's View</p>
+                <p id="role-view"></p>
             </header>
 
             <section id="content">
