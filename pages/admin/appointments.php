@@ -26,9 +26,9 @@
 
       <div id="content">
         <div id="user-info-card" class="card">
-          <h3>Admin name</h3>
+          <h3>Dr. Ali</h3>
           <div id="user-sub-info">
-            <p><i class="fa-solid fa-envelope"></i>testadmin@example.com</p>
+            <p><i class="fa-solid fa-envelope"></i>ali@example.com</p>
             <p><i class="fa-solid fa-phone"></i>+601890987</p>
             <p>
               <i class="fa-solid fa-book"></i>Head of Paediatrics Department
