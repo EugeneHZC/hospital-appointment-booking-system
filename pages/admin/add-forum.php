@@ -20,7 +20,7 @@
     <?php include("../../components/admin/side-nav.html") ?>
     <main>
       <header>
-        <h1>Add Forum</h1>
+        <h1>Post Article</h1>
         <p id="role-view"></p>
       </header>
 

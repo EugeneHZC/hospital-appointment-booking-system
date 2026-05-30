@@ -369,8 +369,14 @@ textarea[readonly] {
     flex-direction: column;
     gap: 10px;
   }
-  
+
   #save-remarks-btn {
     align-self: flex-start;
   }
+}
+
+#book-appointment-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
 }

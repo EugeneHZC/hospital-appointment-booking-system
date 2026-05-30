@@ -12,12 +12,12 @@
   <title>Hospital Islam Azzahrah Appointment Booking System</title>
 
   <!-- For testing purposes -->
-  <input type="hidden" value="admin" id="role" name="role" />
+  <input type="hidden" value="doctor" id="role" name="role" />
 </head>
 
 <body>
   <div id="container">
-    <?php include("../../components/admin/side-nav.html") ?>
+    <?php include("../../components/doctor/side-nav.html") ?>
     <main>
       <header>
         <h1>Time Slots</h1>

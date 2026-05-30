@@ -63,6 +63,7 @@
             <li class="nav-link"><a href="">Completed</a></li>
             <li class="nav-link"><a href="">Cancelled</a></li>
           </ul>
+          <button class="btn btn-info" id="book-appointment-btn">Book Appointment</button>
         </nav>
 
         <div class="display-cards">
@@ -127,6 +128,7 @@
           </div>
         </div>
       </div>
+
     </main>
   </div>
 </body>
