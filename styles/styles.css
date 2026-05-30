@@ -341,3 +341,36 @@ textarea {
   gap: 5px;
 }
 /* ---------------------------- end generic styling ---------------------------- */
+
+/* ---------------------------- Remarks styles ---------------------------- */
+
+.btn-sm {
+  padding: 5px 12px;
+  font-size: 14px;
+}
+
+#save-remarks-btn i {
+  margin-right: 5px;
+}
+
+#remarks-hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+textarea[readonly] {
+  background-color: #f8f9fa;
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .display-card-top {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #save-remarks-btn {
+    align-self: flex-start;
+  }
+}
