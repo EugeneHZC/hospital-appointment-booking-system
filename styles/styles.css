@@ -420,11 +420,17 @@ textarea[readonly] {
   margin-top: 0.5rem;
 }
 
-.profile-avatar { background-color: var(--primary-blue); }
- 
-.profile-avatar { background-color: var(--info-normal); }
+.profile-avatar {
+  background-color: var(--primary-blue);
+}
 
-.profile-avatar { background-color: var(--success-normal); }
+.profile-avatar {
+  background-color: var(--info-normal);
+}
+
+.profile-avatar {
+  background-color: var(--success-normal);
+}
 
 .info-row {
   display: flex;
@@ -457,8 +463,11 @@ textarea[readonly] {
   display: none;
   margin-top: 1.5rem;
   padding: 1.5rem;
-  background: #f9fafb;
   border-radius: 15px;
+}
+
+.edit-section h3 {
+  margin-bottom: 20px;
 }
 
 .edit-section.active {
@@ -473,16 +482,6 @@ textarea[readonly] {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
-}
-
-.form-row input, 
-.form-row textarea, 
-.form-row select {
-  width: 100%;
-  max-width: 400px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
 }
 
 .schedule-tag {
