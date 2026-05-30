@@ -33,7 +33,7 @@
           </div>
         </div>
 
-        <div id="statistic-card">
+        <div class="horizontal-cards">
           <div id="total-appointments-card" class="card text-center">
             <h2>3</h2>
             <p>Total Appointments</p>
