@@ -69,7 +69,7 @@
                 <div class="form-group">
                   <label for="appointment-time">Appointment Time</label>
                   <select name="appointment-time" id="appointment-time" class="form-control" disabled>
-                    <option value="2.00p.m.">2.00p.m.</option>
+                    <option value="">No time selected</option>
                   </select>
                 </div>
               </div>

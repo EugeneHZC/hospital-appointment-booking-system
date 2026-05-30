@@ -18,36 +18,43 @@ $(document).ready(function () {
 
   $("#save-remarks-btn").click(function (e) {
     e.preventDefault();
-    
+
     let remarks = $("#remarks").val();
     let followupDate = $("#appointment-date").val();
     let followupTime = $("#appointment-time").val();
-    
+
     if (!remarks.trim()) {
       alert("Please enter remarks before saving.");
       return;
     }
-    
+
     let role = $("#role").val();
-    
+
     let appointmentData = {
       remarks: remarks,
       followupDate: followupDate,
       followupTime: followupTime,
       updatedBy: role,
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
-    
-    let appointmentId = new URLSearchParams(window.location.search).get('id') || '1';
-    localStorage.setItem(`appointment_${appointmentId}_remarks`, JSON.stringify(appointmentData));
-    
+
+    let appointmentId =
+      new URLSearchParams(window.location.search).get("id") || "1";
+    localStorage.setItem(
+      `appointment_${appointmentId}_remarks`,
+      JSON.stringify(appointmentData),
+    );
+
     alert("Remarks saved successfully!");
   });
 
   function loadExistingRemarks() {
-    let appointmentId = new URLSearchParams(window.location.search).get('id') || '1';
-    let savedData = localStorage.getItem(`appointment_${appointmentId}_remarks`);
-    
+    let appointmentId =
+      new URLSearchParams(window.location.search).get("id") || "1";
+    let savedData = localStorage.getItem(
+      `appointment_${appointmentId}_remarks`,
+    );
+
     if (savedData) {
       let data = JSON.parse(savedData);
       $("#remarks").val(data.remarks);
@@ -55,13 +62,13 @@ $(document).ready(function () {
       if (data.followupTime) $("#appointment-time").val(data.followupTime);
     }
   }
-  
+
   if (window.location.pathname.includes("appointment-details.html")) {
     loadExistingRemarks();
   }
-  
+
   $("#cancel-btn, #back-btn").click(function (e) {
     e.preventDefault();
-    window.location.href = "appointments.html";
+    window.location.href = "appointments.php";
   });
 });
