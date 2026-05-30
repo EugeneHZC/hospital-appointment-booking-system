@@ -13,13 +13,13 @@ $(document).ready(function () {
 
   function loadDoctorPage() {
     // show the current role of this user in the header part
-    $("#role-view").php("Doctor's View");
+    $("#role-view").text("Doctor's View");
     updateActiveNav();
   }
 
   function loadPatientPage() {
     // show the current role of this user in the header part
-    $("#role-view").php("Patient's View");
+    $("#role-view").text("Patient's View");
     updateActiveNav();
   }
 
