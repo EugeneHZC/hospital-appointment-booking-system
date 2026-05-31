@@ -61,9 +61,8 @@
 
             <div class="profile-actions">
               <button class="btn btn-info" id="edit-btn"><i class="fa-regular fa-pen-to-square"></i> Edit Profile</button>
+              <button class="btn btn-danger"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
             </div>
-
-
           </div>
         </div>
         <div class="edit-section card">
@@ -79,6 +78,10 @@
           <div class="form-row">
             <label>Phone Number</label>
             <input type="text" id="edit-phone" class="form-control" />
+          </div>
+          <div class="form-row">
+            <label>IC / Passport</label>
+            <input type="text" id="edit-ic" class="form-control" />
           </div>
           <div class="profile-actions">
             <button class="btn btn-secondary" id="cancel-btn">Cancel</button>
