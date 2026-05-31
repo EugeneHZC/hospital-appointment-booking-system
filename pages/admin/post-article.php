@@ -9,7 +9,7 @@
   <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
   <script src="../../scripts/load-page.js"></script>
   <script src="../../scripts/add-forum.js"></script>
-  <title>Hospital Islam Azzahrah Appointment Booking System</title>
+  <title>Hospital Islam Azzahrah Appointment Booking System - Post Article</title>
 
   <!-- for testing purposes only -->
   <input type="hidden" value="admin" name="role" id="role" />

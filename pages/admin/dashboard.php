@@ -11,7 +11,7 @@
     <script src="../../scripts/dashboard.js"></script>
     <script src="../../scripts/load-side-bar.js"></script>
     <script src="../../scripts/load-page.js"></script>
-    <title>Hospital Islam Azzahrah Appointment Booking System</title>
+    <title>Hospital Islam Azzahrah Appointment Booking System - Admin Dashboard</title>
 
     <input type="hidden" value="admin" id="role">
 </head>
