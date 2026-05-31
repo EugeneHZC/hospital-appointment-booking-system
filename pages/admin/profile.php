@@ -68,6 +68,7 @@
               <button class="btn btn-info" id="edit-btn">
                 <i class="fa-regular fa-pen-to-square"></i> Edit Profile
               </button>
+              <button class="btn btn-danger"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
             </div>
           </div>
         </div>
