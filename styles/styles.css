@@ -304,6 +304,7 @@ textarea {
 }
 
 .display-card-left {
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -311,6 +312,7 @@ textarea {
 }
 
 .display-card-right {
+  width: 40%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
