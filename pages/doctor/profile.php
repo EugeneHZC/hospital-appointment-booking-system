@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hospital Islam Azzahrah - Doctor Profile</title>
+  <title>Hospital Islam Azzahrah Appointment Booking System - Doctor Profile</title>
   <link rel="stylesheet" href="../../styles/styles.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
