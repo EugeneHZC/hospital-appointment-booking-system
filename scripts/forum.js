@@ -16,6 +16,6 @@ $(document).ready(function () {
   });
 
   $("#post-article-btn").click(function () {
-    location.href = "add-forum.php";
+    location.href = "post-article.php";
   });
 });
