@@ -5,52 +5,37 @@ $(document).ready(function () {
     return;
   }
 
+  let dashboard = $("#dashboard");
+  let timeSlots = $("#time-slots");
+  let departments = $("#departments");
+  let doctors = $("#doctors");
+
+  if (role == "doctor") {
+    dashboard.removeClass("hide");
+    timeSlots.removeClass("hide");
+  } else if (role == "admin") {
+    dashboard.removeClass("hide");
+    timeSlots.removeClass("hide");
+    departments.removeClass("hide");
+    doctors.removeClass("hide");
+  }
+
   function loadAdminPage() {
-    // load the side navbar file from the components folder
-    fetch("../../components/admin/side-nav.html")
-      .then((response) => response.text())
-      .then((data) => {
-        // add the side navbar into the container
-        $("#container").append(data);
-
-        // after the side navbar is loaded, update the navbar's active nav
-        updateActiveNav();
-      });
-
     // show the current role of this user in the header part
-    $("#role-view").html("Admin's View");
+    $("#role-view").text("Admin's View");
+    updateActiveNav();
   }
 
   function loadDoctorPage() {
-    // load the side navbar file from the components folder
-    fetch("../../components/doctor/side-nav.html")
-      .then((response) => response.text())
-      .then((data) => {
-        // add the side navbar into the container
-        $("#container").append(data);
-
-        // after the side navbar is loaded, update the navbar's active nav
-        updateActiveNav();
-      });
-
     // show the current role of this user in the header part
-    $("#role-view").html("Doctor's View");
+    $("#role-view").text("Doctor's View");
+    updateActiveNav();
   }
 
   function loadPatientPage() {
-    // load the side navbar file from the components folder
-    fetch("../../components/patient/side-nav.html")
-      .then((response) => response.text())
-      .then((data) => {
-        // add the side navbar into the container
-        $("#container").append(data);
-
-        // after the side navbar is loaded, update the navbar's active nav
-        updateActiveNav();
-      });
-
     // show the current role of this user in the header part
-    $("#role-view").html("Patient's View");
+    $("#role-view").text("Patient's View");
+    updateActiveNav();
   }
 
   function updateActiveNav() {
@@ -66,7 +51,7 @@ $(document).ready(function () {
       let currentLink = $(this).find("a");
 
       // gets the href from the <a> tag and gets the path for that <a> tag
-      // ex: http://127.0.0.1:5500/pages/patient/appointments.html -> appointments.html
+      // ex: http://127.0.0.1:5500/pages/patient/appointments.php -> appointments.php
       let currentFilePath = currentLink.attr("href").split("/").pop();
 
       // if the <a> tag href path is the same as the current web page path

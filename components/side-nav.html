@@ -3,35 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../styles/styles.css" />
     <title>Hospital Islam Azzahrah Appointment Booking System</title>
+    <script src="../scripts/load-side-bar.js"></script>
   </head>
   <body>
     <nav id="side-nav">
       <div id="nav-content">
-        <img
-          src="../../images/logo-azzahrah.png"
-          alt="Hostpital Islam Azzahrah Logo"
-          id="logo"
-        />
+        <h2>Hospital Islam Azzahrah</h2>
         <ul class="nav-links">
-          <li class="nav-link">
-            <a href="../../pages/admin/dashboard.php">Dashboard</a>
-          </li>
+          <li class="nav-link hide" id="dashboard"><a href="">Dashboard</a></li>
           <li class="nav-link">
             <a href="../../pages/admin/appointments.php">Appointments</a>
           </li>
-          <li class="nav-link">
+          <li class="nav-link hide" id="time-slots">
             <a href="../../pages/admin/time-slots.php">Time Slots</a>
           </li>
-          <li class="nav-link"><a href="">Departments</a></li>
-          <li class="nav-link"><a href="">Doctors</a></li>
+          <li class="nav-link hide" id="departments">
+            <a href="">Departments</a>
+          </li>
+          <li class="nav-link hide" id="doctors"><a href="">Doctors</a></li>
           <li class="nav-link">
             <a href="../../pages/admin/forum.php">Forum</a>
           </li>
-          <li class="nav-link">
-            <a href="../../pages/admin/profile.php">Profile</a>
-          </li>
+          <li class="nav-link"><a href="">Profile</a></li>
         </ul>
       </div>
     </nav>
