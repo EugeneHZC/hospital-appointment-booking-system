@@ -20,8 +20,11 @@
     <?php include("../../components/admin/side-nav.html") ?>
     <main>
       <header>
-        <h1>Time Slots</h1>
-        <p id="role-view"></p>
+        <button id="nav-toggle" class="btn btn-info"><i class="fa-solid fa-bars"></i></button>
+        <div>
+          <h1>Time Slots</h1>
+          <p id="role-view"></p>
+        </div>
       </header>
 
       <div id="content">
@@ -34,26 +37,31 @@
         </div>
 
         <div class="display-cards">
-          <div class="display-card-top-bottom card">
-            <div class="display-card-top">
+          <div class="display-card-left-right card">
+            <div class="display-card-left">
               <p>2.00 p.m.</p>
-              <div class="btns">
+            </div>
+
+            <div class="display-card-right">
+              <div>
                 <button class="btn btn-info">Edit</button>
                 <button class="btn btn-danger">Delete</button>
               </div>
             </div>
           </div>
 
-          <div class="display-card-top-bottom card">
-            <div class="display-card-top">
+          <div class="display-card-left-right card">
+            <div class="display-card-left">
               <p>2.00 p.m.</p>
-              <div class="btns">
+            </div>
+
+            <div class="display-card-right">
+              <div>
                 <button class="btn btn-info">Edit</button>
                 <button class="btn btn-danger">Delete</button>
               </div>
             </div>
           </div>
-          <br />
         </div>
       </div>
     </main>

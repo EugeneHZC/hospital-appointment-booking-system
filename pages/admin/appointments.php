@@ -20,8 +20,11 @@
     <?php include("../../components/admin/side-nav.html") ?>
     <main>
       <header>
-        <h1>Appointments</h1>
-        <p id="role-view"></p>
+        <button id="nav-toggle" class="btn btn-info"><i class="fa-solid fa-bars"></i></button>
+        <div>
+          <h1>Appointments</h1>
+          <p id="role-view"></p>
+        </div>
       </header>
 
       <div id="content">
@@ -68,6 +71,13 @@
           </ul>
         </nav>
 
+        <select name="appointments-status-dropdown" id="appointments-status-dropdown" class="form-control">
+          <option value="all-appointments">All Appointments</option>
+          <option value="scheduled">Scheduled</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+
         <div class="display-cards">
           <div class="display-card-left-right card">
             <div class="display-card-left">
@@ -84,7 +94,7 @@
             </div>
             <div class="display-card-right">
               <span class="badge badge-info">Scheduled</span>
-              <div>
+              <div class="btns">
                 <button class="btn btn-info view-details-btn">
                   View Details
                 </button>
