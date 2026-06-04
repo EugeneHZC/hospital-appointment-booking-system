@@ -20,8 +20,11 @@
         <?php include("../../components/patient/side-nav.html") ?>
         <main>
             <header>
-                <h1>Book Appointment</h1>
-                <p id="role-view"></p>
+                <button id="nav-toggle" class="btn btn-info"><i class="fa-solid fa-bars"></i></button>
+                <div>
+                    <h1>Book Appointment</h1>
+                    <p id="role-view"></p>
+                </div>
             </header>
 
             <div id="content">

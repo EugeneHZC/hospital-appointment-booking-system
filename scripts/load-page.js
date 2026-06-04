@@ -75,4 +75,9 @@ $(document).ready(function () {
     default:
       break;
   }
+
+  // nav menu toggler (for smaller screens)
+  $("#nav-toggle").click(function () {
+    $("#side-nav").slideToggle(300);
+  });
 });

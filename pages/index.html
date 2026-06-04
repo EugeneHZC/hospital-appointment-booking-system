@@ -4,34 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles/styles.css" />
+    <link rel="stylesheet" href="../styles/landing-page-styles.css" />
     <script
       src="https://kit.fontawesome.com/d29bed84f6.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../scripts/index.js"></script>
     <title>Hostpital Islam Azzahrah Appointment Booking System</title>
   </head>
   <body>
     <div id="container">
-      <nav id="top-nav-bar">
-        <img
-          src="../images/logo-azzahrah.png"
-          alt="Hostpital Islam Azzahrah Logo"
-          id="logo"
-        />
-        <ul class="nav-links">
-          <li class="nav-link"><a href="#introduction">Home</a></li>
-          <li class="nav-link">
-            <a href="#service-offered">Service Offered</a>
-          </li>
-          <li class="nav-link">
-            <a href="#landing-page-footer">Contact Us</a>
-          </li>
-          <div class="btns">
-            <button class="btn btn-info btn-rounded">Login</button>
-            <button class="btn btn-info btn-rounded">Sign Up</button>
-          </div>
-        </ul>
-      </nav>
+      <div id="top-bar">
+        <button id="nav-toggle" class="btn btn-info">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <nav id="top-nav-bar">
+          <img
+            src="../images/logo-azzahrah.png"
+            alt="Hostpital Islam Azzahrah Logo"
+            id="logo"
+          />
+          <ul class="nav-links">
+            <li class="nav-link"><a href="#introduction">Home</a></li>
+            <li class="nav-link">
+              <a href="#service-offered">Service Offered</a>
+            </li>
+            <li class="nav-link">
+              <a href="#landing-page-footer">Contact Us</a>
+            </li>
+            <div class="btns" id="landing-page-btns">
+              <button class="btn btn-info btn-rounded">Login</button>
+              <button class="btn btn-info btn-rounded">Sign Up</button>
+            </div>
+          </ul>
+        </nav>
+      </div>
 
       <div id="landing-page-content">
         <section id="introduction">
@@ -51,6 +59,7 @@
             <img
               src="../images/landing-page-img.webp"
               alt="Landing Page Image"
+              class="img-center"
             />
           </div>
         </section>

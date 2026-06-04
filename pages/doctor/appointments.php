@@ -20,8 +20,11 @@
     <?php include("../../components/doctor/side-nav.html") ?>
     <main>
       <header>
-        <h1>Appointments</h1>
-        <p id="role-view"></p>
+        <button id="nav-toggle" class="btn btn-info"><i class="fa-solid fa-bars"></i></button>
+        <div>
+          <h1>Appointments</h1>
+          <p id="role-view"></p>
+        </div>
       </header>
 
       <div id="content">
@@ -82,7 +85,7 @@
             </div>
             <div class="display-card-right">
               <span class="badge badge-info">Scheduled</span>
-              <div>
+              <div class="btns">
                 <button class="btn btn-info view-details-btn">
                   View Details
                 </button>
