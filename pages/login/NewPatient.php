@@ -25,7 +25,7 @@
               <p>Appointment Booking System</p>
             </div>
           </div>
-          <a href="Login.html">
+          <a href="Login.php">
             <i class="fa-solid fa-arrow-left"></i>Back to Login
           </a>
         </div>
@@ -148,7 +148,7 @@
               </button>
               <p>
                 Already registered?
-                <a href="Login.html">Login here</a>
+                <a href="Login.php">Login here</a>
               </p>
             </div>
           </form>

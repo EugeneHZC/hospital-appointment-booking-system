@@ -1,3 +1,27 @@
+<?php
+session_start();
+
+if(isset($_POST['submit'])){
+  $_SESSION['email']  = $_POST['email'];
+  $_SESSION['password'] = $_POST['password'];
+  
+  if($_SESSION['email'] == "adam@gmail.com" && $_SESSION['password'] == "1234"){
+    if($_POST['account_type'] == "patient"){
+      header("Location: ../patient/appointments.php");
+    } else if($_POST['account_type'] == "doctor"){
+      header("Location: ../doctor/dashboard.php");
+    } else if($_POST['account_type'] == "admin"){
+      header("Location: ../admin/dashboard.php");
+    }
+    //exit();
+  } else {
+   session_destroy();
+    echo "<script>alert('Invalid username or password. Please try again.');</script>";
+  }
+}
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -33,7 +57,7 @@
             <p>Sign in with your registered email and password.</p>
           </div>
 
-          <form action="#" method="post">
+          <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
               <label for="email">Email Address</label>
               <input
@@ -81,14 +105,14 @@
               <a href="#">Forgot password?</a>
             </div>
 
-            <button class="btn btn-info my-half" type="submit">
+            <button class="btn btn-info my-half" type="submit" name="submit">
               <i class="fa-solid fa-right-to-bracket"></i>Sign In
             </button>
           </form>
 
           <p class="auth-footer">
             New patient?
-            <a href="NewPatient.html">Create your patient account</a>
+            <a href="NewPatient.php">Create your patient account</a>
           </p>
         </div>
       </section>
