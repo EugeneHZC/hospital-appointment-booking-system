@@ -25,8 +25,10 @@
         <main>
 
             <header>
-                <h1>Doctor Management</h1>
-                <p id="role-view"></p>
+                <div>
+                    <h1>Doctor Management</h1>
+                    <p id="role-view"></p>
+                </div>
             </header>
 
             <section id="content">
@@ -35,23 +37,13 @@
 
                 <div class="row" id="article-search">
 
-                    <div style="flex:1;">
-                        <label for="search-bar">Search</label>
+                    <label for="search-bar">Search</label>
 
-                        <input
-                            type="search"
-                            id="search-bar"
-                            class="form-control"
-                            placeholder="Search doctor by ID, name, department or speciality">
-                    </div>
+                    <input type="search" id="search-bar" class="form-control" placeholder="Search doctor by ID, name, department or speciality">
 
-                    <div>
-                        <button
-                            class="btn btn-info"
-                            onclick="window.location.href='add_doctor.php'">
-                            Add Doctor
-                        </button>
-                    </div>
+                    <button class="btn btn-info" onclick="window.location.href='add_doctor.php'">
+                        Add Doctor
+                    </button>
 
                 </div>
 
@@ -85,14 +77,11 @@
 
                             <div class="btns">
 
-                                <button
-                                    class="btn btn-info"
-                                    onclick="window.location.href='add_doctor.php?id=DOC001'">
+                                <button class="btn btn-info" onclick="window.location.href='add_doctor.php?id=DOC001'">
                                     Edit
                                 </button>
 
-                                <button
-                                    class="btn btn-danger">
+                                <button class="btn btn-danger">
                                     Delete
                                 </button>
 
@@ -128,14 +117,11 @@
 
                             <div class="btns">
 
-                                <button
-                                    class="btn btn-info"
-                                    onclick="window.location.href='add_doctor.php?id=DOC002'">
+                                <button class="btn btn-info" onclick="window.location.href='add_doctor.php?id=DOC002'">
                                     Edit
                                 </button>
 
-                                <button
-                                    class="btn btn-danger">
+                                <button class="btn btn-danger">
                                     Delete
                                 </button>
 
@@ -171,14 +157,11 @@
 
                             <div class="btns">
 
-                                <button
-                                    class="btn btn-info"
-                                    onclick="window.location.href='add_doctor.php?id=DOC003'">
+                                <button class="btn btn-info" onclick="window.location.href='add_doctor.php?id=DOC003'">
                                     Edit
                                 </button>
 
-                                <button
-                                    class="btn btn-danger">
+                                <button class="btn btn-danger">
                                     Delete
                                 </button>
 
