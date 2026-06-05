@@ -751,3 +751,17 @@ textarea[readonly] {
   border-radius: 8px;
   margin-top: 1rem;
 }
+
+/* ---------------------------- Cancel Button ---------------------------- */
+
+.btn-cancel {
+  background-color: var(--secondary-blue);
+  border: 2px solid var(--secondary-blue);
+  color: #333333; 
+}
+
+.btn-cancel:hover {
+  background-color: var(--primary-blue);
+  border: 2px solid var(--primary-blue);
+  color: #000000;
+}
