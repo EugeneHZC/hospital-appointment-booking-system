@@ -118,6 +118,11 @@
             </div>
             <div class="display-card-right">
               <span class="badge badge-danger">Cancelled</span>
+              <div class="btns">
+                <button class="btn btn-info view-details-btn">
+                  View Details
+                </button>
+              </div>
             </div>
           </div>
 
@@ -136,6 +141,11 @@
             </div>
             <div class="display-card-right">
               <span class="badge badge-success">Completed</span>
+              <div class="btns">
+                <button class="btn btn-info view-details-btn">
+                  View Details
+                </button>
+              </div>
             </div>
           </div>
         </div>

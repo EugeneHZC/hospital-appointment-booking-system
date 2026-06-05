@@ -58,6 +58,20 @@
 
             <div class="display-card-top-bottom card">
               <div class="display-card-top">
+                <h3>Current Appointment Status</h3>
+              </div>
+              <br>
+              <div class="display-card-bottom">
+                <select name="appointment-status" id="appointment-status" class="form-control">
+                  <option value="scheduled">Scheduled</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="display-card-top-bottom card">
+              <div class="display-card-top">
                 <h3>Follow-up Appointment</h3>
               </div>
 

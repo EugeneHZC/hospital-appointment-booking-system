@@ -138,7 +138,7 @@
                         </div>
                     </div>
 
-                    <div class="btns">
+                    <div class="text-center">
                         <button class="btn btn-secondary" type="button" id="cancel-btn">
                             Cancel
                         </button>
