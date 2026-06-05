@@ -25,6 +25,7 @@
         <main>
 
             <header>
+                <button id="nav-toggle" class="btn btn-info"><i class="fa-solid fa-bars"></i></button>
                 <div>
                     <h1>Doctor Management</h1>
                     <p id="role-view"></p>
