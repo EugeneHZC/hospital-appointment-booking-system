@@ -23,7 +23,6 @@
 
         <main>
 
-            <button id="nav-toggle" class="btn btn-info"><i class="fa-solid fa-bars"></i></button>
             <header>
                 <button id="nav-toggle" class="btn btn-info"><i class="fa-solid fa-bars"></i></button>
                 <div>
