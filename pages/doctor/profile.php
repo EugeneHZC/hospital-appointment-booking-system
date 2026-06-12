@@ -10,6 +10,7 @@
   <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
   <script src="../../scripts/load-page.js"></script>
   <script src="../../scripts/doctor-profile.js"></script>
+  <script src="../../scripts/logout.js"></script>
 </head>
 
 <body>

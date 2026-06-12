@@ -88,7 +88,7 @@
 
           <p class="auth-footer">
             New patient?
-            <a href="NewPatient.html">Create your patient account</a>
+            <a href="NewPatient.php">Create your patient account</a>
           </p>
         </div>
       </section>

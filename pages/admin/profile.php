@@ -10,6 +10,7 @@
   <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
   <script src="../../scripts/load-page.js"></script>
   <script src="../../scripts/admin-profile.js"></script>
+  <script src="../../scripts/logout.js"></script>
 </head>
 
 <body>
@@ -71,7 +72,9 @@
               <button class="btn btn-info" id="edit-btn">
                 <i class="fa-regular fa-pen-to-square"></i> Edit Profile
               </button>
-              <button class="btn btn-danger"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+              <button class="btn btn-danger" id="logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+              </button>
             </div>
           </div>
         </div>
