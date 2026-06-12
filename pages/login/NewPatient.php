@@ -148,7 +148,7 @@
               </button>
               <p>
                 Already registered?
-                <a href="Login.html">Login here</a>
+                <a href="Login.php">Login here</a>
               </p>
             </div>
           </form>
