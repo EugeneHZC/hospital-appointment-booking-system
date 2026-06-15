@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
     <script src="../../scripts/load-page.js"></script>
-    <script src="../../scripts/add-time-slot.js"></script>
+    <script src="../../scripts/time-slot.js"></script>
     <title>Hospital Islam Azzahrah Appointment Booking System - Add Time Slot</title>
 
     <!-- for testing purposes only -->

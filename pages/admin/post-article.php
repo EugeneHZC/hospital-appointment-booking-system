@@ -8,7 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
   <script src="../../scripts/load-page.js"></script>
-  <script src="../../scripts/add-forum.js"></script>
+  <script src="../../scripts/forum.js"></script>
   <title>Hospital Islam Azzahrah Appointment Booking System - Post Article</title>
 
   <!-- for testing purposes only -->
@@ -45,7 +45,7 @@
                   <button class="btn btn-info" type="submit" id="post-btn">
                     Post
                   </button>
-                  <button class="btn btn-secondary" id="cancel-btn">
+                  <button class="btn btn-secondary" id="cancel-btn" type="button">
                     Cancel
                   </button>
                 </div>
