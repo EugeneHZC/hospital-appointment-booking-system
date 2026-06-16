@@ -18,4 +18,8 @@ $(document).ready(function () {
   $("#post-article-btn").click(function () {
     location.href = "post-article.php";
   });
+
+  $("#cancel-btn").click(function () {
+    window.location.href = "forum.php";
+  });
 });
