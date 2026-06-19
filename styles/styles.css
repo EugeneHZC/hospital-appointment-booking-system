@@ -298,6 +298,7 @@ textarea {
   white-space: nowrap;
   height: fit-content;
   text-align: center;
+  text-decoration: none;
 }
 
 .btn-rounded {
