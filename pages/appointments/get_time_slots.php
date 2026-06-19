@@ -13,6 +13,7 @@ WHERE time_slot_id NOT IN (
     SELECT time_slot_id FROM appointment
     WHERE staff_id = '$staffId' 
     AND date = '$selectedDate'
+    AND status = 'Scheduled'
 )
 AND staff_id = '$staffId' 
 ORDER BY time ASC";

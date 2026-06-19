@@ -208,7 +208,7 @@ if ($result->num_rows > 0) {
                 echo "<div class='btns'>";
                 echo "<a class='btn btn-info view-details-btn' href='appointment-details.php?appointment_id=$appointmentId'>View Details</a>";
                 if ($status == "Scheduled") {
-                  echo "<button class='btn btn-danger'>Cancel Appointment</button>";
+                  echo "<a class='btn btn-danger' id='cancel-appointment-btn' href='cancel_appointment.php?appointment_id=$appointmentId'>Cancel Appointment</a>";
                 }
                 echo "</div>";  // close .btns
           
