@@ -145,7 +145,7 @@ if ($result->num_rows > 0) {
             <?php
             if ($role == "Patient") {
               $id = $user["patient_id"];
-              $sql = "SELECT * FROM appointment
+              $sql = "SELECT staff.name, staff.specialty, appointment.*, time_slot.time FROM appointment
               JOIN staff
               USING (staff_id)
               JOIN time_slot
@@ -154,7 +154,7 @@ if ($result->num_rows > 0) {
               ORDER BY appointment_id DESC";
             } else {
               $id = $user["staff_id"];
-              $sql = "SELECT * FROM appointment
+              $sql = "SELECT patient.name, appointment.*, time_slot.time FROM appointment
               JOIN patient
               USING (patient_id)
               JOIN time_slot
@@ -178,7 +178,7 @@ if ($result->num_rows > 0) {
                 echo "<h3>$name</h3>";
 
                 if ($role == "Patient") {
-                  $specialty = $row["appointment_type"];
+                  $specialty = $row["specialty"];
                   echo "<p class='text-gray'>";
                   echo "<i class='fa-solid fa-user-doctor'></i>$specialty";
                   echo "</p>";
