@@ -30,7 +30,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "GET",
-      url: "get_doctors.php",
+      url: "../../helper/get_doctors.php",
       data: {
         department_id: $(this).val(),
       },
