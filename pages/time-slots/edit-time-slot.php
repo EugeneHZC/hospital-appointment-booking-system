@@ -8,6 +8,27 @@ if ($role === "Patient") {
     echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
     die("Only admins and doctors can view this page.");
 }
+
+if (!isset($_GET["time_slot_id"])) {
+    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
+    die("Time slot id required.");
+}
+
+$timeSlotId = $_GET["time_slot_id"];
+$sql = "SELECT * FROM time_slot WHERE time_slot_id = '$timeSlotId'";
+$result = $conn->query($sql);
+
+if (!$result) {
+    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
+    die("Failed to fetch time slot. Error: $conn->error");
+}
+
+if ($result->num_rows == 0) {
+    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
+    die("Time slot not found.");
+}
+
+$timeSlot = $result->fetch_assoc();
 ?>
 
 <!doctype html>
@@ -21,7 +42,7 @@ if ($role === "Patient") {
     <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
     <script src="../../scripts/load-page.js"></script>
     <script src="../../scripts/time-slot.js"></script>
-    <title>Hospital Islam Azzahrah Appointment Booking System - Add Time Slot</title>
+    <title>Hospital Islam Azzahrah Appointment Booking System - Edit Time Slot</title>
 </head>
 
 <body>
@@ -31,7 +52,7 @@ if ($role === "Patient") {
             <header>
                 <button id="nav-toggle" class="btn btn-info"><i class="fa-solid fa-bars"></i></button>
                 <div>
-                    <h1>Add Time Slot</h1>
+                    <h1>Edit Time Slot</h1>
                     <p id="role-view">
                         <?php echo $role; ?>'s View
                     </p>
@@ -39,21 +60,22 @@ if ($role === "Patient") {
             </header>
 
             <div id="content">
-                <form action="insert_time_slot.php" method="post">
+                <form action="update_time_slot.php" method="post">
+                    <input type="hidden" name="time_slot_id" value="<?php echo $timeSlot["time_slot_id"]; ?>">
                     <div class="display-cards">
                         <div class="display-card-top-bottom card">
                             <div class="display-card-bottom">
 
                                 <div class="form-group">
                                     <label for="time-slot">Time Slot</label>
-                                    <input required type="time" name="time_slot" id="time-slot" class="form-control">
+                                    <input required type="time" name="time_slot" id="time-slot" class="form-control" value="<?php echo $timeSlot["time"] ?>">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="status">Status</label>
                                     <select type="text" name="status" id="status" class="form-control">
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
+                                        <option value="Active" <?php echo $timeSlot["status"] == "Active" ? "selected" : "" ?>>Active</option>
+                                        <option value="Inactive" <?php echo $timeSlot["status"] == "Inactive" ? "selected" : "" ?>>Inactive</option>
                                     </select>
                                 </div>
 

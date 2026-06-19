@@ -70,3 +70,7 @@ if ($role === "Patient") {
 </body>
 
 </html>
+
+<?php
+$conn->close();
+?>

@@ -146,3 +146,7 @@ if ($role !== "Admin") {
 </body>
 
 </html>
+
+<?php
+$conn->close();
+?>
