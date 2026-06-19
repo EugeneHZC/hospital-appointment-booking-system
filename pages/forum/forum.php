@@ -141,3 +141,7 @@ $role = $_SESSION["role"];
 </body>
 
 </html>
+
+<?php
+$conn->close();
+?>

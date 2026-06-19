@@ -2,12 +2,28 @@
 include('../../helper/verify_auth.php');
 include('../../helper/connect.php');
 
+$email = $_SESSION["email"];
 $role = $_SESSION["role"];
 
 if ($role === "Patient") {
   echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
   die("Only admins and doctors can view this page.");
 }
+
+$sql = "SELECT * FROM staff WHERE email = '$email'";
+$result = $conn->query($sql);
+
+if (!$result) {
+  echo "<meta http-equiv='refresh' content='3;URL=../dashboard/dashboard.php' />";
+  die("Failed to fetch user. Error: $conn->error");
+}
+
+if ($result->num_rows == 0) {
+  echo "<meta http-equiv='refresh' content='3;URL=../dashboard/dashboard.php' />";
+  die("User not found.");
+}
+
+$user = $result->fetch_assoc();
 ?>
 
 <!doctype html>
@@ -48,31 +64,38 @@ if ($role === "Patient") {
         </div>
 
         <div class="display-cards">
-          <div class="display-card-left-right card">
-            <div class="display-card-left">
-              <p>2.00 p.m.</p>
-            </div>
+          <?php
+          $staffId = $user["staff_id"];
+          $sql = "SELECT * FROM time_slot WHERE staff_id = '$staffId' ORDER BY time_slot_id DESC";
+          $result = $conn->query($sql);
 
-            <div class="display-card-right">
-              <div>
-                <button class="btn btn-info">Edit</button>
-                <button class="btn btn-danger">Delete</button>
+          if (!$result) {
+            echo "<meta http-equiv='refresh' content='3;URL=../dashboard/dashboard.php' />";
+            die("Failed to fetch user. Error: $conn->error");
+          }
+
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              $timeSlotId = $row["time_slot_id"];
+              ?>
+              <div class="display-card-left-right card">
+                <div class="display-card-left">
+                  <h3><?php echo $row["time"]; ?></h3>
+                  <p class="text-gray"><i class="fa-solid fa-circle-check"></i><?php echo $row["status"]; ?></p>
+                </div>
+
+                <div class="display-card-right">
+                  <div>
+                    <a class="btn btn-info" href="edit-time-slot.php?time_slot_id=<?php echo $timeSlotId; ?>">Edit</a>
+                    <a class="btn btn-danger" href="delete_time_slot.php?time_slot_id=<?php echo $timeSlotId; ?>">Delete</a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div class="display-card-left-right card">
-            <div class="display-card-left">
-              <p>2.00 p.m.</p>
-            </div>
-
-            <div class="display-card-right">
-              <div>
-                <button class="btn btn-info">Edit</button>
-                <button class="btn btn-danger">Delete</button>
-              </div>
-            </div>
-          </div>
+              <?php
+            }
+          }
+          ?>
         </div>
       </div>
     </main>
@@ -80,3 +103,7 @@ if ($role === "Patient") {
 </body>
 
 </html>
+
+<?php
+$conn->close();
+?>

@@ -16,6 +16,7 @@ WHERE time_slot_id NOT IN (
     AND status = 'Scheduled'
 )
 AND staff_id = '$staffId' 
+AND status = 'Active'
 ORDER BY time ASC";
 
 $result = $conn->query($sql);
