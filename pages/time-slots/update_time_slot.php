@@ -42,7 +42,7 @@ if (!$result) {
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
     die("Failed to update time slot. Error: $conn->error");
 } else {
-    echo "Time slot updated successfully.";
+    echo "Time slot updated successfully. Redirecting to appointments page.";
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
 }
 

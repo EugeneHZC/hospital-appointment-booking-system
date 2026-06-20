@@ -50,7 +50,7 @@ $result = $stmt->execute();
 if (!$result) {
     echo "Failed to post article. Error: $conn->error";
 } else {
-    echo "Article posted and is pending for admin's review.";
+    echo "Article posted and is pending for admin's review. Redirecting to appointments page.";
 }
 
 echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";

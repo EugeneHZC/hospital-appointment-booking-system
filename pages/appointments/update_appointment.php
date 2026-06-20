@@ -66,7 +66,7 @@ if ($role == "Patient") {
 $result = $stmt->execute();
 
 if ($result) {
-    echo "Appointment saved successfully.";
+    echo "Appointment saved successfully. Redirecting to appointments page.";
 } else {
     echo "Failed to save appointment. Error: $conn->error";
 }

@@ -55,7 +55,7 @@ echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
 if (!$result) {
     die("Failed to book appointment. Error: $conn->error");
 } else {
-    echo "Appointment saved.";
+    echo "Appointment saved successfully. Redirecting to appointments page.";
 }
 
 ?>

@@ -22,6 +22,6 @@ $result = $stmt->execute();
 if (!$result) {
     echo json_encode("Failed to delete article. Error: $conn->error");
 } else {
-    echo json_encode("Article deleted.");
+    echo json_encode("Article deleted. Redirecting to appointments page.");
 }
 ?>

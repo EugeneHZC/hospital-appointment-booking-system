@@ -44,7 +44,7 @@ if (!$result) {
     echo "<meta http-equiv='refresh' content='3;URL=add-time-slot.php' />";
     die("Failed to add time slot. Error: $conn->error");
 } else {
-    echo "Time slot added successfully.";
+    echo "Time slot added successfully. Redirecting to appointments page.";
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
 }
 

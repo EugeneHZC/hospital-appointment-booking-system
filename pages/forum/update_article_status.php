@@ -45,6 +45,6 @@ $result = $stmt->execute();
 if (!$result) {
     echo json_encode("Failed to update article's status. Error: $conn->error");
 } else {
-    echo json_encode("Article's status updated successfully.");
+    echo json_encode("Article's status updated successfully. Redirecting to appointments page.");
 }
 ?>
