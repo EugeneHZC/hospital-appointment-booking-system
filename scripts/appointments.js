@@ -89,4 +89,44 @@ $(document).ready(function () {
       },
     });
   });
+
+  function filterAppointments(status) {
+    $(".display-card-left-right").each(function () {
+      if ($(this).data("status") == status || status == "") {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+  }
+
+  filterAppointments("");
+
+  $("#appointments-horizontal-nav .nav-links .nav-link").click(function () {
+    // filter appointments based on horizontal nav
+    let statusSelected = $(this).data("status");
+    filterAppointments(statusSelected);
+  });
+
+  $("#appointments-status-dropdown").change(function () {
+    // filter appointments based on status filter dropdown (for smaller devices)
+    let statusSelected = $(this).val();
+    filterAppointments(statusSelected);
+  });
+
+  $("#cancel-appointment-btn").click(function () {
+    if (confirm("Are you sure you want to cancel this appointment?")) {
+      $.ajax({
+        type: "POST",
+        url: "cancel_appointment.php",
+        data: {
+          appointment_id: $(this).data("id"),
+        },
+        success: function (response) {
+          alert(JSON.parse(response));
+          window.location.reload();
+        },
+      });
+    }
+  });
 });
