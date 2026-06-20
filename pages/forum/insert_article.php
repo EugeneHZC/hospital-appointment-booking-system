@@ -40,7 +40,7 @@ $result = $conn->query($sql);
 if (!$result) {
     echo "Failed to post article. Error: $conn->error";
 } else {
-    echo "Article posted and pending for admin's review.";
+    echo "Article posted and is pending for admin's review.";
 }
 
 echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";

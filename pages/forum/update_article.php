@@ -27,7 +27,7 @@ $result = $conn->query($sql);
 if (!$result) {
     echo "Failed to update article. Error: $conn->error";
 } else {
-    echo "Article updated and pending for admin's review.";
+    echo "Article updated and is pending for admin's review.";
 }
 
 echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
