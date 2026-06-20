@@ -58,7 +58,7 @@ $(document).ready(function () {
   });
 
   $("#search-bar").change(function () {
-    let searchQuery = $(this).val().toLowerCase();
+    let searchQuery = $(this).val().trim().toLowerCase();
     filterArticles(horizontalLinkClicked, searchQuery);
   });
 
