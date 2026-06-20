@@ -230,6 +230,11 @@ textarea {
   resize: none;
 }
 
+small {
+  display: block;
+  margin: 20px 0;
+}
+
 .form-control {
   padding: 10px 15px;
   border-radius: 8px;

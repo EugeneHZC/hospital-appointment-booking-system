@@ -2,7 +2,22 @@
 include('../../helper/verify_auth.php');
 include('../../helper/connect.php');
 
+$email = $_SESSION["email"];
 $role = $_SESSION["role"];
+$sql = "SELECT * FROM staff WHERE email = '$email'";
+$result = $conn->query($sql);
+
+if (!$result) {
+  echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
+  die("Failed to fetch user. Error: $conn->error");
+}
+
+if ($result->num_rows == 0) {
+  echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
+  die("User not found. Error: $conn->error");
+}
+
+$staff = $result->fetch_assoc();
 ?>
 
 <!doctype html>
@@ -35,105 +50,105 @@ $role = $_SESSION["role"];
         <div id="article-search" class="row">
           <label for="search-bar">Search</label>
           <input type="search" name="search-bar" id="search-bar" class="form-control" placeholder="Search for article names or content" />
-          <button class="btn btn-info" id="post-article-btn">
+          <button class="btn btn-info" id="post-article-btn" type="button">
             Post Article
           </button>
         </div>
 
-        <nav class="horizontal-nav" id="articles-horizontal-nav">
-          <ul class="nav-links">
-            <li class="nav-link active-link">
-              <a>Approved</a>
-            </li>
-            <li class="nav-link">
-              <a>Pending</a>
-            </li>
-            <li class="nav-link"><a>Rejected</a></li>
-          </ul>
-        </nav>
+        <?php
+        if ($role != "Patient") {
+          ?>
+          <nav class="horizontal-nav" id="articles-horizontal-nav">
+            <ul class="nav-links">
+              <li class="nav-link active-link" data-status="Approved">
+                <a>Approved</a>
+              </li>
+              <li class="nav-link" data-status="Pending">
+                <a>Pending</a>
+              </li>
+              <li class="nav-link" data-status="Rejected"><a>Rejected</a></li>
+            </ul>
+          </nav>
+          <?php
+        }
+        ?>
 
         <div class="display-cards">
-          <div class="display-card-top-bottom card">
-            <div class="display-card-top">
-              <div>
-                <h3>Article Title</h3>
-                <p class="text-sm text-gray my-half">
-                  <i class="fa-solid fa-circle-user"></i>Written by Doctor A
-                </p>
+          <?php
+          $sql = "SELECT a.*, s1.staff_id as writer_staff_id, s1.name as writer_name, s2.name as approver_name FROM article as a
+          JOIN staff as s1
+          USING (staff_id)
+          LEFT JOIN staff as s2
+          ON a.admin_staff_id = s2.staff_id";
+          $result = $conn->query($sql);
+
+          if (!$result) {
+            echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
+            die("Failed to fetch articles. Error: $conn->error");
+          }
+
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              ?>
+              <div class="display-card-top-bottom card" data-status="<?php echo $row["status"]; ?>" data-title="<?php echo $row["title"]; ?>" data-content="<?php echo $row["content"]; ?>">
+                <div class="display-card-top">
+                  <div>
+                    <h3><?php echo $row["title"]; ?></h3>
+                    <p class="text-sm text-gray my-half">
+                      <i class="fa-solid fa-circle-user"></i>Written by <?php echo $row["writer_name"]; ?>
+                    </p>
+                    <?php
+                    if (isset($row["admin_staff_id"])) {
+                      ?>
+                      <p class="text-sm text-gray my-half">
+                        <i class="fa-solid fa-check"></i>Approved by <?php echo $row["approver_name"]; ?>
+                      </p>
+                      <?php
+                    }
+                    ?>
+                  </div>
+
+                  <?php
+                  if ($row["writer_staff_id"] == $staff["staff_id"]) {
+                    ?>
+                    <div>
+                      <a class="btn btn-info" type="button" href="edit-article.php?article_id=<?php echo $row["article_id"]; ?>">Edit</a>
+                      <a class="btn btn-danger delete-btn" type="button" data-id="<?php echo $row["article_id"]; ?>">Delete</a>
+                    </div>
+                    <?php
+                  }
+                  ?>
+                </div>
+
+                <br />
+
+                <div class="display-card-bottom">
+                  <p class="line-height-3"><?php echo $row["content"]; ?></p>
+
+                  <?php
+                  if ($row["status"] == "Pending" && $role == "Admin") {
+                    ?>
+                    <br />
+
+                    <div class="float-right">
+                      <button class="btn btn-success approve-article-btn" data-id="<?php echo $row["article_id"]; ?>">
+                        Approve
+                      </button>
+
+                      <button class="btn btn-danger reject-article-btn" data-id="<?php echo $row["article_id"]; ?>">
+                        Reject
+                      </button>
+                    </div>
+                    <?php
+                  }
+                  ?>
+                </div>
               </div>
-            </div>
 
-            <br />
-
-            <div class="display-card-bottom">
-              <p class="line-height-3">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Cumque nulla ratione vitae veniam tenetur porro labore, ad
-                magni atque assumenda nihil. Necessitatibus, quis! Fuga
-                voluptatibus officia laboriosam voluptas corporis voluptatum
-                accusantium. Alias, obcaecati facilis assumenda, ab quia
-                mollitia molestias quis enim quos fugit voluptatibus rem.
-                Porro tempora incidunt expedita dicta neque illum eveniet quia
-                autem itaque a! Quia officiis possimus rem unde alias saepe
-                soluta mollitia fugit sed eveniet amet maiores obcaecati quae
-                nesciunt est pariatur animi eum, totam perferendis
-                perspiciatis quisquam quidem! Ipsum illum quia, repellendus
-                ducimus maiores modi recusandae deserunt veniam sequi impedit.
-                Quibusdam qui mollitia commodi neque?
-              </p>
-
-              <br />
-
-              <div class="float-right">
-                <button class="btn btn-success approve-article-btn">
-                  Approve
-                </button>
-
-                <button class="btn btn-danger reject-article-btn">
-                  Reject
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="display-card-top-bottom card">
-            <div class="display-card-top">
-              <div>
-                <h3>Article Title</h3>
-                <p class="text-sm text-gray my-half">
-                  <i class="fa-solid fa-circle-user"></i>Written by Doctor B
-                </p>
-                <p class="text-sm text-gray my-half">
-                  <i class="fa-solid fa-check"></i>Approved by Admin B
-                </p>
-              </div>
-
-              <div>
-                <button class="btn btn-info">Edit</button>
-                <button class="btn btn-danger">Delete</button>
-              </div>
-            </div>
-
-            <br />
-
-            <div class="display-card-bottom">
-              <p class="line-height-3">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Cumque nulla ratione vitae veniam tenetur porro labore, ad
-                magni atque assumenda nihil. Necessitatibus, quis! Fuga
-                voluptatibus officia laboriosam voluptas corporis voluptatum
-                accusantium. Alias, obcaecati facilis assumenda, ab quia
-                mollitia molestias quis enim quos fugit voluptatibus rem.
-                Porro tempora incidunt expedita dicta neque illum eveniet quia
-                autem itaque a! Quia officiis possimus rem unde alias saepe
-                soluta mollitia fugit sed eveniet amet maiores obcaecati quae
-                nesciunt est pariatur animi eum, totam perferendis
-                perspiciatis quisquam quidem! Ipsum illum quia, repellendus
-                ducimus maiores modi recusandae deserunt veniam sequi impedit.
-                Quibusdam qui mollitia commodi neque?
-              </p>
-            </div>
-          </div>
+              <?php
+            }
+          }
+          ?>
         </div>
       </div>
     </main>

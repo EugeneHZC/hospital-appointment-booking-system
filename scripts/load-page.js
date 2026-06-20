@@ -1,43 +1,4 @@
 $(document).ready(function () {
-  let role = $("#role").val();
-
-  if (role == "") {
-    return;
-  }
-
-  // let dashboard = $("#dashboard");
-  // let timeSlots = $("#time-slots");
-  // let departments = $("#departments");
-  // let doctors = $("#doctors");
-
-  // if (role == "doctor") {
-  //   dashboard.removeClass("hide");
-  //   timeSlots.removeClass("hide");
-  // } else if (role == "admin") {
-  //   dashboard.removeClass("hide");
-  //   timeSlots.removeClass("hide");
-  //   departments.removeClass("hide");
-  //   doctors.removeClass("hide");
-  // }
-
-  // function loadAdminPage() {
-  //   // show the current role of this user in the header part
-  //   $("#role-view").text("Admin's View");
-  //   updateActiveNav();
-  // }
-
-  // function loadDoctorPage() {
-  //   // show the current role of this user in the header part
-  //   $("#role-view").text("Doctor's View");
-  //   updateActiveNav();
-  // }
-
-  // function loadPatientPage() {
-  //   // show the current role of this user in the header part
-  //   $("#role-view").text("Patient's View");
-  //   updateActiveNav();
-  // }
-
   function updateActiveNav() {
     // gets the current page of the website
     let currentPage = window.location.href.split("/").pop();
@@ -63,20 +24,6 @@ $(document).ready(function () {
   }
 
   updateActiveNav();
-
-  // switch (role) {
-  //   case "admin":
-  //     loadAdminPage();
-  //     break;
-  //   case "doctor":
-  //     loadDoctorPage();
-  //     break;
-  //   case "patient":
-  //     loadPatientPage();
-  //     break;
-  //   default:
-  //     break;
-  // }
 
   // nav menu toggler (for smaller screens)
   $("#nav-toggle").click(function () {
