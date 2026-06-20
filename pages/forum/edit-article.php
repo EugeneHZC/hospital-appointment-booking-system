@@ -16,8 +16,10 @@ if (!isset($_GET["article_id"])) {
 
 // get the article by article ID provided
 $articleId = $_GET["article_id"];
-$sql = "SELECT * FROM article WHERE article_id = '$articleId'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT * FROM article WHERE article_id = ?");
+$stmt->bind_param("s", $articleId);
+$stmt->execute();
+$result = $stmt->get_result();
 if (!$result) {
   echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
   die("Failed to fetch article. Error: $conn->error");

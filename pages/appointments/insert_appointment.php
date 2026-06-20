@@ -9,10 +9,18 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 }
 
 $email = $_SESSION["email"];
-$userSql = "SELECT * FROM patient WHERE email = '$email'";
-$result = $conn->query($userSql);
+$stmt = $conn->prepare("SELECT * FROM patient WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
+    echo "<meta http-equiv='refresh' content='3;URL=book-appointment.php' />";
+    die("Failed to fetch user. Error: $conn->error");
+}
+
+if ($result->num_rows == 0) {
+    echo "<meta http-equiv='refresh' content='3;URL=book-appointment.php' />";
     die("User not found.");
 }
 
@@ -37,9 +45,10 @@ $time_slot = $_POST["time"];
 $appointment_type = $_POST["appointment_type"];
 $remarks_for_doctor = $_POST["remarks_for_doctor"];
 
-$insertSql = "INSERT INTO appointment (appointment_id, date, status, appointment_type, patient_remark, time_slot_id, patient_id, staff_id)
-VALUES ('$appointment_id', '$date', 'Scheduled', '$appointment_type', '$remarks_for_doctor', '$time_slot', '$patient_id', '$doctor')";
-$result = $conn->query($insertSql);
+$stmt = $conn->prepare("INSERT INTO appointment (appointment_id, date, status, appointment_type, patient_remark, time_slot_id, patient_id, staff_id)
+VALUES (?, ?, 'Scheduled', ?, ?, ?, ?, ?)");
+$stmt->bind_param("sssssss", $appointment_id, $date, $appointment_type, $remarks_for_doctor, $time_slot, $patient_id, $doctor);
+$result = $stmt->execute();
 
 echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
 

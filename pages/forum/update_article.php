@@ -3,6 +3,11 @@ include('../../helper/verify_auth.php');
 include('../../helper/connect.php');
 include('../../helper/generate_id.php');
 
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
+    die("Invalid request method.");
+}
+
 if ($_SESSION["role"] == "Patient") {
     echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
     die("Unauthorized access. Only admins and doctors can access this page.");
@@ -16,14 +21,16 @@ if (!isset($_POST["article_title"]) || !isset($_POST["article_content"])) {
 $articleId = $_POST["article_id"];
 $title = $_POST["article_title"];
 $content = $_POST["article_content"];
-
 $currentDateTime = Date('Y-m-d H:m:s');
 
-$sql = "UPDATE article 
-SET title = '$title', content = '$content', status = 'Pending', publish_datetime = '$currentDateTime', admin_staff_id = NULL 
-WHERE article_id = '$articleId'";
+$stmt = $conn->prepare("UPDATE article 
+SET title = ?, content = ?, status = 'Pending', publish_datetime = ?, admin_staff_id = NULL 
+WHERE article_id = ?");
 
-$result = $conn->query($sql);
+$stmt->bind_param("ssss", $title, $content, $currentDateTime, $articleId);
+
+$result = $stmt->execute();
+
 if (!$result) {
     echo "Failed to update article. Error: $conn->error";
 } else {

@@ -2,13 +2,15 @@
 include('connect.php');
 
 if (!isset($_GET["department_id"]) || $_GET["department_id"] == "") {
-    $sql = "SELECT * FROM staff";
+    $stmt = $conn->prepare("SELECT * FROM staff");
 } else {
     $departmentId = $_GET["department_id"];
-    $sql = "SELECT * FROM staff WHERE department_id = '$departmentId'";
+    $stmt = $conn->prepare("SELECT * FROM staff WHERE department_id = ?");
+    $stmt->bind_param("s", $departmendId);
 }
 
-$result = $conn->query($sql);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
     echo json_encode([]);

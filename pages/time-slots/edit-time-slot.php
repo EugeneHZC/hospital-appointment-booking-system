@@ -15,8 +15,10 @@ if (!isset($_GET["time_slot_id"])) {
 }
 
 $timeSlotId = $_GET["time_slot_id"];
-$sql = "SELECT * FROM time_slot WHERE time_slot_id = '$timeSlotId'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT * FROM time_slot WHERE time_slot_id = ?");
+$stmt->bind_param("s", $timeSlotId);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";

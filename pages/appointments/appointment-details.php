@@ -8,24 +8,25 @@ $role = $_SESSION["role"];
 $appointmentId = $_GET["appointment_id"];
 
 if ($role == "Patient") {
-  $sql = "SELECT * FROM appointment
+  $stmt = $conn->prepare("SELECT * FROM appointment
   JOIN time_slot
   USING (time_slot_id)
   JOIN staff
   ON appointment.staff_id = staff.staff_id
-  WHERE appointment.appointment_id = '$appointmentId'
-  ";
+  WHERE appointment.appointment_id = ?");
 } else {
-  $sql = "SELECT * FROM appointment as a
+  $stmt = $conn->prepare("SELECT * FROM appointment as a
   JOIN time_slot as ts
   USING (time_slot_id)
   JOIN patient as p
   USING (patient_id)
-  WHERE a.appointment_id = '$appointmentId'
-  ";
+  WHERE a.appointment_id = ?");
 }
 
-$result = $conn->query($sql);
+$stmt->bind_param("s", $appointmentId);
+$stmt->execute();
+
+$result = $stmt->get_result();
 
 if (!$result) {
   echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";

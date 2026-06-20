@@ -10,8 +10,10 @@ if ($role === "Patient") {
   die("Only admins and doctors can view this page.");
 }
 
-$sql = "SELECT * FROM staff WHERE email = '$email'";
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT * FROM staff WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
   echo "<meta http-equiv='refresh' content='3;URL=../dashboard/dashboard.php' />";
@@ -66,8 +68,10 @@ $user = $result->fetch_assoc();
         <div class="display-cards">
           <?php
           $staffId = $user["staff_id"];
-          $sql = "SELECT * FROM time_slot WHERE staff_id = '$staffId' ORDER BY time_slot_id DESC";
-          $result = $conn->query($sql);
+          $stmt = $conn->prepare("SELECT * FROM time_slot WHERE staff_id = ? ORDER BY time_slot_id DESC");
+          $stmt->bind_param("s", $staffId);
+          $stmt->execute();
+          $result = $stmt->get_result();
 
           if (!$result) {
             echo "<meta http-equiv='refresh' content='3;URL=../dashboard/dashboard.php' />";

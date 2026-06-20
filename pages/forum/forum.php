@@ -4,20 +4,25 @@ include('../../helper/connect.php');
 
 $email = $_SESSION["email"];
 $role = $_SESSION["role"];
-$sql = "SELECT * FROM staff WHERE email = '$email'";
-$result = $conn->query($sql);
 
-if (!$result) {
-  echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
-  die("Failed to fetch user. Error: $conn->error");
+if ($role != "Patient") {
+  $stmt = $conn->prepare("SELECT * FROM staff WHERE email = ?");
+  $stmt->bind_param("s", $email);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if (!$result) {
+    echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
+    die("Failed to fetch user. Error: $conn->error");
+  }
+
+  if ($result->num_rows == 0) {
+    echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
+    die("User not found. Error: $conn->error");
+  }
+
+  $staff = $result->fetch_assoc();
 }
-
-if ($result->num_rows == 0) {
-  echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
-  die("User not found. Error: $conn->error");
-}
-
-$staff = $result->fetch_assoc();
 ?>
 
 <!doctype html>
@@ -50,9 +55,15 @@ $staff = $result->fetch_assoc();
         <div id="article-search" class="row">
           <label for="search-bar">Search</label>
           <input type="search" name="search-bar" id="search-bar" class="form-control" placeholder="Search for article names or content" />
-          <button class="btn btn-info" id="post-article-btn" type="button"><i class="fa-solid fa-plus"></i>
-            Post Article
-          </button>
+          <?php
+          if ($role != "Patient") {
+            ?>
+            <button class="btn btn-info" id="post-article-btn" type="button"><i class="fa-solid fa-plus"></i>
+              Post Article
+            </button>
+          <?php
+          }
+          ?>
         </div>
 
         <?php
@@ -75,12 +86,14 @@ $staff = $result->fetch_assoc();
 
         <div class="display-cards">
           <?php
-          $sql = "SELECT a.*, s1.staff_id as writer_staff_id, s1.name as writer_name, s2.name as approver_name FROM article as a
+          $stmt = $conn->prepare("SELECT a.*, s1.staff_id as writer_staff_id, s1.name as writer_name, s2.name as approver_name FROM article as a
           JOIN staff as s1
           USING (staff_id)
           LEFT JOIN staff as s2
-          ON a.admin_staff_id = s2.staff_id";
-          $result = $conn->query($sql);
+          ON a.admin_staff_id = s2.staff_id");
+
+          $stmt->execute();
+          $result = $stmt->get_result();
 
           if (!$result) {
             echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
@@ -109,7 +122,7 @@ $staff = $result->fetch_assoc();
                   </div>
 
                   <?php
-                  if ($row["writer_staff_id"] == $staff["staff_id"]) {
+                  if (isset($staff) && $row["writer_staff_id"] == $staff["staff_id"]) {
                     ?>
                     <div class="btns">
                       <a class="btn btn-info" type="button" href="edit-article.php?article_id=<?php echo $row["article_id"]; ?>"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
