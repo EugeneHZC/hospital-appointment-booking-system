@@ -63,82 +63,66 @@ if ($result->num_rows > 0) {
           <?php
           // get statistics for booking
           $userId = $user[$tableName . "_id"];
-          $totalAppointments = 0;
-          $scheduledAppointments = 0;
-          $completedAppointments = 0;
-          $cancelledAppointments = 0;
+
+          $appointmentsStats = [];
+          $appointmentStatusTypes = ["Scheduled", "Completed", "Cancelled"];
 
           // total appointments
           $sql = "SELECT COUNT(*) AS total_appointments FROM appointment WHERE " . $tableName . "_id = '$userId'";
           $result = $conn->query($sql);
           if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $totalAppointments = $row["total_appointments"];
+            $appointmentsStats["total_appointments"] = $row["total_appointments"];
           }
 
-          // scheduled appointments
-          $sql = "SELECT COUNT(*) AS scheduled_appointments FROM appointment WHERE " . $tableName . "_id = '$userId' AND status = 'Scheduled'";
-          $result = $conn->query($sql);
-          if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $scheduledAppointments = $row["scheduled_appointments"];
+          // get statistics for each appointment status (Scheduled, Completed, Cancelled)
+          foreach ($appointmentStatusTypes as $status) {
+            $sql = "SELECT COUNT(*) AS " . strtolower($status) . "_appointments FROM appointment WHERE " . $tableName . "_id = '$userId' AND status = '$status'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+              $row = $result->fetch_assoc();
+              $appointmentsStats[strtolower($status) . "_appointments"] = $row[strtolower($status) . "_appointments"];
+            }
           }
-
-          // completed appointments
-          $sql = "SELECT COUNT(*) AS completed_appointments FROM appointment WHERE " . $tableName . "_id = '$userId' AND status = 'Completed'";
-          $result = $conn->query($sql);
-          if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $completedAppointments = $row["completed_appointments"];
-          }
-
-          // cancelled appointments
-          $sql = "SELECT COUNT(*) AS cancelled_appointments FROM appointment WHERE " . $tableName . "_id = '$userId' AND status = 'Cancelled'";
-          $result = $conn->query($sql);
-          if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $cancelledAppointments = $row["cancelled_appointments"];
-          }
-
           ?>
 
           <div class="horizontal-cards">
             <div id="total-appointments-card" class="card text-center">
-              <h2><?php echo $totalAppointments; ?></h2>
+              <h2><?php echo $appointmentsStats["total_appointments"]; ?></h2>
               <p>Total Appointment</p>
             </div>
             <div id="scheduled-appointments-card" class="card text-center">
-              <h2><?php echo $scheduledAppointments; ?></h2>
+              <h2><?php echo $appointmentsStats["scheduled_appointments"]; ?></h2>
               <p>Scheduled</p>
             </div>
             <div id="completed-appointments-card" class="card text-center">
-              <h2><?php echo $completedAppointments; ?></h2>
+              <h2><?php echo $appointmentsStats["completed_appointments"]; ?></h2>
               <p>Completed</p>
             </div>
             <div id="cancelled-appointments-card" class="card text-center">
-              <h2><?php echo $cancelledAppointments; ?></h2>
+              <h2><?php echo $appointmentsStats["cancelled_appointments"]; ?></h2>
               <p>Cancelled</p>
             </div>
           </div>
 
           <nav class="horizontal-nav" id="appointments-horizontal-nav">
             <ul class="nav-links">
-              <li class="nav-link active-link">
-                <a href="">All Appointments</a>
+              <li class="nav-link active-link" data-status="">
+                <a>All Appointments</a>
               </li>
-              <li class="nav-link">
-                <a href="">Scheduled</a>
+              <li class="nav-link" data-status="Scheduled">
+                <a>Scheduled</a>
               </li>
-              <li class="nav-link"><a href="">Completed</a></li>
-              <li class="nav-link"><a href="">Cancelled</a></li>
+              <li class="nav-link" data-status="Completed"><a>Completed</a></li>
+              <li class="nav-link" data-status="Cancelled"><a>Cancelled</a></li>
             </ul>
           </nav>
 
           <select name="appointments-status-dropdown" id="appointments-status-dropdown" class="form-control">
-            <option value="all-appointments">All Appointments</option>
-            <option value="scheduled">Scheduled</option>
-            <option value="completed">Completed</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="">All Appointments</option>
+            <option value="Scheduled">Scheduled</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
           </select>
 
           <div class="display-cards">
@@ -171,50 +155,39 @@ if ($result->num_rows > 0) {
 
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
-                echo "<div class='display-card-left-right card'>";
-                echo "<div class='display-card-left'>";
+                ?>
+                <div class="display-card-left-right card" data-status="<?php echo $row["status"]; ?>">
+                  <div class="display-card-left">
+                    <h3><?php echo $row["name"]; ?></h3>
+                    <?php
+                    if ($role == "Patient") {
+                      ?>
+                      <p class="text-gray"><i class="fa-solid fa-user-doctor"></i><?php echo $row["specialty"] ?></p>
+                      <?php
+                    } else {
+                      ?>
+                      <p class="text-gray"><i class="fa-solid fa-book-medical"></i><?php echo $row["appointment_type"] ?></p>
+                      <?php
+                    }
+                    ?>
+                    <p class="text-gray"><i class="fa-solid fa-calendar"></i><?php echo $row["date"] ?></p>
+                    <p class="text-gray"><i class="fa-solid fa-clock"></i><?php echo $row["time"] ?></p>
+                  </div>
 
-                $name = $row["name"];
-                echo "<h3>$name</h3>";
-
-                if ($role == "Patient") {
-                  $specialty = $row["specialty"];
-                  echo "<p class='text-gray'>";
-                  echo "<i class='fa-solid fa-user-doctor'></i>$specialty";
-                  echo "</p>";
-                } else {
-                  $appointmentType = $row["appointment_type"];
-                  echo "<p class='text-gray'>";
-                  echo "<i class='fa-solid fa-book-medical'></i>$appointmentType";
-                  echo "</p>";
-                }
-
-                $date = $row["date"];
-                echo "<p class='text-gray'>";
-                echo "<i class='fa-solid fa-calendar'></i>$date";
-                echo "</p>";
-
-                $timeSlot = $row["time"];
-                echo "<p class='text-gray'>";
-                echo "<i class='fa-solid fa-clock'></i>$timeSlot";
-                echo "</p>";
-                echo "</div>";  // close .display-card-left
-          
-                echo "<div class='display-card-right'>";
-
-                $status = $row["status"];
-                $appointmentId = $row["appointment_id"];
-                echo "<span class='badge badge-" . (($status == "Scheduled") ? "info" : (($status == "Completed") ? "success" : "danger")) . "'>$status</span>";
-                echo "<div class='btns'>";
-                echo "<a class='btn btn-info view-details-btn' href='appointment-details.php?appointment_id=$appointmentId'>View Details</a>";
-                if ($status == "Scheduled") {
-                  echo "<a class='btn btn-danger' id='cancel-appointment-btn' href='cancel_appointment.php?appointment_id=$appointmentId'>Cancel Appointment</a>";
-                }
-                echo "</div>";  // close .btns
-          
-                echo "</div>";  // close .display-card-right
-          
-                echo "</div>";  // close .display-cards
+                  <div class="display-card-right">
+                    <span class="badge badge-<?php echo $row["status"] == "Scheduled" ? "info" : ($row["status"] == "Completed" ? "success" : "danger") ?>"><?php echo $row["status"] ?></span>
+                    <div class="btns">
+                      <a class="btn btn-info view-details-btn" href="appointment-details.php?appointment_id=<?php echo $row["appointment_id"]; ?>">View Details</a>
+                      <?php
+                      if ($row["status"] == "Scheduled") {
+                        $appointmentId = $row["appointment_id"];
+                        echo "<a class='btn btn-danger' id='cancel-appointment-btn' data-id='$appointmentId'>Cancel Appointment</a>";
+                      }
+                      ?>
+                    </div>
+                  </div>
+                </div>
+                <?php
               }
             }
             ?>
