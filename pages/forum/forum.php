@@ -111,7 +111,7 @@ $staff = $result->fetch_assoc();
                   <?php
                   if ($row["writer_staff_id"] == $staff["staff_id"]) {
                     ?>
-                    <div>
+                    <div class="btns">
                       <a class="btn btn-info" type="button" href="edit-article.php?article_id=<?php echo $row["article_id"]; ?>"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
                       <a class="btn btn-danger delete-btn" type="button" data-id="<?php echo $row["article_id"]; ?>"><i class="fa-solid fa-trash"></i>Delete</a>
                     </div>

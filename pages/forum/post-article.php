@@ -53,7 +53,7 @@ if ($role === "Patient") {
 
               <small class="text-gray">Article posted will be on the pending list for admin's approval.</small>
 
-              <div class="btns">
+              <div class="text-center">
                 <button class="btn btn-secondary" id="cancel-btn" type="button">
                   Cancel
                 </button>
