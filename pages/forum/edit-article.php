@@ -76,11 +76,11 @@ $article = $result->fetch_assoc();
               <small class="text-gray">Article posted will be on the pending list for admin's approval.</small>
 
               <div class="btns">
-                <button class="btn btn-info" type="submit" id="save-btn">
-                  Save
-                </button>
                 <button class="btn btn-secondary" id="cancel-btn" type="button">
                   Cancel
+                </button>
+                <button class="btn btn-info" type="submit" id="save-btn">
+                  Save
                 </button>
               </div>
             </div>

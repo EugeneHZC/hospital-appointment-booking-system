@@ -19,6 +19,8 @@ $(document).ready(function () {
       if (currentFilePath == currentPage) {
         // make it as active link (indicating user is currently in this page)
         $(this).addClass("active-link");
+        $(this).find("i").removeClass("fa-regular");
+        $(this).find("i").addClass("fa-solid");
       }
     });
   }

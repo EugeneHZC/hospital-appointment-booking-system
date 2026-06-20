@@ -20,32 +20,32 @@ $role = $_SESSION["role"];
       <ul class="nav-links">
         <?php
         if ($role != "Patient") {
-          echo "<li class='nav-link'><a href='../../pages/dashboard/dashboard.php'>Dashboard</a></li>";
+          echo "<li class='nav-link'><a href='../../pages/dashboard/dashboard.php'><i class='fa-solid fa-chart-pie'></i>Dashboard</a></li>";
         }
         ?>
         <li class="nav-link">
-          <a href="../../pages/appointments/appointments.php">Appointments</a>
+          <a href="../../pages/appointments/appointments.php"><i class="fa-regular fa-clipboard"></i>Appointments</a>
         </li>
         <?php
         if ($role != "Patient") {
-          echo "<li class='nav-link'><a href='../../pages/time-slots/time-slots.php'>Time Slots</a></li>";
+          echo "<li class='nav-link'><a href='../../pages/time-slots/time-slots.php'><i class='fa-regular fa-clock'></i>Time Slots</a></li>";
         }
         ?>
         <?php
         if ($role == "Admin") {
-          echo "<li class='nav-link'><a href='../../pages/departments/departments.php'>Departments</a></li>";
+          echo "<li class='nav-link'><a href='../../pages/departments/departments.php'><i class='fa-regular fa-building'></i>Departments</a></li>";
         }
         ?>
         <?php
         if ($role == "Admin") {
-          echo "<li class='nav-link'><a href='../../pages/doctors/doctor.php'>Doctors</a></li>";
+          echo "<li class='nav-link'><a href='../../pages/doctors/doctor.php'><i class='fa-solid fa-user-doctor'></i>Doctors</a></li>";
         }
         ?>
         <li class="nav-link">
-          <a href="../../pages/forum/forum.php">Forum</a>
+          <a href="../../pages/forum/forum.php"><i class="fa-regular fa-newspaper"></i>Forum</a>
         </li>
         <li class="nav-link">
-          <a href="../../pages/profile/profile.php">Profile</a>
+          <a href="../../pages/profile/profile.php"><i class="fa-regular fa-user"></i>Profile</a>
         </li>
       </ul>
     </div>

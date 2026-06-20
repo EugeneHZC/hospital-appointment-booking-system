@@ -58,7 +58,7 @@ $user = $result->fetch_assoc();
         <div id="article-search" class="row">
           <label for="search-bar">Search</label>
           <input type="search" name="search-bar" id="search-bar" class="form-control" placeholder="Search for time slots" />
-          <button class="btn btn-info" id="add-time-slot-btn">
+          <button class="btn btn-info" id="add-time-slot-btn"><i class="fa-solid fa-plus"></i>
             Add Time Slot
           </button>
         </div>
@@ -86,8 +86,7 @@ $user = $result->fetch_assoc();
 
                 <div class="display-card-right">
                   <div>
-                    <a class="btn btn-info" href="edit-time-slot.php?time_slot_id=<?php echo $timeSlotId; ?>">Edit</a>
-                    <a class="btn btn-danger" href="delete_time_slot.php?time_slot_id=<?php echo $timeSlotId; ?>">Delete</a>
+                    <a class="btn btn-info" href="edit-time-slot.php?time_slot_id=<?php echo $timeSlotId; ?>"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
                   </div>
                 </div>
               </div>
