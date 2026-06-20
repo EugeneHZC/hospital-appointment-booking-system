@@ -3,16 +3,23 @@ include('../../helper/connect.php');
 include('../../helper/verify_auth.php');
 include('../../helper/generate_id.php');
 
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
+    die("Invalid request method.");
+}
+
 $role = $_SESSION["role"];
 $appointmentId = $_POST["appointment_id"];
-$status = $_POST["appointment_status"];
+$status = $_POST["appointment_status"] ?? null;  // for patients, there is no status update
 $appointment = null;
 
 // get the current appointment to be updated
-$appointmentSql = "SELECT * FROM appointment WHERE appointment_id = '$appointmentId'";
-$appointmentResult = $conn->query($appointmentSql);
-if ($appointmentResult && $appointmentResult->num_rows > 0) {
-    $appointment = $appointmentResult->fetch_assoc();
+$stmt = $conn->prepare("SELECT * FROM appointment WHERE appointment_id = ?");
+$stmt->bind_param("s", $appointmentId);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result && $result->num_rows > 0) {
+    $appointment = $result->fetch_assoc();
 } else {
     echo "<meta http-equiv='refresh' content='3;URL=appointments.php'>";
     die("Failed to fetch appointment. Error: $conn->error");
@@ -20,9 +27,11 @@ if ($appointmentResult && $appointmentResult->num_rows > 0) {
 
 if ($role == "Patient") {
     $patientRemark = $_POST["patient_remark"];
-    $sql = "UPDATE appointment SET patient_remark = '$patientRemark' WHERE appointment_id = '$appointmentId'";
+    $stmt = $conn->prepare("UPDATE appointment SET patient_remark = ? WHERE appointment_id = ?");
+    $stmt->bind_param("ss", $patientRemark, $appointmentId);
 } else {
     $followUpAppointmentId = null;
+
     if (isset($_POST["appointment_date"]) && isset($_POST["appointment_time"])) {
         // insert new follow-up appointment
         $followUpAppointmentId = generateId("appointment", 2, 3);
@@ -34,32 +43,30 @@ if ($role == "Patient") {
         if (isset($appointment["follow_up_appointment_id"])) {
             // if there is already a follow-up appointment, update the follow-up appointment details
             $followUpAppointmentId = $appointment["follow_up_appointment_id"];
-            $followUpAppointmentSql = "UPDATE appointment SET date = '$date', time_slot_id = '$time' WHERE appointment_id = '$followUpAppointmentId'";
-            $followUpAppointmentResult = $conn->query($followUpAppointmentSql);
+            $stmt = $conn->prepare("UPDATE appointment SET date = ?, time_slot_id = ? WHERE appointment_id = ?");
+            $stmt->bind_param("sss", $date, $time, $followUpAppointmentId);
+            $result = $stmt->execute();
         } else {
             // if there is no follow-up appointment, insert a new follow-up appointment
-            $followUpAppointmentSql = "INSERT INTO appointment (appointment_id, date, status, appointment_type, time_slot_id, patient_id, staff_id)
-            VALUES ('$followUpAppointmentId', '$date', 'Scheduled', 'Follow-up Appointment', '$time', '$patientId', '$staffId')";
-            $followUpAppointmentResult = $conn->query($followUpAppointmentSql);
+            $stmt = $conn->prepare("INSERT INTO appointment (appointment_id, date, status, appointment_type, time_slot_id, patient_id, staff_id)
+            VALUES (?, ?, 'Scheduled', 'Follow-up Appointment', ?, ?, ?)");
+            $stmt->bind_param("sssss", $followUpAppointmentId, $date, $time, $patientId, $staffId);
+            $result = $stmt->execute();
         }
 
-        if (!$followUpAppointmentResult) {
+        if (!$result) {
             echo "Failed to save follow-up appointment. Error: $conn->error";
         }
     }
     $doctorRemark = $_POST["doctor_remark"];
-    $sql = "UPDATE appointment SET doctor_remark = '$doctorRemark', status = '$status' WHERE appointment_id = '$appointmentId'";
-
-    if (isset($followUpAppointmentId)) {
-        // if there is a follow-up appointment, assign it to the current appointment
-        $sql = "UPDATE appointment SET doctor_remark = '$doctorRemark', status = '$status', follow_up_appointment_id = '$followUpAppointmentId' WHERE appointment_id = '$appointmentId'";
-    }
+    $stmt = $conn->prepare("UPDATE appointment SET doctor_remark = ?, status = ?, follow_up_appointment_id = ? WHERE appointment_id = ?");
+    $stmt->bind_param("ssss", $doctorRemark, $status, $followUpAppointmentId, $appointmentId);
 }
 
-$result = $conn->query($sql);
+$result = $stmt->execute();
 
 if ($result) {
-    echo "Appointment saved successfully.";
+    echo "Appointment saved successfully. Redirecting to appointments page.";
 } else {
     echo "Failed to save appointment. Error: $conn->error";
 }

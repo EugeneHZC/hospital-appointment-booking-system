@@ -10,9 +10,10 @@ if ($role == "Patient") {
     die("Only admins and doctors can access this page.");
 }
 
-$sql = "SELECT * FROM staff WHERE email = '$email'";
-
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT * FROM staff WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
     die("Failed to get user info. Error: $conn->error");

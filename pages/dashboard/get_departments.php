@@ -1,9 +1,9 @@
 <?php
 include('../../helper/connect.php');
 
-$sql = "SELECT * FROM department";
-
-$result = $conn->query($sql);
+$stmt = $conn->prepare("SELECT * FROM department");
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
     echo json_encode([]);

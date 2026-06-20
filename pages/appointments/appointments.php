@@ -6,9 +6,11 @@ $email = $_SESSION["email"];
 $role = $_SESSION["role"];
 $tableName = strtolower($role) == "patient" ? strtolower($role) : "staff";
 
-$sql = "SELECT * FROM $tableName WHERE email = '$email'";
+$stmt = $conn->prepare("SELECT * FROM $tableName WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
 
-$result = $conn->query($sql);
+$result = $stmt->get_result();
 
 if (!$result) {
   die("Failed to get user info. Error: $conn->error");
