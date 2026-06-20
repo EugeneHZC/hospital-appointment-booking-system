@@ -177,11 +177,11 @@ if ($result->num_rows > 0) {
                   <div class="display-card-right">
                     <span class="badge badge-<?php echo $row["status"] == "Scheduled" ? "info" : ($row["status"] == "Completed" ? "success" : "danger") ?>"><?php echo $row["status"] ?></span>
                     <div class="btns">
-                      <a class="btn btn-info view-details-btn" href="appointment-details.php?appointment_id=<?php echo $row["appointment_id"]; ?>">View Details</a>
+                      <a class="btn btn-info view-details-btn" href="appointment-details.php?appointment_id=<?php echo $row["appointment_id"]; ?>"><i class="fa-solid fa-clipboard"></i>View Details</a>
                       <?php
                       if ($row["status"] == "Scheduled") {
                         $appointmentId = $row["appointment_id"];
-                        echo "<a class='btn btn-danger' id='cancel-appointment-btn' data-id='$appointmentId'>Cancel Appointment</a>";
+                        echo "<a class='btn btn-danger' id='cancel-appointment-btn' data-id='$appointmentId'><i class='fa-solid fa-ban'></i>Cancel Appointment</a>";
                       }
                       ?>
                     </div>

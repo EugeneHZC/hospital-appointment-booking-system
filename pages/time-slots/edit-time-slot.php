@@ -80,11 +80,11 @@ $timeSlot = $result->fetch_assoc();
                                 </div>
 
                                 <div class="btns">
-                                    <button class="btn btn-info" type="submit" id="save-btn">
-                                        Save
-                                    </button>
                                     <button class="btn btn-secondary" id="cancel-btn" type="button">
                                         Cancel
+                                    </button>
+                                    <button class="btn btn-info" type="submit" id="save-btn"><i class="fa-solid fa-floppy-disk"></i>
+                                        Save
                                     </button>
                                 </div>
                             </div>

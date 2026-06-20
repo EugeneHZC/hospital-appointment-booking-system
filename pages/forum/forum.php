@@ -50,7 +50,7 @@ $staff = $result->fetch_assoc();
         <div id="article-search" class="row">
           <label for="search-bar">Search</label>
           <input type="search" name="search-bar" id="search-bar" class="form-control" placeholder="Search for article names or content" />
-          <button class="btn btn-info" id="post-article-btn" type="button">
+          <button class="btn btn-info" id="post-article-btn" type="button"><i class="fa-solid fa-plus"></i>
             Post Article
           </button>
         </div>
@@ -112,8 +112,8 @@ $staff = $result->fetch_assoc();
                   if ($row["writer_staff_id"] == $staff["staff_id"]) {
                     ?>
                     <div>
-                      <a class="btn btn-info" type="button" href="edit-article.php?article_id=<?php echo $row["article_id"]; ?>">Edit</a>
-                      <a class="btn btn-danger delete-btn" type="button" data-id="<?php echo $row["article_id"]; ?>">Delete</a>
+                      <a class="btn btn-info" type="button" href="edit-article.php?article_id=<?php echo $row["article_id"]; ?>"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
+                      <a class="btn btn-danger delete-btn" type="button" data-id="<?php echo $row["article_id"]; ?>"><i class="fa-solid fa-trash"></i>Delete</a>
                     </div>
                     <?php
                   }
@@ -131,11 +131,11 @@ $staff = $result->fetch_assoc();
                     <br />
 
                     <div class="float-right">
-                      <button class="btn btn-success approve-article-btn" data-id="<?php echo $row["article_id"]; ?>">
+                      <button class="btn btn-success approve-article-btn" data-id="<?php echo $row["article_id"]; ?>"><i class="fa-solid fa-check"></i>
                         Approve
                       </button>
 
-                      <button class="btn btn-danger reject-article-btn" data-id="<?php echo $row["article_id"]; ?>">
+                      <button class="btn btn-danger reject-article-btn" data-id="<?php echo $row["article_id"]; ?>"><i class="fa-solid fa-x"></i>
                         Reject
                       </button>
                     </div>
