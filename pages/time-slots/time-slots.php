@@ -78,7 +78,7 @@ $user = $result->fetch_assoc();
             while ($row = $result->fetch_assoc()) {
               $timeSlotId = $row["time_slot_id"];
               ?>
-              <div class="display-card-left-right card">
+              <div class="display-card-left-right card" data-time="<?php echo $row["time"]; ?>">
                 <div class="display-card-left">
                   <h3><?php echo $row["time"]; ?></h3>
                   <p class="text-gray"><i class="fa-solid fa-circle-<?php echo $row["status"] == "Active" ? "check" : "xmark"; ?>"></i><?php echo $row["status"]; ?></p>
