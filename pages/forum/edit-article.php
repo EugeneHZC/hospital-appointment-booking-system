@@ -8,6 +8,27 @@ if ($role === "Patient") {
   echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
   die("Only admins and doctors can view this page.");
 }
+
+if (!isset($_GET["article_id"])) {
+  echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
+  die("Article ID required.");
+}
+
+// get the article by article ID provided
+$articleId = $_GET["article_id"];
+$sql = "SELECT * FROM article WHERE article_id = '$articleId'";
+$result = $conn->query($sql);
+if (!$result) {
+  echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
+  die("Failed to fetch article. Error: $conn->error");
+}
+
+if ($result->num_rows == 0) {
+  echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
+  die("Article not found.");
+}
+
+$article = $result->fetch_assoc();
 ?>
 
 <!doctype html>
@@ -39,23 +60,24 @@ if ($role === "Patient") {
       </header>
 
       <div id="content">
-        <form action="insert_article.php" method="post">
+        <form action="update_article.php" method="post">
+          <input type="hidden" name="article_id" value="<?php echo $article["article_id"]; ?>">
           <div class="display-cards">
             <div class="card">
               <div class="form-group">
                 <label for="article-title">Title</label>
-                <input type="text" name="article_title" id="article-title" class="form-control" required />
+                <input type="text" name="article_title" id="article-title" class="form-control" required value="<?php echo $article["title"]; ?>" />
               </div>
               <div class="form-group">
                 <label for="article-content">Content</label>
-                <textarea name="article_content" id="article-content" class="form-control" rows="5" required></textarea>
+                <textarea name="article_content" id="article-content" class="form-control" rows="5" required><?php echo $article["content"]; ?></textarea>
               </div>
 
               <small class="text-gray">Article posted will be on the pending list for admin's approval.</small>
 
               <div class="btns">
-                <button class="btn btn-info" type="submit" id="post-btn">
-                  Post
+                <button class="btn btn-info" type="submit" id="save-btn">
+                  Save
                 </button>
                 <button class="btn btn-secondary" id="cancel-btn" type="button">
                   Cancel

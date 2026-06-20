@@ -191,7 +191,7 @@ $(document).ready(function () {
       ];
 
       datasets.push({
-        label: $("#doctor option:selected").html(),
+        label: $("#doctor option:selected").html() ?? "Doctor",
         data: statsArray,
         borderWidth: 1,
       });
