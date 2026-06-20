@@ -2,21 +2,58 @@
 session_start();
 
 if(isset($_POST['submit'])){
-  $_SESSION['email']  = $_POST['email'];
-  $_SESSION['password'] = $_POST['password'];
-  
-  if($_SESSION['email'] == "adam@gmail.com" && $_SESSION['password'] == "1234"){
-    if($_POST['account_type'] == "patient"){
-      header("Location: ../patient/appointments.php");
-    } else if($_POST['account_type'] == "doctor"){
-      header("Location: ../doctor/dashboard.php");
-    } else if($_POST['account_type'] == "admin"){
-      header("Location: ../admin/dashboard.php");
-    }
-    //exit();
+  $email = trim($_POST['email']);
+  $password = $_POST['password'];
+
+  $servername = "localhost:3301";
+  $username = "root";
+  $dbPassword = "1234";
+  $dbname = "azzahrahappointmentsystem";
+
+  $conn = new mysqli($servername, $username, $dbPassword, $dbname);
+
+  if($conn->connect_error){
+    echo "<script>alert('Database connection failed. Please try again later.');</script>";
   } else {
-   session_destroy();
+    $patientSql = "SELECT email FROM patient WHERE email = ? AND password = ?";
+    $patientStmt = $conn->prepare($patientSql);
+    $patientStmt->bind_param("ss", $email, $password);
+    $patientStmt->execute();
+    $patientResult = $patientStmt->get_result();
+
+    if($patientResult->num_rows == 1){
+      $_SESSION["email"] = $email;
+      $_SESSION["role"] = "Patient";
+      header("Location: ../patient/appointments.php");
+      exit();
+    }
+
+    $staffSql = "SELECT role FROM staff WHERE email = ? AND password = ?";
+    $staffStmt = $conn->prepare($staffSql);
+    $staffStmt->bind_param("ss", $email, $password);
+    $staffStmt->execute();
+    $staffResult = $staffStmt->get_result();
+
+    if($staffResult->num_rows == 1){
+      $staff = $staffResult->fetch_assoc();
+      $role = ucfirst(strtolower(trim($staff["role"])));
+
+      if($role == "Doctor"){
+        $_SESSION["email"] = $email;
+        $_SESSION["role"] = "Doctor";
+        header("Location: ../doctor/dashboard.php");
+        exit();
+      } else if($role == "Admin"){
+        $_SESSION["email"] = $email;
+        $_SESSION["role"] = "Admin";
+        header("Location: ../admin/dashboard.php");
+        exit();
+      }
+    }
+
+    session_unset();
     echo "<script>alert('Invalid username or password. Please try again.');</script>";
+    $conn->close();
   }
 }
 ?>
@@ -80,21 +117,6 @@ if(isset($_POST['submit'])){
                 placeholder="Enter your password"
                 required
               />
-            </div>
-
-            <div class="form-group">
-              <label for="account-type">Account Type</label>
-              <select
-                class="form-control"
-                id="account-type"
-                name="account_type"
-                required
-              >
-                <option value="">Choose account type</option>
-                <option value="patient">Patient</option>
-                <option value="doctor">Doctor</option>
-                <option value="admin">Admin</option>
-              </select>
             </div>
 
             <div class="auth-actions">
