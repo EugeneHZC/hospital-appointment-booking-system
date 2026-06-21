@@ -9,11 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 if (!isset($_POST["time_slot"])) {
     echo "<meta http-equiv='refresh' content='3;URL=add-time-slot.php' />";
-<<<<<<< HEAD
-    die("Please select a time slot.");
-=======
     die("Time slot required. Redirecting to add time slot page.");
->>>>>>> origin/main
 }
 
 $email = $_SESSION["email"];
@@ -24,20 +20,12 @@ $result = $stmt->get_result();
 
 if (!$result) {
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-<<<<<<< HEAD
-    die("Failed to fetch user. Error: $conn->error");
-=======
     die("Failed to fetch user. Error: $conn->error. Redirecting to time slots page.");
->>>>>>> origin/main
 }
 
 if ($result->num_rows == 0) {
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-<<<<<<< HEAD
-    die("User not found.");
-=======
     die("User not found. Redirecting to time slots page.");
->>>>>>> origin/main
 }
 
 $user = $result->fetch_assoc();
@@ -51,19 +39,11 @@ $stmt->bind_param("sss", $time, $status, $timeSlotId);
 $result = $stmt->execute();
 
 if (!$result) {
-<<<<<<< HEAD
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("Failed to update time slot. Error: $conn->error");
-} else {
-    echo "Time slot updated successfully. Redirecting to appointments page.";
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-=======
     echo "<meta http-equiv='refresh' content='3;URL=add-time-slot.php' />";
     echo "Failed to update time slot. Error: $conn->error. Redirecting to add time slot page.";
 } else {
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
     echo "Time slot updated successfully. Redirecting to time slots page.";
->>>>>>> origin/main
 }
 
 ?>
