@@ -6,12 +6,12 @@ $role = $_SESSION["role"];
 
 if ($role === "Patient") {
   echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
-  die("Only admins and doctors can view this page.");
+  die("Only admins and doctors can view this page. Redirecting to forum page.");
 }
 
 if (!isset($_GET["article_id"])) {
   echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
-  die("Article ID required.");
+  die("Article ID required. Redirecting to forum page.");
 }
 
 // get the article by article ID provided
@@ -22,12 +22,12 @@ $stmt->execute();
 $result = $stmt->get_result();
 if (!$result) {
   echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
-  die("Failed to fetch article. Error: $conn->error");
+  die("Failed to fetch article. Error: $conn->error. Redirecting to forum page.");
 }
 
 if ($result->num_rows == 0) {
   echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
-  die("Article not found.");
+  die("Article not found. Redirecting to forum page.");
 }
 
 $article = $result->fetch_assoc();

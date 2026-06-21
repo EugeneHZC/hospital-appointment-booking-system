@@ -32,11 +32,11 @@ if ($role == "Patient") {
 } else {
     $followUpAppointmentId = null;
 
-    if (isset($_POST["appointment_date"]) && isset($_POST["appointment_time"])) {
+    if (isset($_POST["date"]) && isset($_POST["time"])) {
         // insert new follow-up appointment
         $followUpAppointmentId = generateId("appointment", 2, 3);
-        $date = $_POST["appointment_date"];
-        $time = $_POST["appointment_time"];
+        $date = $_POST["date"];
+        $time = $_POST["time"];
         $staffId = $appointment["staff_id"];
         $patientId = $appointment["patient_id"];
 

@@ -137,32 +137,15 @@ if ($result->num_rows > 0) {
 
                     <div class="form-group">
                       <label for="appointment_date">Appointment Date</label>
-                      <input type="date" class="form-control" name="appointment_date" id="appointment-date" min="<?php echo Date('Y-m-d'); ?>" <?php echo $role == "Patient" ? "disabled" : ""; ?>
+                      <input type="date" class="form-control" name="date" id="date" min="<?php echo Date('Y-m-d'); ?>" <?php echo $role == "Patient" ? "disabled" : ""; ?>
                         value="<?php echo (isset($followUpAppointment) ? $followUpAppointment['date'] : ''); ?>" />
                     </div>
 
                     <div class="form-group">
                       <label for="appointment_time">Appointment Time</label>
-                      <select name="appointment_time" id="appointment_time" class="form-control" <?php echo $role == "Patient" ? "disabled" : ""; ?>>
+                      <select name="time" id="time" class="form-control" <?php echo $role == "Patient" ? "disabled" : ""; ?> data-staffid="<?php echo $appointment["staff_id"]; ?>"
+                        data-timeslot="<?php echo $followUpAppointment["time_slot_id"]; ?>" data-appointmentid="<?php echo $followUpAppointmentId ?>">
                         <option value="" disabled selected>Select a time slot</option>
-                        <?php
-                        $staffId = $appointment["staff_id"];
-                        $sql = "SELECT * FROM time_slot WHERE staff_id = '$staffId'";
-                        $timeSlotsResult = $conn->query($sql);
-
-                        if (!$timeSlotsResult) {
-                          echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-                          die("Failed to fetch time slots. Error: $conn->error");
-                        }
-
-                        if ($timeSlotsResult->num_rows > 0) {
-                          while ($row = $timeSlotsResult->fetch_assoc()) {
-                            $timeSlotId = $row["time_slot_id"];
-                            $timeSlot = $row["time"];
-                            echo ((isset($followUpAppointment) && $followUpAppointment['time_slot_id'] == $timeSlotId) ? "<option value='$timeSlotId' selected>$timeSlot</option>" : "<option value='$timeSlotId'>$timeSlot</option>");
-                          }
-                        }
-                        ?>
                       </select>
                     </div>
                   </div>
@@ -189,6 +172,6 @@ if ($result->num_rows > 0) {
   <?php
 } else {
   echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-  die("Appointment not found.");
+  die("Appointment not found. Redirecting to appointments page.");
 }
 ?>
