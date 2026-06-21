@@ -64,6 +64,14 @@ foreach ($statuses as $s) {
 // get number of total articles
 if ($staffId != "") {
     $sql = "SELECT COUNT(*) as total_articles FROM article WHERE status = 'Approved' AND staff_id = '$staffId'";
+} else if ($departmentId != "") {
+    $sql = "SELECT COUNT(*) as total_articles FROM article
+    JOIN staff
+    USING (staff_id)
+    JOIN department
+    USING (department_id)
+    WHERE status = 'Approved'
+    AND department_id = '$departmentId'";
 } else {
     $sql = "SELECT COUNT(*) as total_articles FROM article WHERE status = 'Approved'";
 }

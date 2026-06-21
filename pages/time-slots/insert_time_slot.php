@@ -5,12 +5,12 @@ include('../../helper/generate_id.php');
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-    die("Invalid request method.");
+    die("Invalid request method. Redirecting to appointments page.");
 }
 
 if (!isset($_POST["time_slot"])) {
     echo "<meta http-equiv='refresh' content='3;URL=add-time-slot.php' />";
-    die("Please select a time slot.");
+    die("Please select a time slot. Redirecting to add time slot page.");
 }
 
 $email = $_SESSION["email"];
@@ -20,12 +20,12 @@ $result = $stmt->get_result();
 
 if (!$result) {
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("Failed to fetch user. Error: $conn->error");
+    die("Failed to fetch user. Error: $conn->error. Redirecting to time slots page.");
 }
 
 if ($result->num_rows == 0) {
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("User not found.");
+    die("User not found. Redirecting to time slots page.");
 }
 
 $user = $result->fetch_assoc();
@@ -42,9 +42,9 @@ $result = $stmt->execute();
 
 if (!$result) {
     echo "<meta http-equiv='refresh' content='3;URL=add-time-slot.php' />";
-    die("Failed to add time slot. Error: $conn->error");
+    die("Failed to add time slot. Error: $conn->error. Redirecting to add time slot page.");
 } else {
-    echo "Time slot added successfully. Redirecting to appointments page.";
+    echo "Time slot added successfully. Redirecting to time slots page.";
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
 }
 

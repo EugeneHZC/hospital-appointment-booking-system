@@ -11,8 +11,8 @@ $(document).ready(function () {
     let doctorsDropdown = $("#doctor");
     doctorsDropdown.empty();
     doctorsDropdown.append("<option value='' selected>All Doctors</option>");
-    $("#doctor").trigger("change");
 
+    loadStatistics();
     fetchDoctors();
   });
 

@@ -6,12 +6,12 @@ $role = $_SESSION["role"];
 
 if ($role === "Patient") {
     echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
-    die("Only admins and doctors can view this page.");
+    die("Only admins and doctors can view this page. Redirecting to appointments page.");
 }
 
 if (!isset($_GET["time_slot_id"])) {
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("Time slot id required.");
+    die("Time slot id required. Redirecting to time slots page.");
 }
 
 $timeSlotId = $_GET["time_slot_id"];
@@ -22,12 +22,12 @@ $result = $stmt->get_result();
 
 if (!$result) {
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("Failed to fetch time slot. Error: $conn->error");
+    die("Failed to fetch time slot. Error: $conn->error. Redirecting to time slots page.");
 }
 
 if ($result->num_rows == 0) {
     echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("Time slot not found.");
+    die("Time slot not found. Redirecting to time slots page.");
 }
 
 $timeSlot = $result->fetch_assoc();
