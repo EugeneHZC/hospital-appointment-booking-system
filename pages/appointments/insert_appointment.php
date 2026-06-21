@@ -5,7 +5,11 @@ include('../../helper/generate_id.php');
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
+<<<<<<< HEAD
     die("Invalid request method.");
+=======
+    die("Invalid request method. Redirecting to book appointment page.");
+>>>>>>> origin/main
 }
 
 $email = $_SESSION["email"];
@@ -16,17 +20,29 @@ $result = $stmt->get_result();
 
 if (!$result) {
     echo "<meta http-equiv='refresh' content='3;URL=book-appointment.php' />";
+<<<<<<< HEAD
     die("Failed to fetch user. Error: $conn->error");
+=======
+    die("Failed to fetch user. Error: $conn->error. Redirecting to book appointment page.");
+>>>>>>> origin/main
 }
 
 if ($result->num_rows == 0) {
     echo "<meta http-equiv='refresh' content='3;URL=book-appointment.php' />";
+<<<<<<< HEAD
     die("User not found.");
+=======
+    die("User not found. Redirecting to book appointment page.");
+>>>>>>> origin/main
 }
 
 if (!isset($_POST["department"]) || !isset($_POST["doctor"]) || $_POST["date"] == "" || !isset($_POST["time"])) {
     echo "<meta http-equiv='refresh' content='3;URL=book-appointment.php' />";
+<<<<<<< HEAD
     die("Please fill in all required fields.");
+=======
+    die("Please fill in all required fields. Redirecting to book appointment page.");
+>>>>>>> origin/main
 }
 
 $patient = $result->fetch_assoc();
@@ -35,7 +51,11 @@ $patient_id = $patient["patient_id"];
 $appointment_id = generateId("appointment", 2, 3);
 if ($appointment_id == "") {
     echo "<meta http-equiv='refresh' content='3;URL=book-appointment.php' />";
+<<<<<<< HEAD
     die("Failed to generate ID for new appointment.");
+=======
+    die("Failed to generate ID for new appointment. Redirecting to book appointment page.");
+>>>>>>> origin/main
 }
 
 $department = $_POST["department"];
@@ -53,7 +73,11 @@ $result = $stmt->execute();
 echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
 
 if (!$result) {
+<<<<<<< HEAD
     die("Failed to book appointment. Error: $conn->error");
+=======
+    die("Failed to book appointment. Error: $conn->error. Redirecting to book appointment page.");
+>>>>>>> origin/main
 } else {
     echo "Appointment saved successfully. Redirecting to appointments page.";
 }

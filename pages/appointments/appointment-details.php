@@ -137,12 +137,17 @@ if ($result->num_rows > 0) {
 
                     <div class="form-group">
                       <label for="appointment_date">Appointment Date</label>
+<<<<<<< HEAD
                       <input type="date" class="form-control" name="appointment_date" id="appointment-date" min="<?php echo Date('Y-m-d'); ?>" <?php echo $role == "Patient" ? "disabled" : ""; ?>
+=======
+                      <input type="date" class="form-control" name="date" id="date" min="<?php echo Date('Y-m-d'); ?>" <?php echo $role == "Patient" ? "disabled" : ""; ?>
+>>>>>>> origin/main
                         value="<?php echo (isset($followUpAppointment) ? $followUpAppointment['date'] : ''); ?>" />
                     </div>
 
                     <div class="form-group">
                       <label for="appointment_time">Appointment Time</label>
+<<<<<<< HEAD
                       <select name="appointment_time" id="appointment_time" class="form-control" <?php echo $role == "Patient" ? "disabled" : ""; ?>>
                         <option value="" disabled selected>Select a time slot</option>
                         <?php
@@ -163,6 +168,11 @@ if ($result->num_rows > 0) {
                           }
                         }
                         ?>
+=======
+                      <select name="time" id="time" class="form-control" <?php echo $role == "Patient" ? "disabled" : ""; ?> data-staffid="<?php echo $appointment["staff_id"]; ?>"
+                        data-timeslot="<?php echo $followUpAppointment["time_slot_id"]; ?>" data-appointmentid="<?php echo $followUpAppointmentId ?>">
+                        <option value="" disabled selected>Select a time slot</option>
+>>>>>>> origin/main
                       </select>
                     </div>
                   </div>
@@ -189,6 +199,10 @@ if ($result->num_rows > 0) {
   <?php
 } else {
   echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
+<<<<<<< HEAD
   die("Appointment not found.");
+=======
+  die("Appointment not found. Redirecting to appointments page.");
+>>>>>>> origin/main
 }
 ?>

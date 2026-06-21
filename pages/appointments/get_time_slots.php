@@ -7,6 +7,10 @@ if (!isset($_GET["staff_id"])) {
 
 $staffId = $_GET["staff_id"];
 $selectedDate = $_GET["selected_date"];
+<<<<<<< HEAD
+=======
+$excludeAppointmentId = $_GET["exclude_appointment_id"];
+>>>>>>> origin/main
 
 $stmt = $conn->prepare("SELECT * FROM time_slot
 WHERE time_slot_id NOT IN (
@@ -14,12 +18,20 @@ WHERE time_slot_id NOT IN (
     WHERE staff_id = ?
     AND date = ?
     AND status = 'Scheduled'
+<<<<<<< HEAD
+=======
+    AND appointment_id != ?
+>>>>>>> origin/main
 )
 AND staff_id = ? 
 AND status = 'Active'
 ORDER BY time ASC");
 
+<<<<<<< HEAD
 $stmt->bind_param("sss", $staffId, $selectedDate, $staffId);
+=======
+$stmt->bind_param("ssss", $staffId, $selectedDate, $excludeAppointmentId, $staffId);
+>>>>>>> origin/main
 $stmt->execute();
 $result = $stmt->get_result();
 
