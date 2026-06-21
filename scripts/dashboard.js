@@ -11,13 +11,8 @@ $(document).ready(function () {
     let doctorsDropdown = $("#doctor");
     doctorsDropdown.empty();
     doctorsDropdown.append("<option value='' selected>All Doctors</option>");
-<<<<<<< HEAD
-    $("#doctor").trigger("change");
-
-=======
 
     loadStatistics();
->>>>>>> origin/main
     fetchDoctors();
   });
 

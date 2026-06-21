@@ -55,13 +55,13 @@ $user = $result->fetch_assoc();
         <div id="user-info-card" class="card">
           <h3><?php echo $user["name"]; ?></h3>
           <div id="user-sub-info">
-            <p><i class="fa-solid fa-envelope"></i><?php echo $user["email"]; ?></p>
-            <p><i class="fa-solid fa-phone"></i><?php echo $user["phone_no"]; ?></p>
+            <p class="text-gray"><i class="fa-solid fa-envelope"></i><?php echo $user["email"]; ?></p>
+            <p class="text-gray"><i class="fa-solid fa-phone"></i><?php echo $user["phone_no"]; ?></p>
             <?php
             if ($role == "Patient") {
-              echo "<p><i class='fa-solid fa-id-card'></i>" . $user["ic_number"] . "</p>";
+              echo "<p class='text-gray'><i class='fa-solid fa-id-card'></i>" . $user["ic_number"] . "</p>";
             } else {
-              echo "<p><i class='fa-solid fa-id-card'></i>" . $user["specialty"] . "</p>";
+              echo "<p class='text-gray'><i class='fa-solid fa-id-card'></i>" . $user["specialty"] . "</p>";
             }
             ?>
           </div>
