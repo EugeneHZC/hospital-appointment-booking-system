@@ -13,20 +13,12 @@ if ($role != "Patient") {
 
   if (!$result) {
     echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
-<<<<<<< HEAD
-    die("Failed to fetch user. Error: $conn->error");
-=======
     die("Failed to fetch user. Error: $conn->error. Redirecting to appointments page.");
->>>>>>> origin/main
   }
 
   if ($result->num_rows == 0) {
     echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
-<<<<<<< HEAD
-    die("User not found. Error: $conn->error");
-=======
     die("User not found. Error: $conn->error. Redirecting to appointments page.");
->>>>>>> origin/main
   }
 
   $staff = $result->fetch_assoc();
@@ -69,11 +61,7 @@ if ($role != "Patient") {
             <button class="btn btn-info" id="post-article-btn" type="button"><i class="fa-solid fa-plus"></i>
               Post Article
             </button>
-<<<<<<< HEAD
-          <?php
-=======
             <?php
->>>>>>> origin/main
           }
           ?>
         </div>
@@ -109,11 +97,7 @@ if ($role != "Patient") {
 
           if (!$result) {
             echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
-<<<<<<< HEAD
-            die("Failed to fetch articles. Error: $conn->error");
-=======
             die("Failed to fetch articles. Error: $conn->error. Redirecting to appointments page.");
->>>>>>> origin/main
           }
 
           if ($result->num_rows > 0) {

@@ -6,11 +6,7 @@ if (!isset($_GET["department_id"]) || $_GET["department_id"] == "") {
 } else {
     $departmentId = $_GET["department_id"];
     $stmt = $conn->prepare("SELECT * FROM staff WHERE department_id = ?");
-<<<<<<< HEAD
-    $stmt->bind_param("s", $departmendId);
-=======
     $stmt->bind_param("s", $departmentId);
->>>>>>> origin/main
 }
 
 $stmt->execute();
