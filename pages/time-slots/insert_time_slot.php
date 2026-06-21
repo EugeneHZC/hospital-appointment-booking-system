@@ -34,6 +34,17 @@ $time = $_POST["time_slot"];
 $status = $_POST["status"];
 $staffId = $user["staff_id"];
 
+// check if the current time slot already exists for this staff
+$stmt = $conn->prepare("SELECT * FROM time_slot WHERE time = ? AND staff_id = ? AND time_slot_id != ?");
+$stmt->bind_param("sss", $time, $staffId, $timeSlotId);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result && $result->num_rows > 0) {
+    echo "<meta http-equiv='refresh' content='3;URL=add-time-slot.php' />";
+    die("Time slot already exists. Redirecting to add time slot page.");
+}
+
+// if not, proceed to adding the time slot
 $stmt = $conn->prepare("INSERT INTO time_slot (time_slot_id, time, status, staff_id)
 VALUES (?, ?, ?, ?)");
 

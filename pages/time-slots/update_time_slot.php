@@ -34,6 +34,16 @@ $time = $_POST["time_slot"];
 $status = $_POST["status"];
 $staffId = $user["staff_id"];
 
+// check if the current time slot already exists for this staff
+$stmt = $conn->prepare("SELECT * FROM time_slot WHERE time = ? AND staff_id = ? AND time_slot_id != ?");
+$stmt->bind_param("sss", $time, $staffId, $timeSlotId);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($result && $result->num_rows > 0) {
+    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
+    die("Time slot already exists. Redirecting to time slots page.");
+}
+
 $stmt = $conn->prepare("UPDATE time_slot SET time = ?, status = ? WHERE time_slot_id = ?");
 $stmt->bind_param("sss", $time, $status, $timeSlotId);
 $result = $stmt->execute();

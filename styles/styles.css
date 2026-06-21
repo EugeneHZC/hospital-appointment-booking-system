@@ -457,6 +457,14 @@ small {
   color: var(--secondary-hover);
 }
 
+.text-success {
+  color: var(--success-normal);
+}
+
+.text-danger {
+  color: var(--danger-hover);
+}
+
 .line-height-3 {
   line-height: 1.3;
 }
