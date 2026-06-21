@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 if (!isset($_POST["status"]) || !isset($_POST["article_id"])) {
     echo json_encode("Please provide a status, article ID and admin staff ID.");
-    exit;
+    exit();
 }
 
 $email = $_SESSION["email"];
@@ -19,14 +19,14 @@ $stmt->execute();
 $result = $stmt->get_result();
 if (!$result) {
     echo json_encode("Failed to fetch user. Error: $conn->error");
-    exit;
+    exit();
 }
 
 if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
 } else {
     echo json_encode("User not found.");
-    exit;
+    exit();
 }
 
 $articleId = $_POST["article_id"];

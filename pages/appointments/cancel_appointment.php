@@ -14,7 +14,7 @@ $result = $stmt->execute();
 
 if (!$result) {
     echo json_encode("Failed to cancel appointment. Error: $conn->error");
-    exit;
+    exit();
 }
 
 echo json_encode("Appointment cancelled. Redirecting to appointments page.");

@@ -7,7 +7,7 @@ $result = $stmt->get_result();
 
 if (!$result) {
     echo json_encode([]);
-    exit;
+    exit();
 }
 
 $departments = [];
