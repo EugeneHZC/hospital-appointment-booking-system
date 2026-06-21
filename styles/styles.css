@@ -188,7 +188,15 @@ header h1 {
 
 /* ---------------------------- user info card styling ---------------------------- */
 #user-info-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   margin-bottom: 20px;
+}
+
+.appointment-details-profile-picture {
+  border-radius: 50%;
+  width: 35px;
 }
 
 #user-sub-info {
@@ -200,7 +208,7 @@ header h1 {
 @media screen and (min-width: 800px) {
   #user-sub-info {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
   }
 }
 /* ---------------------------- end user info card styling ---------------------------- */
@@ -357,6 +365,10 @@ small {
   justify-content: end;
 }
 
+.span-4 {
+  margin-top: 0;
+}
+
 .img-center {
   display: block;
   margin-left: auto;
@@ -374,6 +386,11 @@ small {
     display: flex;
     gap: 10px;
     justify-content: center;
+  }
+
+  .span-4 {
+    grid-column: span 4;
+    margin-top: 10px;
   }
 }
 
@@ -438,6 +455,14 @@ small {
 
 .text-gray {
   color: var(--secondary-hover);
+}
+
+.text-success {
+  color: var(--success-normal);
+}
+
+.text-danger {
+  color: var(--danger-hover);
 }
 
 .line-height-3 {

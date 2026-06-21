@@ -30,13 +30,12 @@ $result = $stmt->get_result();
 
 if (!$result) {
   echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-  die("Failed to fetch appointment details. Error: $conn->error");
+  die("Failed to fetch appointment details. Error: $conn->error. Redirecting to appointments page.");
 }
 
 if ($result->num_rows > 0) {
   $appointment = $result->fetch_assoc();
   ?>
-
   <!doctype html>
   <html lang="en">
 
@@ -65,11 +64,30 @@ if ($result->num_rows > 0) {
 
         <div id="content">
           <div id="user-info-card" class="card">
-            <h3><?php echo $appointment["name"]; ?></h3>
+            <h3>
+              <img src="<?php echo $appointment["profile_picture"]; ?>" alt="Profile Picture" class="text-sm appointment-details-profile-picture">
+              <?php echo $appointment["name"]; ?>
+            </h3>
             <div id="user-sub-info">
-              <p class="text-gray">
-                <i class="fa-solid fa-book-medical"></i><?php echo $appointment["appointment_type"]; ?>
-              </p>
+              <p class="text-gray"><i class="fa-solid fa-envelope"></i><?php echo $appointment["email"]; ?></p>
+              <p class="text-gray"><i class="fa-solid fa-phone"></i><?php echo $appointment["phone_no"]; ?></p>
+              <?php
+              if ($role != "Patient") {
+                echo "<p class='text-gray'><i class='fa-solid fa-id-card'></i>" . $appointment["ic_number"] . "</p>";
+                echo "<p class='text-gray'><i class='fa-solid fa-id-card'></i>" . $appointment["date_of_birth"] . "</p>";
+                echo "<p class='text-gray span-4'><i class='fa-solid fa-house'></i>" . $appointment["address"] . "</p>";
+              } else {
+                echo "<p class='text-gray'><i class='fa-solid fa-id-card'></i>" . $appointment["specialty"] . "</p>";
+                echo "<p class='text-gray span-4'><i class='fa-solid fa-book'></i>" . $appointment["bio"] . "</p>";
+              }
+              ?>
+            </div>
+          </div>
+
+
+          <div id="user-info-card" class="card">
+            <h3><?php echo $appointment["appointment_type"]; ?></h3>
+            <div id="user-sub-info">
               <p class="text-gray">
                 <i class="fa-solid fa-calendar"></i><?php echo $appointment["date"]; ?>
               </p>

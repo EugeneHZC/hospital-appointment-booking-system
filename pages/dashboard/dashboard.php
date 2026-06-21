@@ -7,7 +7,7 @@ $role = $_SESSION["role"];
 
 if ($role == "Patient") {
     echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
-    die("Only admins and doctors can access this page.");
+    die("Only admins and doctors can access this page. Redirecting to appointments page.");
 }
 
 $stmt = $conn->prepare("SELECT * FROM staff WHERE email = ?");
@@ -20,8 +20,8 @@ if (!$result) {
 }
 
 if ($result->num_rows == 0) {
-    echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
-    die("Failed to fetch user.");
+    echo "<meta http-equiv='refresh' content='3;URL=../login/login.php' />";
+    die("Failed to fetch user. Redirecting to login page.");
 }
 
 $user = $result->fetch_assoc();
@@ -56,11 +56,11 @@ $user = $result->fetch_assoc();
 
             <section id="content">
                 <div id="user-info-card" class="card">
-                    <h3>Dr. Ali</h3>
+                    <h3><?php echo $user["name"]; ?></h3>
                     <div id="user-sub-info">
-                        <p><i class="fa-solid fa-envelope"></i><?php echo $email; ?></p>
-                        <p><i class="fa-solid fa-phone"></i><?php echo $user["phone_no"]; ?></p>
-                        <p>
+                        <p class="text-gray"><i class="fa-solid fa-envelope"></i><?php echo $email; ?></p>
+                        <p class="text-gray"><i class="fa-solid fa-phone"></i><?php echo $user["phone_no"]; ?></p>
+                        <p class="text-gray">
                             <i class="fa-solid fa-book"></i><?php echo $user["specialty"]; ?>
                         </p>
                     </div>

@@ -85,7 +85,8 @@ $user = $result->fetch_assoc();
               <div class="display-card-left-right card" data-time="<?php echo $row["time"]; ?>">
                 <div class="display-card-left">
                   <h3><?php echo $row["time"]; ?></h3>
-                  <p class="text-gray"><i class="fa-solid fa-circle-<?php echo $row["status"] == "Active" ? "check" : "xmark"; ?>"></i><?php echo $row["status"]; ?></p>
+                  <p class="text-<?php echo $row["status"] == "Active" ? "success" : "danger" ?>"><i
+                      class="fa-solid fa-circle-<?php echo $row["status"] == "Active" ? "check" : "xmark"; ?>"></i><?php echo $row["status"]; ?></p>
                 </div>
 
                 <div class="display-card-right">
