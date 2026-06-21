@@ -57,6 +57,10 @@ $(document).ready(function () {
     $("#date").trigger("change");
   });
 
+<<<<<<< HEAD
+  $("#date").change(function () {
+    let timeSlotDropdown = $("#time");
+=======
   function fetchAvailableTimeSlots(
     staffId,
     selectedDate,
@@ -107,6 +111,7 @@ $(document).ready(function () {
   }
 
   $("#date").change(function () {
+>>>>>>> origin/main
     timeSlotDropdown.empty();
     timeSlotDropdown.append(
       "<option value='' selected disabled>Select a time slot</option>",
@@ -116,11 +121,36 @@ $(document).ready(function () {
       return;
     }
 
+<<<<<<< HEAD
+    let selectedDate = new Date($(this).val());
+
+    $.ajax({
+      type: "GET",
+      url: "get_time_slots.php",
+      data: {
+        staff_id: $("#doctor").val(),
+        selected_date: selectedDate.toISOString().split("T")[0],
+      },
+      success: function (response) {
+        let timeSlots = JSON.parse(response);
+        timeSlots.forEach((timeSlot) => {
+          timeSlotDropdown.append(
+            "<option value='" +
+              timeSlot["time_slot_id"] +
+              "'>" +
+              timeSlot["time"] +
+              "</option>",
+          );
+        });
+      },
+    });
+=======
     fetchAvailableTimeSlots(
       $("#doctor").val() ?? timeSlotDropdown.data("staffid"),
       $(this).val(),
       "",
     );
+>>>>>>> origin/main
   });
 
   function filterAppointments(status) {

@@ -137,7 +137,11 @@ if ($result->num_rows > 0) {
 
                     <div class="form-group">
                       <label for="appointment_date">Appointment Date</label>
+<<<<<<< HEAD
+                      <input type="date" class="form-control" name="appointment_date" id="appointment-date" min="<?php echo Date('Y-m-d'); ?>" <?php echo $role == "Patient" ? "disabled" : ""; ?>
+=======
                       <input type="date" class="form-control" name="date" id="date" min="<?php echo Date('Y-m-d'); ?>" <?php echo $role == "Patient" ? "disabled" : ""; ?>
+>>>>>>> origin/main
                         value="<?php echo (isset($followUpAppointment) ? $followUpAppointment['date'] : ''); ?>" />
                     </div>
 

@@ -1,3 +1,78 @@
+<?php
+include('../../helper/connect.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+function generatePatientId($conn)
+{
+    $sql = "SELECT patient_id 
+            FROM patients 
+            ORDER BY patient_id DESC 
+            LIMIT 1";
+
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) == 0) {
+        return "PT0001";
+    }
+
+    $row = mysqli_fetch_assoc($result);
+    $lastPatientId = $row['patient_id'];
+
+    $number = (int)substr($lastPatientId, 2);
+    $number++;
+
+    return "PT" . str_pad($number, 4, "0", STR_PAD_LEFT);
+}
+
+    $patient_id = generatePatientId($conn);
+
+    $name = $_POST['name'];
+    $ic_number = $_POST['ic_number'];
+    $email = $_POST['email'];
+    $phone_no = $_POST['phone_no'];
+    $date_of_birth = $_POST['date_of_birth'];
+    $gender = $_POST['gender'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    $address = $_POST['address'];
+
+    if ($password != $confirm_password) {
+        die("Passwords do not match.");
+    }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "INSERT INTO patients
+            (patient_id, name, ic_number, email, phone_no, date_of_birth, gender, password, address)
+            VALUES
+            (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = mysqli_prepare($conn, $sql);
+
+    mysqli_stmt_bind_param(
+        $stmt,
+        "sssssssss",
+        $patient_id,
+        $name,
+        $ic_number,
+        $email,
+        $phone_no,
+        $date_of_birth,
+        $gender,
+        $password,
+        $address
+    );
+
+    if (mysqli_stmt_execute($stmt)) {
+        echo "Registration successful! Patient ID: " . $patient_id;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
+}
+?>
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -14,13 +89,13 @@
     <section class="card auth-card">
       <div class="auth-header">
         <div class="auth-brand">
-          <img class="auth-logo" src="logo-azzahrah.png" alt="Hospital Islam Azzahrah logo" />
+          <img class="auth-logo" src="../../images/logo-azzahrah.png" alt="Hospital Islam Azzahrah logo" />
           <div class="auth-title">
             <h1>Hospital Islam Azzahrah</h1>
             <p>Appointment Booking System</p>
           </div>
         </div>
-        <a href="Login.html">
+        <a href="Login.php">
           <i class="fa-solid fa-arrow-left"></i>Back to Login
         </a>
       </div>

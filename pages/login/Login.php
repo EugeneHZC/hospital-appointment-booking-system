@@ -28,6 +28,10 @@
           <p>Sign in with your registered email and password.</p>
         </div>
 
+        <?php if (isset($_GET["error"])) { ?>
+          <p class="auth-error"><?php echo htmlspecialchars($_GET["error"]); ?></p>
+        <?php } ?>
+
         <form action="loginSubmit.php" method="post">
           <div class="form-group">
             <label for="email">Email Address</label>
@@ -37,16 +41,6 @@
           <div class="form-group">
             <label for="password">Password</label>
             <input class="form-control" type="password" id="password" name="password" placeholder="Enter your password" required />
-          </div>
-
-          <div class="form-group">
-            <label for="account-type">Account Type</label>
-            <select class="form-control" id="account-type" name="account_type" required>
-              <option value="">Choose account type</option>
-              <option value="patient">Patient</option>
-              <option value="doctor">Doctor</option>
-              <option value="admin">Admin</option>
-            </select>
           </div>
 
           <div class="auth-actions">
