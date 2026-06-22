@@ -35,7 +35,7 @@ if ($result->num_rows > 0) {
     die("User not found. Redirecting to post article page.");
 }
 
-$articleId = generateId("article", 1, 3);
+$articleId = generateId("article", 1, 8);
 $title = $_POST["article_title"];
 $content = $_POST["article_content"];
 $staffId = $user["staff_id"];

@@ -29,7 +29,7 @@ if ($result->num_rows == 0) {
 }
 
 $user = $result->fetch_assoc();
-$timeSlotId = generateId("time_slot", 2, 3);
+$timeSlotId = generateId("time_slot", 2, 8);
 $time = $_POST["time_slot"];
 $status = $_POST["status"];
 $staffId = $user["staff_id"];

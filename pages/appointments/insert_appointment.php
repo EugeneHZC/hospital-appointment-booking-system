@@ -32,7 +32,7 @@ if (!isset($_POST["department"]) || !isset($_POST["doctor"]) || $_POST["date"] =
 $patient = $result->fetch_assoc();
 $patient_id = $patient["patient_id"];
 
-$appointment_id = generateId("appointment", 2, 3);
+$appointment_id = generateId("appointment", 2, 13);
 if ($appointment_id == "") {
     echo "<meta http-equiv='refresh' content='3;URL=book-appointment.php' />";
     die("Failed to generate ID for new appointment. Redirecting to book appointment page.");
