@@ -14,7 +14,7 @@ if ($role != "Patient") {
   if (!$result || $result->num_rows == 0) {
     echo "
         <script>
-            alert('Failed to fetch user. Error: $conn->error. Redirecting to appointments page.');
+            alert('Failed to fetch user. Error: $conn->error.');
             window.location='../appointments/appointments.php';
         </script>
         ";

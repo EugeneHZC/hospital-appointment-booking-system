@@ -54,7 +54,7 @@ if ($role != "Patient") {
                                 <select name="department" id="department" class="form-control">
                                     <option value="" selected disabled>Select a department</option>
                                     <?php
-                                    $sql = "SELECT * FROM department";
+                                    $sql = "SELECT * FROM department WHERE status = 'Active'";
                                     $result = $conn->query($sql);
 
                                     if (!$result) {

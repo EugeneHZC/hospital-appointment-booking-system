@@ -248,6 +248,14 @@ small {
   gap: 10px;
 }
 
+.text-male-blue {
+  color: #1e90ff;
+}
+
+.text-female-pink {
+  color: #ff69b4;
+}
+
 .form-control {
   padding: 10px 15px;
   border-radius: 8px;

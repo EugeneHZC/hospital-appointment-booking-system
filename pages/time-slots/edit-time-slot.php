@@ -16,7 +16,7 @@ if ($role === "Patient") {
 if (!isset($_GET["time_slot_id"])) {
     echo "
       <script>
-          alert('Time slot id required. Redirecting to time slots page.');
+          alert('Time slot id required.');
           window.location='time-slots.php';
       </script>
       ";

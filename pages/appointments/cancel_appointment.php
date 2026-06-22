@@ -21,5 +21,5 @@ if (!$result) {
     exit();
 }
 
-echo json_encode("Appointment cancelled. Redirecting to appointments page.");
+echo json_encode("Appointment cancelled.");
 ?>

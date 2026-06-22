@@ -65,7 +65,7 @@ $result = $stmt->execute();
 if ($result) {
     echo "
         <script>
-            alert('Doctor added successfully.');
+            alert('Doctor updated successfully.');
             window.location='doctor.php';
         </script>
         ";

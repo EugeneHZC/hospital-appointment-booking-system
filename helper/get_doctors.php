@@ -12,14 +12,14 @@ if (!isset($_GET["department_id"]) || $_GET["department_id"] == "") {
 $stmt->execute();
 $result = $stmt->get_result();
 
-if (!$result) {
+if (!$result || $result->num_rows == 0) {
     echo json_encode([]);
     exit();
 }
 
 $doctors = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch_assoc()) {
+    if (!isset($_GET["status"]) || $row["status"] == $_GET["status"]) {
         array_push($doctors, $row);
     }
 }

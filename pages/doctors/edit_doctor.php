@@ -137,8 +137,8 @@ if (!$result || $result->num_rows == 0) {
                         <div class="form-group">
                             <label>Status</label>
                             <select name="status" id="status" class="form-control" required>
-                                <option value="Active" <?php $doctor["status"] == "Active" ? "selected" : "" ?>>Active</option>
-                                <option value="Inactive" <?php $doctor["status"] == "Inactive" ? "selected" : "" ?>>Inactive</option>
+                                <option value="Active" <?php echo $doctor["status"] == "Active" ? "selected" : "" ?>>Active</option>
+                                <option value="Inactive" <?php echo $doctor["status"] == "Inactive" ? "selected" : "" ?>>Inactive</option>
                             </select>
                         </div>
 

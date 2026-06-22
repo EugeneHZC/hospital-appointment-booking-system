@@ -35,6 +35,7 @@ $(document).ready(function () {
       url: "../../helper/get_doctors.php",
       data: {
         department_id: $(this).val(),
+        status: "Active",
       },
       success: function (response) {
         let doctors = JSON.parse(response);
