@@ -3,8 +3,12 @@ include('../../helper/connect.php');
 include('../../helper/verify_auth.php');
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-    die("Invalid request method.");
+    echo "
+        <script>
+            alert('Invalid request method.');
+            window.location='edit-article.php';
+        </script>
+        ";
 }
 
 if (!isset($_POST["status"]) || !isset($_POST["article_id"])) {

@@ -5,82 +5,32 @@ include('../../helper/generate_id.php');
 
 $role = $_SESSION["role"];
 
-if ($role !== "Admin") 
-{
-    echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
-    die("Only admins can view this page.");
+if ($role !== "Admin") {
+    echo "
+        <script>
+            alert('Only admins can view this page.');
+            window.location='../appointments/appointments.php';
+        </script>
+        ";
 }
 
-if(isset($_POST['save']))
-{
-    $staff_id = generate_id(
-        "staff",
-        "staff_id",
-        "DOC"
-    );
+$stmt = $conn->prepare("SELECT * FROM department ORDER BY department_name");
+$stmt->execute();
+$result = $stmt->get_result();
 
-    $name = $_POST['name'];
-    $department_id = $_POST['department_id'];
-    $specialty = $_POST['specialty'];
-    $email = $_POST['email'];
-    $phone_no = $_POST['phone_no'];
-    $bio = $_POST['bio'];
-
-    $sql = "
-
-    INSERT INTO staff
-    (
-        staff_id,
-        name,
-        role,
-        email,
-        phone_no,
-        specialty,
-        bio,
-        department_id
-    )
-
-    VALUES
-
-    (
-        '$staff_id',
-        '$name',
-        'Doctor',
-        '$email',
-        '$phone_no',
-        '$specialty',
-        '$bio',
-        '$department_id'
-    )
-
-    ";
-
-    if(mysqli_query($conn,$sql))
-    {
-        echo "
+if (!$result || $result->num_rows == 0) {
+    echo "
         <script>
-            alert('Doctor added successfully');
+            alert('Failed to fetch departments.');
             window.location='doctor.php';
         </script>
         ";
-    }
 }
-
-
-
-
-
-$department = mysqli_query(
-    $conn,
-    "SELECT *
-     FROM department
-     ORDER BY department_name"
-);
-
 ?>
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -96,185 +46,107 @@ $department = mysqli_query(
 
 <body>
 
-<div id="container">
-    <?php include("../../components/side-nav.php"); ?>
+    <div id="container">
+        <?php include("../../components/side-nav.php"); ?>
 
-    <main>
-        <header>
-            <button id="nav-toggle" class="btn btn-info">
-                <i class="fa-solid fa-bars"></i>
-            </button>
+        <main>
+            <header>
+                <button id="nav-toggle" class="btn btn-info">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
 
-            <div>
-                <h1>
-                    Add Doctor
-                </h1>
-                <p id="role-view">
-                    <?php echo $role; ?>'s View
-                </p>
-            </div>
-        </header>
+                <div>
+                    <h1>
+                        Add Doctor
+                    </h1>
+                    <p id="role-view">
+                        <?php echo $role; ?>'s View
+                    </p>
+                </div>
+            </header>
 
-        <section id="content">
-            <div class="card" style="max-width:900px;margin:auto;">
-                <form method="POST">
-                    <div class="row">
-                        <div style="flex:1;">
-                            <label>
-                                Doctor ID
-                            </label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="Auto Generate"
-                                readonly
-                            >
-
+            <section id="content">
+                <div class="card">
+                    <form method="post" action="insert_doctor.php">
+                        <div class="form-group">
+                            <label>Doctor Name</label>
+                            <input type="text" name="name" class="form-control" required>
                         </div>
 
-                        <div style="flex:1;">
-                            <label>
-                                Doctor Name
-                            </label>
-
-                            <input
-                                type="text"
-                                name="name"
-                                class="form-control"
-                                required
-                            >
-
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control" required>
                         </div>
 
-                    </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select name="gender" id="gender" class="form-control" required>
+                                    <option value="" selected disabled>Select a gender</option>
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label> Phone Number</label>
+                                <input type="text" name="phone_no" class="form-control" required>
+                            </div>
+                        </div>
 
-                    <br>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>
+                                    Department
+                                </label>
 
-                    <div class="row">
-                        <div style="flex:1;">
-                            <label>
-                                Department
-                            </label>
+                                <select name="department_id" class="form-control" required>
+                                    <option>
+                                        Select Department
+                                    </option>
+                                    <?php
+                                    while ($row = $result->fetch_assoc()) {
+                                        ?>
+                                        <option value="<?php echo $row['department_id']; ?>">
+                                            <?php echo $row['department_name']; ?>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
 
-                            <select
-                                name="department_id"
-                                class="form-control"
-                                required>
-                                <option>
-                                    Select Department
-                                </option>
+                            <div class="form-group">
+                                <label>Speciality</label>
+                                <input type="text" name="specialty" class="form-control" required>
+                            </div>
+                        </div>
 
-                                <?php
-                                while($row = mysqli_fetch_assoc($department))
-                                {
-                                ?>
-
-                                <option value="<?php echo $row['department_id']; ?>">
-                                    <?php echo $row['department_name']; ?>
-                                </option>
-
-                                <?php
-                                }
-                                ?>
-
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status" id="status" class="form-control" required>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
                             </select>
-
                         </div>
 
-                        <div style="flex:1;">
-                            <label>
-                                Speciality
-                            </label>
-
-                            <input
-                                type="text"
-                                name="specialty"
-                                class="form-control"
-                                required
-                            >
-
+                        <div class="form-group">
+                            <label>Bio</label>
+                            <textarea name="bio" rows="5" class="form-control"></textarea>
                         </div>
 
-                    </div>
-
-                    <br>
-
-                    <div class="row">
-                        <div style="flex:1;">
-                            <label>
-                                Email
-                            </label>
-
-                            <input
-                                type="email"
-                                name="email"
-                                class="form-control"
-                                required
-                            >
-
+                        <div class="text-center">
+                            <button type="button" class="btn btn-secondary" onclick="window.location.href='doctor.php'">
+                                Cancel
+                            </button>
+                            <button type="submit" name="save" class="btn btn-info">
+                                <i class="fa-solid fa-save"></i>Save
+                            </button>
                         </div>
-                        <div style="flex:1;">
-                            <label>
-                                Phone Number
-                            </label>
-
-                            <input
-                                type="text"
-                                name="phone_no"
-                                class="form-control"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-                    <br>
-
-                    <div>
-
-                        <label>
-                            Description
-                        </label>
-
-                        <textarea
-                            name="bio"
-                            rows="5"
-                            class="form-control">
-                        </textarea>
-
-                    </div>
-
-                    <br>
-
-                    <div class="row" style="justify-content:flex-end;gap:10px;">
-
-                        <button
-                            type="button"
-                            class="btn btn-danger"
-                            onclick="window.location.href='doctor.php'">
-                            Cancel
-                        </button>
-
-                        <button
-                            type="submit"
-                            name="save"
-                            class="btn btn-info">
-                            Save
-                        </button>
-
-                    </div>
-
-                </form>
-
-            </div>
-
-        </section>
-
-    </main>
-
-</div>
-
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
 </body>
 
 </html>

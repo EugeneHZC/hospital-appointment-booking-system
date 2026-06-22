@@ -42,7 +42,7 @@ foreach ($statuses as $s) {
         $sql = "SELECT COUNT(*) as " . $key . "_appointments FROM appointment
         JOIN staff
         USING (staff_id)
-        WHERE status = '$s'
+        WHERE appointment.status = '$s'
         AND staff.department_id = '$departmentId'";
     } else {
         $sql = "SELECT COUNT(*) as " . $key . "_appointments FROM appointment WHERE status = '$s'";
@@ -68,9 +68,7 @@ if ($staffId != "") {
     $sql = "SELECT COUNT(*) as total_articles FROM article
     JOIN staff
     USING (staff_id)
-    JOIN department
-    USING (department_id)
-    WHERE status = 'Approved'
+    WHERE article.status = 'Approved'
     AND department_id = '$departmentId'";
 } else {
     $sql = "SELECT COUNT(*) as total_articles FROM article WHERE status = 'Approved'";

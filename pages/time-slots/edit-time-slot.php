@@ -5,13 +5,21 @@ include('../../helper/connect.php');
 $role = $_SESSION["role"];
 
 if ($role === "Patient") {
-    echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
-    die("Only admins and doctors can view this page. Redirecting to appointments page.");
+    echo "
+      <script>
+          alert('Only admins and doctors can view this page.');
+          window.location='../appointments/appointments.php';
+      </script>
+      ";
 }
 
 if (!isset($_GET["time_slot_id"])) {
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("Time slot id required. Redirecting to time slots page.");
+    echo "
+      <script>
+          alert('Time slot id required.');
+          window.location='time-slots.php';
+      </script>
+      ";
 }
 
 $timeSlotId = $_GET["time_slot_id"];
@@ -20,14 +28,13 @@ $stmt->bind_param("s", $timeSlotId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if (!$result) {
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("Failed to fetch time slot. Error: $conn->error. Redirecting to time slots page.");
-}
-
-if ($result->num_rows == 0) {
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("Time slot not found. Redirecting to time slots page.");
+if (!$result || $result->num_rows == 0) {
+    echo "
+      <script>
+          alert('Failed to fetch time slot. Error: $conn->error.');
+          window.location='time-slots.php';
+      </script>
+      ";
 }
 
 $timeSlot = $result->fetch_assoc();

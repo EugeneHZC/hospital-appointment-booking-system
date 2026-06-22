@@ -4,8 +4,12 @@ include('../../helper/verify_auth.php');
 include('../../helper/generate_id.php');
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-    die("Invalid request method.");
+    echo "
+        <script>
+            alert('Invalid request method.');
+            window.location='appointment-details.php';
+        </script>
+        ";
 }
 
 $role = $_SESSION["role"];
@@ -18,12 +22,16 @@ $stmt = $conn->prepare("SELECT * FROM appointment WHERE appointment_id = ?");
 $stmt->bind_param("s", $appointmentId);
 $stmt->execute();
 $result = $stmt->get_result();
-if ($result && $result->num_rows > 0) {
-    $appointment = $result->fetch_assoc();
-} else {
-    echo "<meta http-equiv='refresh' content='3;URL=appointments.php'>";
-    die("Failed to fetch appointment. Error: $conn->error");
+if (!$result || $result->num_rows == 0) {
+    echo "
+        <script>
+            alert('Failed to fetch appointment. Error: $conn->error');
+            window.location='appointment-details.php';
+        </script>
+        ";
 }
+
+$appointment = $result->fetch_assoc();
 
 if ($role == "Patient") {
     $patientRemark = $_POST["patient_remark"];
@@ -34,7 +42,7 @@ if ($role == "Patient") {
 
     if (isset($_POST["date"]) && isset($_POST["time"])) {
         // insert new follow-up appointment
-        $followUpAppointmentId = generateId("appointment", 2, 3);
+        $followUpAppointmentId = generateId("appointment", 2, 13);
         $date = $_POST["date"];
         $time = $_POST["time"];
         $staffId = $appointment["staff_id"];
@@ -66,9 +74,18 @@ if ($role == "Patient") {
 $result = $stmt->execute();
 
 if ($result) {
-    echo "Appointment saved successfully. Redirecting to appointments page.";
+    echo "
+        <script>
+            alert('Appointment saved successfully.');
+            window.location='appointments.php';
+        </script>
+        ";
 } else {
-    echo "Failed to save appointment. Error: $conn->error";
+    echo "
+        <script>
+            alert('Failed to save appointment. Error: $conn->error');
+            window.location='appointment-details.php';
+        </script>
+        ";
 }
-echo "<meta http-equiv='refresh' content='3;URL=appointments.php'>";
 ?>

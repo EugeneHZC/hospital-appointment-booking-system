@@ -5,68 +5,32 @@ include('../../helper/connect.php');
 
 $role = $_SESSION["role"];
 
-if ($role !== "Admin") 
-{
-    echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
-    die("Only admins can view this page.");
+if ($role !== "Admin") {
+    echo "
+        <script>
+            alert('Only admins can view this page.');
+            window.location='../appointments/appointments.php';
+        </script>
+        ";
 }
 
-
-if(isset($_GET['delete']))
-{
-    $id = $_GET['delete'];
-
-    mysqli_query(
-        $conn,
-        "DELETE FROM staff
-        WHERE staff_id='$id'
-        AND role='Doctor'"
-    );
-
-    header("Location: doctor.php");
-    exit();
-}
-
-$search = "";
-
-if(isset($_GET['search']))
-{
-    $search = $_GET['search'];
-}
-
-
-
-$search = mysqli_real_escape_string($conn,$search);
-
-$sql = "
-
-SELECT
+$stmt = $conn->prepare(
+    "SELECT
     s.staff_id,
     s.name,
     s.specialty,
-    d.department_name
-FROM staff s
-LEFT JOIN department d
-ON s.department_id = d.department_id
-WHERE s.role='Doctor'
-AND
+    d.department_name,
+    s.status,
+    s.gender
+    FROM staff s
+    LEFT JOIN department d
+    ON s.department_id = d.department_id
+    WHERE s.role = 'Doctor'
+    ORDER BY s.staff_id ASC"
+);
 
-(
-
-    s.staff_id LIKE '%$search%'
-    OR
-    s.name LIKE '%$search%'
-    OR
-    s.specialty LIKE '%$search%'
-    OR
-    d.department_name LIKE '%$search%'
-)
-
-ORDER BY s.staff_id ASC
-
-";
-
-$result = mysqli_query($conn,$sql);
+$stmt->execute();
+$result = $stmt->get_result();
 
 ?>
 
@@ -85,6 +49,7 @@ $result = mysqli_query($conn,$sql);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
     <script src="../../scripts/load-page.js"></script>
+    <script src="../../scripts/doctors.js"></script>
 
 </head>
 
@@ -98,108 +63,70 @@ $result = mysqli_query($conn,$sql);
                 <button id="nav-toggle" class="btn btn-info">
                     <i class="fa-solid fa-bars"></i>
                 </button>
-
                 <div>
-                    <h1>
-                        Doctor Management
-                    </h1>
-
+                    <h1>Doctor Management</h1>
                     <p id="role-view">
                         <?php echo $role; ?>'s View
                     </p>
-
                 </div>
-
             </header>
 
             <section id="content">
-
-                <form method="GET">
-                    <div class="row" id="article-search">
-
-                        <label for="search-bar">
-                            Search
-                        </label>
-
-                        <input
-                            type="search"
-                            name="search"
-                            id="search-bar"
-                            class="form-control"
-                            placeholder="Search doctor by ID, name, department or speciality"
-                            value="<?php echo $search; ?>"
-                        >
-
-
-                        <button
-                            type="submit"
-                            class="btn btn-info">
-                            Search
-                        </button>
-
-                        <button
-                            type="button"
-                            class="btn btn-info"
-                            onclick="window.location.href='add_doctor.php'">
-                            Add Doctor
-                        </button>
-
-                    </div>
-
-                </form>
-
-                <div class="display-cards">
+                <div class="row" id="article-search">
+                    <label for="search-bar">
+                        Search
+                    </label>
+                    <input type="search" name="search" id="search-bar" class="form-control" placeholder="Search fpr doctor by ID, name, department or speciality">
 
                     <?php
-                    while($row = mysqli_fetch_assoc($result))
-                    {
-
+                    if ($role == "Admin") {
+                        ?>
+                        <button type="button" class="btn btn-info" onclick="window.location.href='add_doctor.php'">
+                            Add Doctor
+                        </button>
+                        <?php
+                    }
                     ?>
+                </div>
 
-                    <div class="display-card-top-bottom card">
-                        <div class="display-card-top">
-                            <div>
+                <div class="display-cards">
+                    <?php
+                    while ($row = $result->fetch_assoc()) {
+                        ?>
+                        <div class="display-card-left-right card" data-name="<?php echo $row["name"]; ?>" data-specialty="<?php echo $row["specialty"]; ?>"
+                            data-departmentname="<?php echo $row["department_name"]; ?>" data-gender="<?php echo $row["gender"] == "M" ? "Male" : "Female"; ?>">
+                            <div class="display-card-left">
                                 <h3>
                                     <?php echo $row['name']; ?>
                                 </h3>
-
-                                <p>
-                                    Doctor ID :
-                                    <?php echo $row['staff_id']; ?>
+                                <p class="text-<?php echo $row["status"] == "Active" ? "success" : "danger"; ?>">
+                                    <i class="fa-solid fa-circle-<?php echo $row["status"] == "Active" ? "check" : "xmark"; ?>"></i><?php echo $row['status']; ?>
                                 </p>
-
-                                <p>
-                                    Department :
-                                    <?php echo $row['department_name']; ?>
+                                <p class="text-gray">
+                                    <i class="fa-solid fa-<?php echo $row['gender'] == 'M' ? 'mars' : 'venus'; ?>"></i><?php echo $row['gender'] == 'M' ? "Male" : "Female"; ?>
                                 </p>
-
-                                <p>
-                                    Speciality :
-                                    <?php echo $row['specialty']; ?>
+                                <p class=" text-gray">
+                                    <i class="fa-solid fa-building"></i><?php echo $row['department_name']; ?>
                                 </p>
-
+                                <p class="text-gray">
+                                    <i class='fa-solid fa-id-card'></i><?php echo $row['specialty']; ?>
+                                </p>
                             </div>
-                            <div class="btns">
 
-                                <button
-                                    class="btn btn-info"
-                                    onclick="window.location.href='edit_doctor.php?id=<?php echo $row['staff_id']; ?>'">
-                                    Edit
-                                </button>
-
-                                <button
-                                    class="btn btn-danger"
-                                    onclick="return confirm('Delete this doctor?')">
-                                    Delete
-                                </button>
-
+                            <div class="display-card-right">
+                                <div class="btns">
+                                    <button class="btn btn-info" onclick="window.location.href='edit_doctor.php?staff_id=<?php echo $row['staff_id']; ?>'">
+                                        Edit
+                                    </button>
+                                    <button class="btn btn-danger" onclick="return confirm('Delete this doctor?')">
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
 
                         </div>
 
-                    </div>
-
-                    <?php
+                        <?php
                     }
                     ?>
 

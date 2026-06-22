@@ -29,8 +29,12 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if (!$result) {
-  echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-  die("Failed to fetch appointment details. Error: $conn->error. Redirecting to appointments page.");
+  echo "
+        <script>
+            alert('Failed to fetch departments. Error: $conn->error');
+            window.location='appointments.php';
+        </script>
+        ";
 }
 
 if ($result->num_rows > 0) {
@@ -65,8 +69,9 @@ if ($result->num_rows > 0) {
         <div id="content">
           <div id="user-info-card" class="card">
             <h3>
-              <img src="<?php echo $appointment["profile_picture"]; ?>" alt="Profile Picture" class="text-sm appointment-details-profile-picture">
+              <img src="<?php echo $appointment["profile_picture"] ?? "../../images/circle-user-solid-full.svg"; ?>" alt="Profile Picture" class="text-sm appointment-details-profile-picture">
               <?php echo $appointment["name"]; ?>
+              <i class="fa-solid fa-<?php echo $appointment['gender'] == 'M' ? 'mars' : 'venus'; ?> text-<?php echo $appointment['gender'] == 'M' ? 'male-blue' : 'female-pink'; ?>"></i>
             </h3>
             <div id="user-sub-info">
               <p class="text-gray"><i class="fa-solid fa-envelope"></i><?php echo $appointment["email"]; ?></p>
@@ -189,7 +194,11 @@ if ($result->num_rows > 0) {
 
   <?php
 } else {
-  echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-  die("Appointment not found. Redirecting to appointments page.");
+  echo "
+        <script>
+            alert('Appointment not found.');
+            window.location='appointments.php';
+        </script>
+        ";
 }
 ?>

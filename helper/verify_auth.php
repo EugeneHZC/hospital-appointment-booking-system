@@ -5,7 +5,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
 if (!isset($_SESSION["email"])) {
     session_destroy();
-    echo "<meta http-equiv='refresh' content='3;URL=../login/Login.php' />";
-    die("Please login first.");
+    echo "
+        <script>
+            alert('Please login first.');
+            window.location='../login/Login.php';
+        </script>
+        ";
 }
 ?>

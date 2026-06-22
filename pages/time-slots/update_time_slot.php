@@ -3,13 +3,21 @@ include('../../helper/verify_auth.php');
 include('../../helper/connect.php');
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-    die("Invalid request method.");
+    echo "
+        <script>
+            alert('Invalid request method.');
+            window.location='edit-time-slot.php';
+        </script>
+        ";
 }
 
 if (!isset($_POST["time_slot"])) {
-    echo "<meta http-equiv='refresh' content='3;URL=add-time-slot.php' />";
-    die("Time slot required. Redirecting to add time slot page.");
+    echo "
+        <script>
+            alert('Time slot required.');
+            window.location='edit-time-slot.php';
+        </script>
+        ";
 }
 
 $email = $_SESSION["email"];
@@ -18,14 +26,13 @@ $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if (!$result) {
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("Failed to fetch user. Error: $conn->error. Redirecting to time slots page.");
-}
-
-if ($result->num_rows == 0) {
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("User not found. Redirecting to time slots page.");
+if (!$result || $result->num_rows == 0) {
+    echo "
+        <script>
+            alert('Failed to fetch user. Error: $conn->error');
+            window.location='edit-time-slot.php';
+        </script>
+        ";
 }
 
 $user = $result->fetch_assoc();
@@ -40,8 +47,12 @@ $stmt->bind_param("sss", $time, $staffId, $timeSlotId);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result && $result->num_rows > 0) {
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("Time slot already exists. Redirecting to time slots page.");
+    echo "
+        <script>
+            alert('Time slot already exists.');
+            window.location='edit-time-slot.php';
+        </script>
+        ";
 }
 
 $stmt = $conn->prepare("UPDATE time_slot SET time = ?, status = ? WHERE time_slot_id = ?");
@@ -49,11 +60,19 @@ $stmt->bind_param("sss", $time, $status, $timeSlotId);
 $result = $stmt->execute();
 
 if (!$result) {
-    echo "<meta http-equiv='refresh' content='3;URL=add-time-slot.php' />";
-    echo "Failed to update time slot. Error: $conn->error. Redirecting to add time slot page.";
+    echo "
+        <script>
+            alert('Failed to update time slot. Error: $conn->error');
+            window.location='edit-time-slot.php';
+        </script>
+        ";
 } else {
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    echo "Time slot updated successfully. Redirecting to time slots page.";
+    echo "
+        <script>
+            alert('Time slot updated successfully.');
+            window.location='time-slots.php';
+        </script>
+        ";
 }
 
 ?>

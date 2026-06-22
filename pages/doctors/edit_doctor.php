@@ -5,201 +5,164 @@ include('../../helper/generate_id.php');
 
 $role = $_SESSION["role"];
 
-if ($role !== "Admin") 
-{
-    echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
-    die("Only admins can view this page.");
+if ($role !== "Admin") {
+    echo "
+        <script>
+            alert('Only admins can view this page.');
+            window.location='../appointments/appointments.php';
+        </script>
+        ";
 }
 
-if(isset($_POST['save']))
-{
-    $staff_id = generate_id(
-        "staff",
-        "staff_id",
-        "DOC"
-    );
-
-    $name = $_POST['name'];
-    $department_id = $_POST['department_id'];
-    $specialty = $_POST['specialty'];
-    $email = $_POST['email'];
-    $phone_no = $_POST['phone_no'];
-    $bio = $_POST['bio'];
-
-    $sql = "
-    INSERT INTO staff
-    (
-        staff_id,
-        name,
-        role,
-        email,
-        phone_no,
-        specialty,
-        bio,
-        department_id
-    )
-    VALUES
-    (
-        '$staff_id',
-        '$name',
-        'Doctor',
-        '$email',
-        '$phone_no',
-        '$specialty',
-        '$bio',
-        '$department_id'
-    )
-    ";
-
-    if(mysqli_query($conn,$sql))
-    {
-        echo "
+if (!isset($_GET["staff_id"])) {
+    echo "
         <script>
-            alert('Doctor added successfully');
+            alert('Staff ID required.');
             window.location='doctor.php';
         </script>
         ";
-    }
 }
 
-$department = mysqli_query(
-    $conn,
-    "SELECT *
-     FROM department
-     ORDER BY department_name"
-);
+$staffId = $_GET["staff_id"];
+
+$stmt = $conn->prepare("SELECT * FROM staff WHERE staff_id = ? LIMIT 1");
+$stmt->bind_param("s", $staffId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if (!$result || $result->num_rows == 0) {
+    echo "
+        <script>
+            alert('Failed to fetch doctor info.');
+            window.location='doctor.php';
+        </script>
+        ";
+}
+
+$doctor = $result->fetch_assoc();
+
+$stmt = $conn->prepare("SELECT * FROM department ORDER BY department_name");
+$stmt->execute();
+$result = $stmt->get_result();
+
+if (!$result || $result->num_rows == 0) {
+    echo "
+        <script>
+            alert('Failed to fetch departments.');
+            window.location='doctor.php';
+        </script>
+        ";
+}
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Doctor</title>
     <link rel="stylesheet" href="../../styles/styles.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
     <script src="../../scripts/load-page.js"></script>
+    <title>Hospital Islam Azzahrah Appointment Booking System - Edit Doctor</title>
 </head>
+
 <body>
-<div id="container">
-    <?php include("../../components/side-nav.php"); ?>
-    <main>
-        <header>
-            <button id="nav-toggle" class="btn btn-info">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-            <div>
-                <h1>Add Doctor</h1>
-                <p id="role-view">
-                    <?php echo $role; ?>'s View
-                </p>
-            </div>
-        </header>
-        <section id="content">
-            <div class="card" style="max-width:900px;margin:auto;">
-                <form method="POST">
-                    <div class="row">
-                        <div style="flex:1;">
-                            <label>Doctor ID</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                value="Auto Generate"
-                                readonly
-                            >
-                        </div>
-                        <div style="flex:1;">
+    <div id="container">
+        <?php include("../../components/side-nav.php"); ?>
+        <main>
+            <header>
+                <button id="nav-toggle" class="btn btn-info">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <h1>Edit Doctor</h1>
+                    <p id="role-view">
+                        <?php echo $role; ?>'s View
+                    </p>
+                </div>
+            </header>
+            <section id="content">
+                <div class="card">
+                    <form method="post" action="update_doctor.php">
+                        <input type="hidden" name="staff_id" value="<?php echo $doctor["staff_id"]; ?>">
+                        <div class="form-group">
                             <label>Doctor Name</label>
-                            <input
-                                type="text"
-                                name="name"
-                                class="form-control"
-                                required
-                            >
+                            <input type="text" name="name" class="form-control" required value="<?php echo $doctor["name"]; ?>">
                         </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div style="flex:1;">
-                            <label>Department</label>
-                            <select
-                                name="department_id"
-                                class="form-control"
-                                required>
-                                <option>Select Department</option>
-                                <?php
-                                while($row = mysqli_fetch_assoc($department))
-                                {
-                                ?>
-                                <option value="<?php echo $row['department_id']; ?>">
-                                    <?php echo $row['department_name']; ?>
-                                </option>
-                                <?php
-                                }
-                                ?>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" name="email" class="form-control" required value="<?php echo $doctor["email"]; ?>">
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Gender</label>
+                                <select name="gender" id="gender" class="form-control" required>
+                                    <option value="" disabled>Select a gender</option>
+                                    <option value="M" <?php echo $doctor["gender"] == 'M' ? "selected" : "" ?>>Male</option>
+                                    <option value="F" <?php echo $doctor["gender"] == 'F' ? "selected" : "" ?>>Female</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="text" name="phone_no" class="form-control" required value="<?php echo $doctor["phone_no"] ?>">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Department</label>
+                                <select name="department_id" class="form-control" required>
+                                    <option>Select Department</option>
+                                    <?php
+                                    while ($row = $result->fetch_assoc()) {
+                                        ?>
+                                        <option value="<?php echo $row['department_id']; ?>" <?php echo $doctor["department_id"] == $row["department_id"] ? "selected" : "" ?>>
+                                            <?php echo $row['department_name']; ?>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Speciality</label>
+                                <input type="text" name="specialty" class="form-control" required value="<?php echo $doctor["specialty"]; ?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status" id="status" class="form-control" required>
+                                <option value="Active" <?php echo $doctor["status"] == "Active" ? "selected" : "" ?>>Active</option>
+                                <option value="Inactive" <?php echo $doctor["status"] == "Inactive" ? "selected" : "" ?>>Inactive</option>
                             </select>
                         </div>
-                        <div style="flex:1;">
-                            <label>Speciality</label>
-                            <input
-                                type="text"
-                                name="specialty"
-                                class="form-control"
-                                required
-                            >
+
+
+                        <div class="form-group">
+                            <label>Bio</label>
+                            <textarea name="bio" rows="5" class="form-control"><?php echo $doctor["bio"]; ?></textarea>
                         </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div style="flex:1;">
-                            <label>Email</label>
-                            <input
-                                type="text"
-                                name="email"
-                                class="form-control"
-                                required
-                            >
+                        <br>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-secondary" onclick="window.location.href='doctor.php'">
+                                Cancel
+                            </button>
+                            <button type="submit" name="save" class="btn btn-info">
+                                <i class="fa-solid fa-save"></i>Save
+                            </button>
                         </div>
-                        <div style="flex:1;">
-                            <label>Phone Number</label>
-                            <input
-                                type="text"
-                                name="phone_no"
-                                class="form-control"
-                                required
-                            >
-                        </div>
-                    </div>
-                    <br>
-                    <div>
-                        <label>Description</label>
-                        <textarea
-                            name="bio"
-                            rows="5"
-                            class="form-control">
-                        </textarea>
-                    </div>
-                    <br>
-                    <div class="row" style="justify-content:flex-end;gap:10px;">
-                        <button
-                            type="button"
-                            class="btn btn-danger"
-                            onclick="window.location.href='doctor.php'">
-                            Cancel
-                        </button>
-                        <button
-                            type="submit"
-                            name="save"
-                            class="btn btn-info">
-                            Save
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </section>
-    </main>
-</div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
 </body>
+
 </html>
 <?php
 $conn->close();

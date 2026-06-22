@@ -4,13 +4,21 @@ include('../../helper/connect.php');
 include('../../helper/generate_id.php');
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-    die("Invalid request method. Redirecting to appointments page.");
+    echo "
+        <script>
+            alert('Invalid request method.');
+            window.location='add-time-slot.php';
+        </script>
+        ";
 }
 
 if (!isset($_POST["time_slot"])) {
-    echo "<meta http-equiv='refresh' content='3;URL=add-time-slot.php' />";
-    die("Please select a time slot. Redirecting to add time slot page.");
+    echo "
+        <script>
+            alert('Please select a time slot.');
+            window.location='add-time-slot.php';
+        </script>
+        ";
 }
 
 $email = $_SESSION["email"];
@@ -18,18 +26,17 @@ $stmt = $conn->prepare("SELECT * FROM staff WHERE email = '$email'");
 $stmt->execute();
 $result = $stmt->get_result();
 
-if (!$result) {
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("Failed to fetch user. Error: $conn->error. Redirecting to time slots page.");
-}
-
-if ($result->num_rows == 0) {
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
-    die("User not found. Redirecting to time slots page.");
+if (!$result || $result->num_rows == 0) {
+    echo "
+        <script>
+            alert('Failed to fetch user. Error: $conn->error.');
+            window.location='time-slots.php';
+        </script>
+        ";
 }
 
 $user = $result->fetch_assoc();
-$timeSlotId = generateId("time_slot", 2, 3);
+$timeSlotId = generateId("time_slot", 2, 8);
 $time = $_POST["time_slot"];
 $status = $_POST["status"];
 $staffId = $user["staff_id"];
@@ -40,8 +47,12 @@ $stmt->bind_param("sss", $time, $staffId, $timeSlotId);
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result && $result->num_rows > 0) {
-    echo "<meta http-equiv='refresh' content='3;URL=add-time-slot.php' />";
-    die("Time slot already exists. Redirecting to add time slot page.");
+    echo "
+        <script>
+            alert('Time slot already exists.');
+            window.location='add-time-slot.php';
+        </script>
+        ";
 }
 
 // if not, proceed to adding the time slot
@@ -52,11 +63,19 @@ $stmt->bind_param("ssss", $timeSlotId, $time, $status, $staffId);
 $result = $stmt->execute();
 
 if (!$result) {
-    echo "<meta http-equiv='refresh' content='3;URL=add-time-slot.php' />";
-    die("Failed to add time slot. Error: $conn->error. Redirecting to add time slot page.");
+    echo "
+        <script>
+            alert('Failed to add time slot. Error: $conn->error');
+            window.location='add-time-slot.php';
+        </script>
+        ";
 } else {
-    echo "Time slot added successfully. Redirecting to time slots page.";
-    echo "<meta http-equiv='refresh' content='3;URL=time-slots.php' />";
+    echo "
+        <script>
+            alert('Time slot added successfully.');
+            window.location='time-slots.php';
+        </script>
+        ";
 }
 
 ?>

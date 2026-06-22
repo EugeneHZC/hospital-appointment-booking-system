@@ -3,8 +3,12 @@ include('../../helper/verify_auth.php');
 include('../../helper/connect.php');
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-    die("Invalid request method.");
+    echo "
+        <script>
+            alert('Invalid request method.');
+            window.location='appointments.php';
+        </script>
+        ";
 }
 
 $appointmentId = $_POST["appointment_id"];
@@ -17,5 +21,5 @@ if (!$result) {
     exit();
 }
 
-echo json_encode("Appointment cancelled. Redirecting to appointments page.");
+echo json_encode("Appointment cancelled.");
 ?>
