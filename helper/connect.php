@@ -1,9 +1,9 @@
 <?php
-$username = "han";
-$password = "1234";
+$username = "Haziq";
+$password = "12345";
 $hostname = "localhost";
 $database = "azzahrah_appointment_system_db";
-$port = "3302";
+$port = "3306";
 
 $conn = new mysqli($hostname, $username, $password, $database, $port);
 
