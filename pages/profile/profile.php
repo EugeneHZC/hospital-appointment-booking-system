@@ -145,18 +145,6 @@ if (!$profileData) {
           <h3><i class="fa-regular fa-pen-to-square"></i> Edit Profile</h3>
           <div class="form-row">
             <label>Profile Picture</label>
-            <input type="file" id="edit-profile-picture" class="form-control" accept="image/jpeg,image/png,image/gif,image/webp" />
-            <small class="text-muted">Accepted formats: JPEG, PNG, GIF, WebP (Max 5MB)</small>
-            <div id="upload-status"></div>
-          </div>
-          <div class="form-row">
-            <label>Profile Picture</label>
-            <input type="file" id="edit-profile-picture" class="form-control" accept="image/jpeg,image/png,image/gif,image/webp" />
-            <small class="text-muted">Accepted formats: JPEG, PNG, GIF, WebP (Max 5MB)</small>
-            <div id="upload-status"></div>
-          </div>
-          <div class="form-row">
-            <label>Profile Picture</label>
             <div class="profile-upload-container">
               <div class="profile-avatar" id="profile-avatar-preview"></div>
               <input type="file" id="profile-picture-input" class="form-control" accept="image/jpeg,image/png,image/gif,image/webp" />
