@@ -196,7 +196,7 @@ header h1 {
 
 .appointment-details-profile-picture {
   border-radius: 50%;
-  width: 35px;
+  width: 50px;
 }
 
 #user-sub-info {
@@ -240,6 +240,12 @@ textarea {
 small {
   display: block;
   margin: 20px 0;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .form-control {
@@ -657,6 +663,7 @@ textarea[readonly] {
 .profile-avatar {
   width: 100px;
   height: 100px;
+  aspect-ratio: 1 / 1;
   background-color: var(--primary-blue);
   border-radius: 50%;
   display: flex;
@@ -666,46 +673,16 @@ textarea[readonly] {
   font-weight: 600;
   color: white;
   margin: auto 0;
-  background-size: cover;
-  background-position: center;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
-.profile-avatar-container {
-  position: relative;
-  display: inline-block;
-  margin: auto 0;
-}
-
-.profile-avatar-container .btn-sm {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 50%;
-  border: 2px solid white;
-}
-
-.profile-upload-preview {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.profile-upload-preview .profile-avatar {
-  margin: 0;
-}
-
-.form-text {
-  font-size: 0.875rem;
-  color: #6c757d;
   display: block;
-  margin-top: 0.5rem;
 }
 
 .profile-header {
@@ -739,18 +716,6 @@ textarea[readonly] {
     margin-left: 0;
     margin-right: 0;
   }
-}
-
-.profile-avatar {
-  background-color: var(--primary-blue);
-}
-
-.profile-avatar {
-  background-color: var(--info-normal);
-}
-
-.profile-avatar {
-  background-color: var(--success-normal);
 }
 
 .info-row {
