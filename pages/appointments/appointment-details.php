@@ -74,7 +74,7 @@ if ($result->num_rows > 0) {
               <?php
               if ($role != "Patient") {
                 echo "<p class='text-gray'><i class='fa-solid fa-id-card'></i>" . $appointment["ic_number"] . "</p>";
-                echo "<p class='text-gray'><i class='fa-solid fa-id-card'></i>" . $appointment["date_of_birth"] . "</p>";
+                echo "<p class='text-gray'><i class='fa-solid fa-calendar'></i>" . $appointment["date_of_birth"] . "</p>";
                 echo "<p class='text-gray span-4'><i class='fa-solid fa-house'></i>" . $appointment["address"] . "</p>";
               } else {
                 echo "<p class='text-gray'><i class='fa-solid fa-id-card'></i>" . $appointment["specialty"] . "</p>";

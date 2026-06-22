@@ -196,7 +196,7 @@ header h1 {
 
 .appointment-details-profile-picture {
   border-radius: 50%;
-  width: 35px;
+  width: 50px;
 }
 
 #user-sub-info {
@@ -240,6 +240,12 @@ textarea {
 small {
   display: block;
   margin: 20px 0;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .form-control {
