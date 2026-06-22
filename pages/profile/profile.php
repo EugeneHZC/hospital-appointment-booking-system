@@ -16,7 +16,15 @@ $role = $_SESSION["role"];
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
   <script src="../../scripts/load-page.js"></script>
-  <script src="../../scripts/admin-profile.js"></script>
+  <?php
+    if ($role === 'doctor') {
+      echo '<script src="../../scripts/doctor-profile.js"><\/script>';
+    } elseif ($role === 'patient') {
+      echo '<script src="../../scripts/patient-profile.js"><\/script>';
+    } else {
+      echo '<script src="../../scripts/admin-profile.js"><\/script>';
+    }
+  ?>
   <script src="../../scripts/logout.js"></script>
 </head>
 
@@ -35,11 +43,17 @@ $role = $_SESSION["role"];
       </header>
       <div id="content">
         <input type="hidden" value="admin" id="role" name="role" />
+        <input type="file" id="profile-image-input" style="display: none;" accept="image/*" />
 
         <div id="view-section">
           <div class="card">
             <div class="profile-header">
-              <div class="profile-avatar"></div>
+              <div class="profile-avatar-container">
+                <div class="profile-avatar" id="profile-avatar-display"></div>
+                <button class="btn btn-sm btn-secondary" id="change-avatar-btn" title="Click to change profile picture">
+                  <i class="fa-solid fa-camera"></i>
+                </button>
+              </div>
               <div>
                 <h2 id="profile-name">Admin Name</h2>
                 <span class="profile-badge" id="profile-role">Administrator</span>
@@ -91,7 +105,19 @@ $role = $_SESSION["role"];
         <div class="edit-section card">
           <h3><i class="fa-regular fa-pen-to-square"></i> Edit Profile</h3>
           <div class="form-row">
-            <label>Full Name</label>
+            <label>Profile Picture</label>
+            <div class="profile-upload-preview">
+              <div class="profile-avatar-container">
+                <div class="profile-avatar" id="edit-avatar-preview"></div>
+                <button type="button" class="btn btn-sm btn-secondary" id="edit-avatar-btn" title="Click to change profile picture">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+              </div>
+            </div>
+            <small class="form-text">Supported formats: JPG, PNG, GIF, WebP (Max 5MB)</small>
+          </div>
+          <div class="form-row">
+            <label></label>Full Name</label>
             <input type="text" id="edit-fullname" class="form-control" />
           </div>
           <div class="form-row">

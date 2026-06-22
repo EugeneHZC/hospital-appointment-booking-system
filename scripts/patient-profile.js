@@ -15,14 +15,27 @@ $(document).ready(function () {
     insuranceProvider: "AIA Insurance",
     insuranceNumber: "AIA-87654321",
     bio: "Regular follow-up for asthma management. Prefers morning appointments.",
+    profileImage: null,
   };
 
+  function displayProfileAvatar() {
+    let displayElement = $("#profile-avatar-display");
+    let previewElement = $("#edit-avatar-preview");
+    
+    if (patientData.profileImage) {
+      displayElement.css("background-image", `url('${patientData.profileImage}')`);
+      displayElement.text("");
+      previewElement.css("background-image", `url('${patientData.profileImage}')`);
+      previewElement.text("");
+    } else {
+      let initials = patientData.fullName.split(" ").map((n) => n[0]).join("");
+      displayElement.text(initials.substring(0, 2));
+      previewElement.text(initials.substring(0, 2));
+    }
+  }
+
   function loadProfile() {
-    let initials = patientData.fullName
-      .split(" ")
-      .map((n) => n[0])
-      .join("");
-    $(".profile-avatar").html(initials.substring(0, 2));
+    displayProfileAvatar();
     $("#profile-name").text(patientData.fullName);
     $("#display-name").text(patientData.fullName);
     $("#display-email").text(patientData.email);
@@ -51,6 +64,7 @@ $(document).ready(function () {
     $("#edit-allergies").val(patientData.allergies);
     $("#edit-bio").val(patientData.bio);
     $("#edit-ic").val(patientData.icNumber);
+    displayProfileAvatar();
   }
 
   function saveChanges() {
@@ -68,6 +82,51 @@ $(document).ready(function () {
     alert("Profile updated successfully!");
   }
 
+  function handleImageUpload(file) {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    const maxSize = 5 * 1024 * 1024;
+
+    if (!allowedTypes.includes(file.type)) {
+      alert("Invalid file type. Only JPG, PNG, GIF, and WebP are allowed.");
+      return;
+    }
+
+    if (file.size > maxSize) {
+      alert("File size exceeds 5MB limit.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("profileImage", file);
+
+    let uploadBtn = $("#upload-btn");
+    let originalText = uploadBtn.html();
+    uploadBtn.html("<i class='fa-solid fa-spinner fa-spin'></i> Uploading...").prop("disabled", true);
+
+    $.ajax({
+      url: "../../helper/upload_profile_image.php",
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function (response) {
+        if (response.success) {
+          patientData.profileImage = response.imageUrl;
+          displayProfileAvatar();
+          alert("Profile picture updated successfully!");
+        } else {
+          alert("Error: " + response.message);
+        }
+      },
+      error: function () {
+        alert("An error occurred while uploading the file.");
+      },
+      complete: function () {
+        uploadBtn.html(originalText).prop("disabled", false);
+      },
+    });
+  }
+
   $("#edit-btn").click(function () {
     populateEditForm();
     $("#view-section").hide();
@@ -80,6 +139,26 @@ $(document).ready(function () {
   });
 
   $("#save-btn").click(saveChanges);
+
+  $("#upload-btn").click(function () {
+    $("#profile-image-input").click();
+  });
+
+  $("#edit-avatar-btn").click(function () {
+    $("#profile-image-input").click();
+  });
+
+  $("#change-avatar-btn").click(function (e) {
+    e.preventDefault();
+    $("#profile-image-input").click();
+  });
+
+  $("#profile-image-input").change(function () {
+    const file = this.files[0];
+    if (file) {
+      handleImageUpload(file);
+    }
+  });
 
   loadProfile();
 });

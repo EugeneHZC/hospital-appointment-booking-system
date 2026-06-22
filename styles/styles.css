@@ -666,6 +666,46 @@ textarea[readonly] {
   font-weight: 600;
   color: white;
   margin: auto 0;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.profile-avatar-container {
+  position: relative;
+  display: inline-block;
+  margin: auto 0;
+}
+
+.profile-avatar-container .btn-sm {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.profile-upload-preview {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.profile-upload-preview .profile-avatar {
+  margin: 0;
+}
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  display: block;
+  margin-top: 0.5rem;
 }
 
 .profile-header {
