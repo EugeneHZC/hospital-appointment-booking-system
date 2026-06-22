@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
             window.location='book-appointment.php';
         </script>
         ";
+    exit();
 }
 
 $email = $_SESSION["email"];
@@ -25,6 +26,7 @@ if (!$result || $result->num_rows == 0) {
             window.location='book-appointment.php';
         </script>
         ";
+    exit();
 }
 
 if (!isset($_POST["department"]) || !isset($_POST["doctor"]) || $_POST["date"] == "" || !isset($_POST["time"])) {
@@ -34,6 +36,7 @@ if (!isset($_POST["department"]) || !isset($_POST["doctor"]) || $_POST["date"] =
             window.location='book-appointment.php';
         </script>
         ";
+    exit();
 }
 
 $patient = $result->fetch_assoc();

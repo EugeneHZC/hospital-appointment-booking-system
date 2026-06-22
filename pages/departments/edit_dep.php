@@ -11,6 +11,7 @@ if ($role !== "Admin") {
             window.location='../appointments/appointments.php';
         </script>
         ";
+    exit();
 }
 
 if (!isset($_GET['id'])) {

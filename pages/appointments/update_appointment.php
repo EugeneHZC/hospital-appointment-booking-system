@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
             window.location='appointment-details.php';
         </script>
         ";
+    exit();
 }
 
 $role = $_SESSION["role"];
@@ -29,6 +30,7 @@ if (!$result || $result->num_rows == 0) {
             window.location='appointment-details.php';
         </script>
         ";
+    exit();
 }
 
 $appointment = $result->fetch_assoc();

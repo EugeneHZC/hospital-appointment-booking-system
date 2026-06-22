@@ -16,9 +16,10 @@ if (!$result || $result->num_rows == 0) {
   echo "
         <script>
             alert('Failed to get user info. Error: $conn->error');
-            window.location='../../login/Login.php';
+            window.location='../login/Login.php';
         </script>
         ";
+  exit();
 }
 
 $user = $result->fetch_assoc();

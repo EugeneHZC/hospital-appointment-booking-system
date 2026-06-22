@@ -12,6 +12,7 @@ if ($role !== "Admin") {
             window.location='../appointments/appointments.php';
         </script>
         ";
+    exit();
 }
 
 if (!isset($_GET["staff_id"])) {
@@ -21,6 +22,7 @@ if (!isset($_GET["staff_id"])) {
             window.location='doctor.php';
         </script>
         ";
+    exit();
 }
 
 $staffId = $_GET["staff_id"];
@@ -37,6 +39,7 @@ if (!$result || $result->num_rows == 0) {
             window.location='doctor.php';
         </script>
         ";
+    exit();
 }
 
 $doctor = $result->fetch_assoc();
@@ -52,6 +55,7 @@ if (!$result || $result->num_rows == 0) {
             window.location='doctor.php';
         </script>
         ";
+    exit();
 }
 ?>
 <!doctype html>

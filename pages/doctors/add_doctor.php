@@ -12,6 +12,7 @@ if ($role !== "Admin") {
             window.location='../appointments/appointments.php';
         </script>
         ";
+    exit();
 }
 
 $stmt = $conn->prepare("SELECT * FROM department ORDER BY department_name");
@@ -25,6 +26,7 @@ if (!$result || $result->num_rows == 0) {
             window.location='doctor.php';
         </script>
         ";
+    exit();
 }
 ?>
 

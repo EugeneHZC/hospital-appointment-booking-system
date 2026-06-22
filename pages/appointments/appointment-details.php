@@ -35,6 +35,7 @@ if (!$result) {
             window.location='appointments.php';
         </script>
         ";
+  exit();
 }
 
 if ($result->num_rows > 0) {
@@ -200,5 +201,6 @@ if ($result->num_rows > 0) {
             window.location='appointments.php';
         </script>
         ";
+  exit();
 }
 ?>

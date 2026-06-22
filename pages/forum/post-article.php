@@ -11,6 +11,7 @@ if ($role === "Patient") {
           window.location='forum.php';
       </script>
       ";
+  exit();
 }
 ?>
 
