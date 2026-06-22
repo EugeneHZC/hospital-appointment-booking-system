@@ -11,6 +11,7 @@ if ($role === "Patient") {
           window.location='../appointments/appointments.php';
       </script>
       ";
+    exit();
 }
 
 if (!isset($_GET["time_slot_id"])) {
@@ -20,6 +21,7 @@ if (!isset($_GET["time_slot_id"])) {
           window.location='time-slots.php';
       </script>
       ";
+    exit();
 }
 
 $timeSlotId = $_GET["time_slot_id"];
@@ -35,6 +37,7 @@ if (!$result || $result->num_rows == 0) {
           window.location='time-slots.php';
       </script>
       ";
+    exit();
 }
 
 $timeSlot = $result->fetch_assoc();

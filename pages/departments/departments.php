@@ -11,6 +11,7 @@ if ($role !== "Admin") {
             window.location='../appointments/appointments.php';
         </script>
         ";
+    exit();
 }
 
 $stmt = $conn->prepare("SELECT * FROM department");

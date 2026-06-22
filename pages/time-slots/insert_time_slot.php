@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
             window.location='add-time-slot.php';
         </script>
         ";
+    exit();
 }
 
 if (!isset($_POST["time_slot"])) {
@@ -19,6 +20,7 @@ if (!isset($_POST["time_slot"])) {
             window.location='add-time-slot.php';
         </script>
         ";
+    exit();
 }
 
 $email = $_SESSION["email"];
@@ -33,6 +35,7 @@ if (!$result || $result->num_rows == 0) {
             window.location='time-slots.php';
         </script>
         ";
+    exit();
 }
 
 $user = $result->fetch_assoc();
@@ -53,6 +56,7 @@ if ($result && $result->num_rows > 0) {
             window.location='add-time-slot.php';
         </script>
         ";
+    exit();
 }
 
 // if not, proceed to adding the time slot

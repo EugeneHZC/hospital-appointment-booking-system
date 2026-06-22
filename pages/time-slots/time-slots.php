@@ -12,6 +12,7 @@ if ($role === "Patient") {
           window.location='../appointments/appointments.php';
       </script>
       ";
+  exit();
 }
 
 $stmt = $conn->prepare("SELECT * FROM staff WHERE email = ?");
@@ -26,6 +27,7 @@ if (!$result || $result->num_rows == 0) {
           window.location='../dashboard/dashboard.php';
       </script>
       ";
+  exit();
 }
 
 $user = $result->fetch_assoc();
@@ -83,6 +85,7 @@ $user = $result->fetch_assoc();
                   window.location='../dashboard/dashboard.php';
               </script>
               ";
+            exit();
           }
 
           if ($result->num_rows > 0) {

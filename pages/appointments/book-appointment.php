@@ -11,6 +11,7 @@ if ($role != "Patient") {
             window.location='appointments.php';
         </script>
         ";
+    exit();
 }
 ?>
 
@@ -64,6 +65,7 @@ if ($role != "Patient") {
                                                 window.location='appointments.php';
                                             </script>
                                             ";
+                                        exit();
                                     }
 
                                     if ($result->num_rows > 0) {

@@ -17,7 +17,7 @@ if ($email === "" || $password === "") {
 
 function password_matches($submittedPassword, $storedPassword)
 {
-    return $submittedPassword === $storedPassword || password_verify($submittedPassword, $storedPassword);
+    return password_verify($submittedPassword, $storedPassword);
 }
 
 $patientStmt = $conn->prepare("SELECT email, password FROM patient WHERE email = ? LIMIT 1");

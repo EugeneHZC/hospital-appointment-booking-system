@@ -18,6 +18,7 @@ if ($role != "Patient") {
             window.location='../appointments/appointments.php';
         </script>
         ";
+    exit();
   }
 
   $staff = $result->fetch_assoc();

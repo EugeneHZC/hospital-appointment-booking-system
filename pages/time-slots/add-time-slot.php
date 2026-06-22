@@ -11,6 +11,7 @@ if ($role === "Patient") {
           window.location='../appointments/appointments.php';
       </script>
       ";
+    exit();
 }
 ?>
 

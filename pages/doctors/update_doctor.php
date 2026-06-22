@@ -9,6 +9,7 @@ if (!isset($_POST['save'])) {
             window.location='edit_doctor.php';
         </script>
         ";
+    exit();
 }
 
 if (
@@ -27,6 +28,7 @@ if (
             window.location='edit_doctor.php';
         </script>
         ";
+    exit();
 }
 
 $staff_id = $_POST["staff_id"];
@@ -53,6 +55,7 @@ if ($result && $result->num_rows > 0) {
             window.location='add_doctor.php';
         </script>
         ";
+    exit();
 }
 
 $stmt = $conn->prepare("UPDATE staff
@@ -72,7 +75,7 @@ if ($result) {
 } else {
     echo "
         <script>
-            alert('Failed to add doctor.');
+            alert('Failed to add doctor. Error: $conn->error');
             window.location='edit_doctor.php';
         </script>
         ";

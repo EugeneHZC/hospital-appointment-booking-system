@@ -11,6 +11,7 @@ if ($role === "Patient") {
           window.location='forum.php';
       </script>
       ";
+  exit();
 }
 
 if (!isset($_GET["article_id"])) {
@@ -20,6 +21,7 @@ if (!isset($_GET["article_id"])) {
             window.location='forum.php';
         </script>
         ";
+  exit();
 }
 
 // get the article by article ID provided
@@ -35,6 +37,7 @@ if (!$result || $result->num_rows == 0) {
             window.location='forum.php';
         </script>
         ";
+  exit();
 }
 
 $article = $result->fetch_assoc();

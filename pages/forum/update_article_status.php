@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
             window.location='edit-article.php';
         </script>
         ";
+    exit();
 }
 
 if (!isset($_POST["status"]) || !isset($_POST["article_id"])) {

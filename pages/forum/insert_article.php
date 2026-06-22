@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
             window.location='../appointments/appointments.php';
         </script>
         ";
+    exit();
 }
 
 if ($_SESSION["role"] == "Patient") {
@@ -19,6 +20,7 @@ if ($_SESSION["role"] == "Patient") {
           window.location='forum.php';
       </script>
       ";
+    exit();
 }
 
 if (!isset($_POST["article_title"]) || !isset($_POST["article_content"])) {
@@ -28,6 +30,7 @@ if (!isset($_POST["article_title"]) || !isset($_POST["article_content"])) {
           window.location='post-article.php';
       </script>
       ";
+    exit();
 }
 
 $email = $_SESSION["email"];

@@ -8,6 +8,7 @@ if (!isset($_POST["department_id"])) {
         window.location='edit_dep.php';
     </script>
     ";
+    exit();
 }
 
 if (isset($_POST['update'])) {
@@ -18,6 +19,7 @@ if (isset($_POST['update'])) {
                 window.location='edit_dep.php';
             </script>
         ";
+        exit();
     }
 
     $department_id = $_POST['department_id'];

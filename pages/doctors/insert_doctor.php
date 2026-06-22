@@ -9,6 +9,7 @@ if (!isset($_POST['save'])) {
         window.location='add_doctor.php';
     </script>
     ";
+    exit();
 }
 
 if (
@@ -27,6 +28,7 @@ if (
             window.location='add_doctor.php';
         </script>
         ";
+    exit();
 }
 
 $staff_id = generateId("staff", 1, 14);
@@ -54,6 +56,7 @@ if ($result && $result->num_rows > 0) {
             window.location='add_doctor.php';
         </script>
         ";
+    exit();
 }
 
 $stmt = $conn->prepare("INSERT INTO staff (staff_id, name, role, email, phone_no, gender, specialty, status, bio, department_id) 
