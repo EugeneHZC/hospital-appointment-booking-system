@@ -150,7 +150,21 @@ if (!$profileData) {
             <div id="upload-status"></div>
           </div>
           <div class="form-row">
-            <label>Full Name</label>
+            <label>Profile Picture</label>
+            <input type="file" id="edit-profile-picture" class="form-control" accept="image/jpeg,image/png,image/gif,image/webp" />
+            <small class="text-muted">Accepted formats: JPEG, PNG, GIF, WebP (Max 5MB)</small>
+            <div id="upload-status"></div>
+          </div>
+          <div class="form-row">
+            <label>Profile Picture</label>
+            <div class="profile-upload-container">
+              <div class="profile-avatar" id="profile-avatar-preview"></div>
+              <input type="file" id="profile-picture-input" class="form-control" accept="image/jpeg,image/png,image/gif,image/webp" />
+              <small class="form-text text-muted">JPG, PNG, GIF, or WebP (Max 5MB)</small>
+            </div>
+          </div>
+          <div class="form-row">
+            <label></label>Full Name</label>
             <input type="text" id="edit-fullname" class="form-control" />
           </div>
           <div class="form-row">
