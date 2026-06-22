@@ -5,8 +5,12 @@ include('../../helper/connect.php');
 $role = $_SESSION["role"];
 
 if ($role != "Patient") {
-    echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-    die("Only patients can view this page.");
+    echo "
+        <script>
+            alert('Only patients can view this page.');
+            window.location='appointments.php';
+        </script>
+        ";
 }
 ?>
 
@@ -54,8 +58,12 @@ if ($role != "Patient") {
                                     $result = $conn->query($sql);
 
                                     if (!$result) {
-                                        echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-                                        die("Failed to fetch departments info. Error: $conn->error");
+                                        echo "
+                                            <script>
+                                                alert('Failed to fetch departments info. Error: $conn->error');
+                                                window.location='appointments.php';
+                                            </script>
+                                            ";
                                     }
 
                                     if ($result->num_rows > 0) {

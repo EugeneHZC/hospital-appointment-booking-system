@@ -29,8 +29,12 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if (!$result) {
-  echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-  die("Failed to fetch appointment details. Error: $conn->error. Redirecting to appointments page.");
+  echo "
+        <script>
+            alert('Failed to fetch departments. Error: $conn->error');
+            window.location='appointments.php';
+        </script>
+        ";
 }
 
 if ($result->num_rows > 0) {
@@ -189,7 +193,11 @@ if ($result->num_rows > 0) {
 
   <?php
 } else {
-  echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-  die("Appointment not found. Redirecting to appointments page.");
+  echo "
+        <script>
+            alert('Appointment not found.');
+            window.location='appointments.php';
+        </script>
+        ";
 }
 ?>

@@ -11,14 +11,13 @@ if ($role != "Patient") {
   $stmt->execute();
   $result = $stmt->get_result();
 
-  if (!$result) {
-    echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
-    die("Failed to fetch user. Error: $conn->error. Redirecting to appointments page.");
-  }
-
-  if ($result->num_rows == 0) {
-    echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
-    die("User not found. Error: $conn->error. Redirecting to appointments page.");
+  if (!$result || $result->num_rows == 0) {
+    echo "
+        <script>
+            alert('Failed to fetch user. Error: $conn->error. Redirecting to appointments page.');
+            window.location='../appointments/appointments.php';
+        </script>
+        ";
   }
 
   $staff = $result->fetch_assoc();
@@ -96,8 +95,12 @@ if ($role != "Patient") {
           $result = $stmt->get_result();
 
           if (!$result) {
-            echo "<meta http-equiv='refresh' content:'3;URL=../appointments/appointments.php' />";
-            die("Failed to fetch articles. Error: $conn->error. Redirecting to appointments page.");
+            echo "
+              <script>
+                  alert('Failed to fetch articles. Error: $conn->error');
+                  window.location='../appointments/appointments.php';
+              </script>
+              ";
           }
 
           if ($result->num_rows > 0) {

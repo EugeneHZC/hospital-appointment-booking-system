@@ -5,13 +5,21 @@ include('../../helper/connect.php');
 $role = $_SESSION["role"];
 
 if ($role === "Patient") {
-  echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
-  die("Only admins and doctors can view this page. Redirecting to forum page.");
+  echo "
+      <script>
+          alert('Only admins and doctors can view this page.');
+          window.location='forum.php';
+      </script>
+      ";
 }
 
 if (!isset($_GET["article_id"])) {
-  echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
-  die("Article ID required. Redirecting to forum page.");
+  echo "
+        <script>
+            alert('Article ID required.');
+            window.location='forum.php';
+        </script>
+        ";
 }
 
 // get the article by article ID provided
@@ -20,14 +28,13 @@ $stmt = $conn->prepare("SELECT * FROM article WHERE article_id = ?");
 $stmt->bind_param("s", $articleId);
 $stmt->execute();
 $result = $stmt->get_result();
-if (!$result) {
-  echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
-  die("Failed to fetch article. Error: $conn->error. Redirecting to forum page.");
-}
-
-if ($result->num_rows == 0) {
-  echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
-  die("Article not found. Redirecting to forum page.");
+if (!$result || $result->num_rows == 0) {
+  echo "
+        <script>
+            alert('Failed to fetch article. Error: $conn->error');
+            window.location='forum.php';
+        </script>
+        ";
 }
 
 $article = $result->fetch_assoc();

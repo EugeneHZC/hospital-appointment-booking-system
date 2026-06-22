@@ -6,8 +6,12 @@ $email = $_SESSION["email"];
 $role = $_SESSION["role"];
 
 if ($role == "Patient") {
-    echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
-    die("Only admins and doctors can access this page. Redirecting to appointments page.");
+    echo "
+        <script>
+            alert('Only admins and doctors can access this page.');
+            window.location='../appointments/appointments.php';
+        </script>
+        ";
 }
 
 $stmt = $conn->prepare("SELECT * FROM staff WHERE email = ?");
@@ -15,13 +19,13 @@ $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if (!$result) {
-    die("Failed to get user info. Error: $conn->error");
-}
-
-if ($result->num_rows == 0) {
-    echo "<meta http-equiv='refresh' content='3;URL=../login/login.php' />";
-    die("Failed to fetch user. Redirecting to login page.");
+if (!$result || $result->num_rows == 0) {
+    echo "
+        <script>
+            alert('Failed to get user info. Error: $conn->error');
+            window.location='../login/login.php';
+        </script>
+        ";
 }
 
 $user = $result->fetch_assoc();

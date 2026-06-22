@@ -6,8 +6,12 @@ include('../../helper/generate_id.php');
 $role = $_SESSION["role"];
 
 if ($role !== "Admin") {
-    echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
-    die("Only admins can view this page.");
+    echo "
+        <script>
+            alert('Only admins can view this page.');
+            window.location='../appointments/appointments.php';
+        </script>
+        ";
 }
 
 if (!isset($_GET["staff_id"])) {

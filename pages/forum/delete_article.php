@@ -4,13 +4,21 @@ include('../../helper/verify_auth.php');
 include('../../helper/generate_id.php');
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
-    echo "<meta http-equiv='refresh' content='3;URL=appointments.php' />";
-    die("Invalid request method.");
+    echo "
+        <script>
+            alert('Invalid request method.');
+            window.location='forum.php';
+        </script>
+        ";
 }
 
 if ($_SESSION["role"] == "Patient") {
-    echo "<meta http-equiv='refresh' content='3;URL=forum.php' />";
-    die("Unauthorized access. Only admins and doctors can access this page.");
+    echo "
+        <script>
+            alert('Only admins and doctors can view this page.');
+            window.location='forum.php';
+        </script>
+        ";
 }
 
 $articleId = $_POST["article_id"];

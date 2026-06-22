@@ -6,8 +6,12 @@ $email = $_SESSION["email"];
 $role = $_SESSION["role"];
 
 if ($role === "Patient") {
-  echo "<meta http-equiv='refresh' content='3;URL=../appointments/appointments.php' />";
-  die("Only admins and doctors can view this page. Redirecting to appointments page.");
+  echo "
+      <script>
+          alert('Only admins and doctors can view this page.');
+          window.location='../appointments/appointments.php';
+      </script>
+      ";
 }
 
 $stmt = $conn->prepare("SELECT * FROM staff WHERE email = ?");
@@ -15,14 +19,13 @@ $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if (!$result) {
-  echo "<meta http-equiv='refresh' content='3;URL=../dashboard/dashboard.php' />";
-  die("Failed to fetch user. Error: $conn->error. Redirecting to dashboard page.");
-}
-
-if ($result->num_rows == 0) {
-  echo "<meta http-equiv='refresh' content='3;URL=../dashboard/dashboard.php' />";
-  die("User not found. Redirecting to dashboard page.");
+if (!$result || $result->num_rows == 0) {
+  echo "
+      <script>
+          alert('Failed to fetch user. Error: $conn->error');
+          window.location='../dashboard/dashboard.php';
+      </script>
+      ";
 }
 
 $user = $result->fetch_assoc();
@@ -74,8 +77,12 @@ $user = $result->fetch_assoc();
           $result = $stmt->get_result();
 
           if (!$result) {
-            echo "<meta http-equiv='refresh' content='3;URL=../dashboard/dashboard.php' />";
-            die("Failed to fetch user. Error: $conn->error. Redirecting to dashboard page.");
+            echo "
+              <script>
+                  alert('Failed to fetch time slots. Error: $conn->error');
+                  window.location='../dashboard/dashboard.php';
+              </script>
+              ";
           }
 
           if ($result->num_rows > 0) {

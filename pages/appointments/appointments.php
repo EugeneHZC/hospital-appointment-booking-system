@@ -12,14 +12,13 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 
-if (!$result) {
-  echo "<meta http-equiv='refresh' content='3;URL=../login/login.php' />";
-  die("Failed to get user info. Error: $conn->error. Redirecting to login page.");
-}
-
-if ($result->num_rows == 0) {
-  echo "<meta http-equiv='refresh' content='3;URL=../login/login.php' />";
-  die("User not found. Please login again. Redirecting to login page.");
+if (!$result || $result->num_rows == 0) {
+  echo "
+        <script>
+            alert('Failed to get user info. Error: $conn->error');
+            window.location='../../login/Login.php';
+        </script>
+        ";
 }
 
 $user = $result->fetch_assoc();
