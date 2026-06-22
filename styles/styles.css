@@ -671,6 +671,7 @@ textarea[readonly] {
 .profile-avatar {
   width: 100px;
   height: 100px;
+  aspect-ratio: 1 / 1;
   background-color: var(--primary-blue);
   border-radius: 50%;
   display: flex;
@@ -680,6 +681,16 @@ textarea[readonly] {
   font-weight: 600;
   color: white;
   margin: auto 0;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
 }
 
 .profile-header {
@@ -713,18 +724,6 @@ textarea[readonly] {
     margin-left: 0;
     margin-right: 0;
   }
-}
-
-.profile-avatar {
-  background-color: var(--primary-blue);
-}
-
-.profile-avatar {
-  background-color: var(--info-normal);
-}
-
-.profile-avatar {
-  background-color: var(--success-normal);
 }
 
 .info-row {
@@ -808,4 +807,31 @@ textarea[readonly] {
   background-color: var(--primary-blue);
   border: 2px solid var(--primary-blue);
   color: #000000;
+}
+
+/* ---------------------------- Profile Upload Container ---------------------------- */
+.profile-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.profile-upload-container .profile-avatar {
+  width: 120px;
+  height: 120px;
+  font-size: 2rem;
+}
+
+.profile-upload-container .form-control {
+  margin-bottom: 0;
+}
+
+.profile-upload-container .form-text {
+  margin-top: 0.5rem;
+  text-align: center;
 }

@@ -9,8 +9,8 @@
         e.preventDefault();
     
         
-        // Redirect to login page or index.html
-        window.location.href = '../index.html';
+        // Redirect to index page
+        window.location.href = '../../pages/index.php';
       });
     }
   });
