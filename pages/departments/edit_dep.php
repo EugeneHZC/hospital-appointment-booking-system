@@ -27,7 +27,7 @@ $result = mysqli_query(
 
 $data = mysqli_fetch_assoc($result);
 
-if(issetPOST['update']))
+if(isset($_POST['update']))
 {
     $department_name = $_POST['department_name'];
     $description = $_POST['description'];

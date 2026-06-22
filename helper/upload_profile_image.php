@@ -63,14 +63,11 @@ if (!move_uploaded_file($file['tmp_name'], $filePath)) {
     exit;
 }
 
-// Update database with image path (this depends on your table structure)
-// Example for doctors table:
-if ($role === 'doctor') {
-    $query = "UPDATE doctors SET profile_image = ? WHERE doctor_id = ?";
-} elseif ($role === 'admin') {
-    $query = "UPDATE admin SET profile_image = ? WHERE admin_id = ?";
+// Update database with image path
+if ($role === 'doctor' || $role === 'admin') {
+    $query = "UPDATE staff SET profile_picture = ? WHERE staff_id = ?";
 } elseif ($role === 'patient') {
-    $query = "UPDATE patients SET profile_image = ? WHERE patient_id = ?";
+    $query = "UPDATE patient SET profile_picture = ? WHERE patient_id = ?";
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid role']);
     exit;

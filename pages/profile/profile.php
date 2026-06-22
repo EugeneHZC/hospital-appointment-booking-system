@@ -43,16 +43,12 @@ $role = $_SESSION["role"];
       </header>
       <div id="content">
         <input type="hidden" value="admin" id="role" name="role" />
-        <input type="file" id="profile-image-input" style="display: none;" accept="image/*" />
 
         <div id="view-section">
           <div class="card">
             <div class="profile-header">
               <div class="profile-avatar-container">
                 <div class="profile-avatar" id="profile-avatar-display"></div>
-                <button class="btn btn-sm btn-secondary" id="change-avatar-btn" title="Click to change profile picture">
-                  <i class="fa-solid fa-camera"></i>
-                </button>
               </div>
               <div>
                 <h2 id="profile-name">Admin Name</h2>
@@ -106,15 +102,11 @@ $role = $_SESSION["role"];
           <h3><i class="fa-regular fa-pen-to-square"></i> Edit Profile</h3>
           <div class="form-row">
             <label>Profile Picture</label>
-            <div class="profile-upload-preview">
-              <div class="profile-avatar-container">
-                <div class="profile-avatar" id="edit-avatar-preview"></div>
-                <button type="button" class="btn btn-sm btn-secondary" id="edit-avatar-btn" title="Click to change profile picture">
-                  <i class="fa-solid fa-pen"></i>
-                </button>
-              </div>
+            <div class="profile-upload-container">
+              <div class="profile-avatar" id="profile-avatar-preview"></div>
+              <input type="file" id="profile-picture-input" class="form-control" accept="image/jpeg,image/png,image/gif,image/webp" />
+              <small class="form-text text-muted">JPG, PNG, GIF, or WebP (Max 5MB)</small>
             </div>
-            <small class="form-text">Supported formats: JPG, PNG, GIF, WebP (Max 5MB)</small>
           </div>
           <div class="form-row">
             <label></label>Full Name</label>
