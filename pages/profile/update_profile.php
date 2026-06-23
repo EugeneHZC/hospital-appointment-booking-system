@@ -1,6 +1,7 @@
 <?php
 include('../../helper/verify_auth.php');
 include('../../helper/connect.php');
+include('../../helper/validate_input.php');
 include('get_user.php');
 
 $email = $_SESSION["email"];

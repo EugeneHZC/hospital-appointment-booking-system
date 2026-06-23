@@ -71,7 +71,7 @@ if (!$result) {
 } else {
     echo "
         <script>
-            alert('Article posted and is pending for admin's review.');
+            alert('Article posted and is pending for admin\'s review.');
             window.location='forum.php';
         </script>
         ";
