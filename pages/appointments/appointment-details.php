@@ -15,7 +15,7 @@ if ($role == "Patient") {
   ON a.staff_id = s.staff_id
   WHERE a.appointment_id = ?");
 } else {
-  $stmt = $conn->prepare("SELECT a.*, ts.time, p.* FROM appointment as a
+  $stmt = $conn->prepare("SELECT a.appointment_id, a.status as appointment_status, a.date, a.appointment_type, a.follow_up_appointment_id, a.patient_remark, a.doctor_remark, ts.time, p.* FROM appointment as a
   JOIN time_slot as ts
   USING (time_slot_id)
   JOIN patient as p

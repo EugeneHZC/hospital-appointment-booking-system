@@ -1,6 +1,7 @@
 <?php
 include('../../helper/connect.php');
 include('../../helper/generate_id.php');
+include('../../helper/validate_input.php');
 
 if (!isset($_POST['save'])) {
     echo "

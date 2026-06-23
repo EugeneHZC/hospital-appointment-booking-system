@@ -119,9 +119,6 @@ $result = $stmt->get_result();
                                     <button class="btn btn-info" onclick="window.location.href='edit_doctor.php?staff_id=<?php echo $row['staff_id']; ?>'">
                                         Edit
                                     </button>
-                                    <button class="btn btn-danger" onclick="return confirm('Delete this doctor?')">
-                                        Delete
-                                    </button>
                                 </div>
                             </div>
 
