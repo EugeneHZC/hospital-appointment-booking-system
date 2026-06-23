@@ -56,7 +56,7 @@ if (!$result) {
 } else {
     echo "
       <script>
-          alert('Article updated and is pending for admin's review.');
+          alert('Article updated and is pending for admin\'s review.');
           window.location='forum.php';
       </script>
       ";

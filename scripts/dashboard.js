@@ -19,7 +19,7 @@ $(document).ready(function () {
   $("#doctor").change(function () {
     loadStatistics();
 
-    if ($("#doctor").val() != "") {
+    if ($("#doctor").val() != "" || $("#department").val() != "") {
       fetchChartStatistics();
     }
   });

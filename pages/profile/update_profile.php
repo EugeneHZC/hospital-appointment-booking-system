@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   exit();
 }
 
-if (!isset($_POST["name"]) || !isset($_POST["email"]) || !isset($_POST["phone_no"]) || !isset($_POST["gender"])) {
+if (!isset($_POST["name"]) || trim($_POST["name"]) == "" || !isset($_POST["email"]) || trim($_POST["email"]) == "" || !isset($_POST["phone_no"]) || trim($_POST["phone_no"]) == "" || !isset($_POST["gender"]) || trim($_POST["gender"]) == "") {
   echo "
       <script>
           alert('Please fill in all required fields.');
@@ -31,8 +31,18 @@ $newEmail = $_POST["email"];
 $phone_no = $_POST["phone_no"];
 $gender = $_POST["gender"];
 
+if (!validatePhone($phone_no)) {
+  echo "
+        <script>
+            alert('Invalid phone format.');
+            window.location='edit_profile.php';
+        </script>
+        ";
+  exit();
+}
+
 if ($role == "Patient") {
-  if (!isset($_POST["ic_number"]) || !isset($_POST["date_of_birth"]) || !isset($_POST["address"])) {
+  if (!isset($_POST["ic_number"]) || trim($_POST["ic_number"]) == "" || !isset($_POST["date_of_birth"]) || trim($_POST["date_of_birth"]) == "" || !isset($_POST["address"]) || trim($_POST["address"]) == "") {
     echo "
       <script>
           alert('Please fill in all required fields.');
@@ -66,13 +76,23 @@ if ($role == "Patient") {
   $date_of_birth = $_POST["date_of_birth"];
   $address = $_POST["address"];
 
+  if (!validateIcNumber($ic_number)) {
+    echo "
+        <script>
+            alert('Invalid IC format.');
+            window.location='edit_profile.php';
+        </script>
+        ";
+    exit();
+  }
+
   $stmt = $conn->prepare("UPDATE patient
   SET name = ?, email = ?, phone_no = ?, date_of_birth = ?, ic_number = ?, gender = ?, address = ?
   WHERE email = ?");
 
   $stmt->bind_param("ssssssss", $name, $newEmail, $phone_no, $date_of_birth, $ic_number, $gender, $address, $email);
 } else {
-  if (!isset($_POST["specialty"])) {
+  if (!isset($_POST["specialty"]) || trim($_POST["specialty"]) == "") {
     echo "
       <script>
           alert('Please fill in all required fields.');
