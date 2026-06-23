@@ -1,6 +1,7 @@
 <?php
 include('../../helper/connect.php');
 include('../../helper/generate_id.php');
+include('../../helper/validate_input.php');
 
 if (!isset($_POST['save'])) {
     echo "
@@ -42,6 +43,16 @@ $bio = $_POST['bio'];
 $status = $_POST['status'];
 $gender = $_POST['gender'];
 
+if (!validatePhone($phone_no)) {
+    echo "
+        <script>
+            alert('Invalid phone format.');
+            window.location='add_doctor.php';
+        </script>
+        ";
+    exit();
+}
+
 // check if doctor with provided email and phone number exists
 $stmt = $conn->prepare("SELECT * FROM staff WHERE email = ? OR phone_no = ?");
 $stmt->bind_param("ss", $email, $phone_no);
@@ -59,9 +70,11 @@ if ($result && $result->num_rows > 0) {
     exit();
 }
 
-$stmt = $conn->prepare("INSERT INTO staff (staff_id, name, role, email, phone_no, gender, specialty, status, bio, department_id) 
-    VALUES (?, ?, 'Doctor', ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("sssssssss", $staff_id, $name, $email, $phone_no, $gender, $specialty, $status, $bio, $department_id);
+$hashedPassword = password_hash("abc123", PASSWORD_DEFAULT);
+
+$stmt = $conn->prepare("INSERT INTO staff (staff_id, name, password, role, email, phone_no, gender, specialty, status, bio, department_id) 
+    VALUES (?, ?, ?, 'Doctor', ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("ssssssssss", $staff_id, $name, $hashedPassword, $email, $phone_no, $gender, $specialty, $status, $bio, $department_id);
 
 $result = $stmt->execute();
 

@@ -28,10 +28,6 @@
           <p>Sign in with your registered email and password.</p>
         </div>
 
-        <?php if (isset($_GET["error"])) { ?>
-          <p class="auth-error"><?php echo htmlspecialchars($_GET["error"]); ?></p>
-        <?php } ?>
-
         <form action="loginSubmit.php" method="post">
           <div class="form-group">
             <label for="email">Email Address</label>
@@ -43,13 +39,11 @@
             <input class="form-control" type="password" id="password" name="password" placeholder="Enter your password" required />
           </div>
 
-          <div class="auth-actions">
-            <label class="remember-me">
-              <input type="checkbox" name="remember" />
-              Remember me
-            </label>
-            <a href="#">Forgot password?</a>
-          </div>
+          <?php if (isset($_GET["error"])) { ?>
+            <p class="auth-error text-danger">
+              <?php echo htmlspecialchars($_GET["error"]); ?>
+            </p>
+          <?php } ?>
 
           <button class="btn btn-info my-half" type="submit">
             <i class="fa-solid fa-right-to-bracket"></i>Sign In

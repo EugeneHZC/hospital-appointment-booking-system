@@ -1,31 +1,11 @@
 <?php
 include('../../helper/connect.php');
+include('../../helper/generate_id.php');
+include('../../helper/validate_input.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  function generatePatientId($conn)
-  {
-    $sql = "SELECT patient_id 
-            FROM patients 
-            ORDER BY patient_id DESC 
-            LIMIT 1";
-
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) == 0) {
-      return "PT0001";
-    }
-
-    $row = mysqli_fetch_assoc($result);
-    $lastPatientId = $row['patient_id'];
-
-    $number = (int) substr($lastPatientId, 2);
-    $number++;
-
-    return "PT" . str_pad($number, 4, "0", STR_PAD_LEFT);
-  }
-
-  $patient_id = generatePatientId($conn);
+  $patient_id = generateId("patient", 1, 14);
 
   $name = $_POST['name'];
   $ic_number = $_POST['ic_number'];
@@ -37,13 +17,84 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $confirm_password = $_POST['confirm_password'];
   $address = $_POST['address'];
 
+  // check for ic number
+  $stmt = $conn->prepare("SELECT * FROM patient WHERE ic_number = ?");
+  $stmt->bind_param("s", $ic_number);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  if ($result && $result->num_rows > 0) {
+    echo "
+        <script>
+            alert('IC number already taken.');
+            window.location='NewPatient.php';
+        </script>
+        ";
+    exit();
+  }
+
+  // check for email
+  $stmt = $conn->prepare("SELECT * FROM patient WHERE email = ?");
+  $stmt->bind_param("s", $email);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  if ($result && $result->num_rows > 0) {
+    echo "
+        <script>
+            alert('Email already taken.');
+            window.location='NewPatient.php';
+        </script>
+        ";
+    exit();
+  }
+
+  // check for phone no
+  $stmt = $conn->prepare("SELECT * FROM patient WHERE phone_no = ?");
+  $stmt->bind_param("s", $phone_no);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  if ($result && $result->num_rows > 0) {
+    echo "
+        <script>
+            alert('Phone number already taken.');
+            window.location='NewPatient.php';
+        </script>
+        ";
+    exit();
+  }
+
+  if (!validateIcNumber($ic_number)) {
+    echo "
+        <script>
+            alert('Invalid IC number format.');
+            window.location='NewPatient.php';
+        </script>
+        ";
+    exit();
+  }
+
+  if (!validatePhone($phone_no)) {
+    echo "
+        <script>
+            alert('Invalid phone format.');
+            window.location='NewPatient.php';
+        </script>
+        ";
+    exit();
+  }
+
   if ($password != $confirm_password) {
-    die("Passwords do not match.");
+    echo "
+        <script>
+            alert('Password and confirm password must be the same.');
+            window.location='NewPatient.php';
+        </script>
+        ";
+    exit();
   }
 
   $password = password_hash($password, PASSWORD_DEFAULT);
 
-  $sql = "INSERT INTO patients
+  $sql = "INSERT INTO patient
             (patient_id, name, ic_number, email, phone_no, date_of_birth, gender, password, address)
             VALUES
             (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -65,9 +116,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   );
 
   if (mysqli_stmt_execute($stmt)) {
-    echo "Registration successful! Patient ID: " . $patient_id;
+    echo "
+        <script>
+            alert('Registration successful.');
+            window.location='login.php';
+        </script>
+        ";
+    exit();
   } else {
-    echo "Error: " . mysqli_error($conn);
+    echo "
+        <script>
+            alert('Failed to register user.');
+            window.location='NewPatient.php';
+        </script>
+        ";
+    exit();
   }
 }
 ?>
@@ -105,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <p>Create a patient profile so you can request and manage appointments.</p>
         </div>
 
-        <form action="register.php" method="post">
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
           <div class="auth-grid">
             <div class="form-group">
               <label for="name">Full Name</label>
@@ -129,15 +192,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="form-group">
               <label for="date-of-birth">Date of Birth</label>
-              <input class="form-control" type="date" id="date-of-birth" name="date_of_birth" required />
+              <input class="form-control" type="date" id="date-of-birth" name="date_of_birth" required max="<?php echo Date("Y-m-d"); ?>" />
             </div>
 
             <div class="form-group">
               <label for="gender">Gender</label>
               <select class="form-control" id="gender" name="gender" required>
                 <option value="">Choose gender</option>
-                <option value="female">Female</option>
-                <option value="male">Male</option>
+                <option value="F">Female</option>
+                <option value="M">Male</option>
               </select>
             </div>
 

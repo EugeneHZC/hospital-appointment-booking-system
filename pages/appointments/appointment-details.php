@@ -8,14 +8,14 @@ $role = $_SESSION["role"];
 $appointmentId = $_GET["appointment_id"];
 
 if ($role == "Patient") {
-  $stmt = $conn->prepare("SELECT * FROM appointment
-  JOIN time_slot
+  $stmt = $conn->prepare("SELECT a.appointment_id, a.status as appointment_status, a.date, a.appointment_type, a.follow_up_appointment_id, a.patient_remark, a.doctor_remark, ts.time, s.* FROM appointment as a
+  JOIN time_slot as ts
   USING (time_slot_id)
-  JOIN staff
-  ON appointment.staff_id = staff.staff_id
-  WHERE appointment.appointment_id = ?");
+  JOIN staff as s
+  ON a.staff_id = s.staff_id
+  WHERE a.appointment_id = ?");
 } else {
-  $stmt = $conn->prepare("SELECT * FROM appointment as a
+  $stmt = $conn->prepare("SELECT a.*, ts.time, p.* FROM appointment as a
   JOIN time_slot as ts
   USING (time_slot_id)
   JOIN patient as p
@@ -136,9 +136,9 @@ if ($result->num_rows > 0) {
                 <br>
                 <div class="display-card-bottom">
                   <select name="appointment_status" id="appointment-status" class="form-control" <?php echo $role == "Patient" ? "disabled" : ""; ?>>
-                    <option value="Scheduled" <?php echo $appointment["status"] == "Scheduled" ? "selected" : ""; ?>>Scheduled</option>
-                    <option value="Completed" <?php echo $appointment["status"] == "Completed" ? "selected" : ""; ?>>Completed</option>
-                    <option value="Cancelled" <?php echo $appointment["status"] == "Cancelled" ? "selected" : ""; ?>>Cancelled</option>
+                    <option value="Scheduled" <?php echo $appointment["appointment_status"] == "Scheduled" ? "selected" : ""; ?>>Scheduled</option>
+                    <option value="Completed" <?php echo $appointment["appointment_status"] == "Completed" ? "selected" : ""; ?>>Completed</option>
+                    <option value="Cancelled" <?php echo $appointment["appointment_status"] == "Cancelled" ? "selected" : ""; ?>>Cancelled</option>
                   </select>
                 </div>
               </div>

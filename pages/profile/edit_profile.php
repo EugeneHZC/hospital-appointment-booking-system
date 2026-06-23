@@ -42,7 +42,6 @@ $profileData = $result->fetch_assoc();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
     <script src="../../scripts/load-page.js"></script>
-    <!-- <script src="../../scripts/profile.js"></script> -->
     <script src="../../scripts/logout.js"></script>
 </head>
 
@@ -64,32 +63,31 @@ $profileData = $result->fetch_assoc();
                     <div class="edit-section card">
                         <h3><i class="fa-regular fa-pen-to-square"></i> Edit Profile</h3>
                         <div class="form-row">
-                            <label>Profile Picture</label>
                             <div class="profile-upload-container">
                                 <div class="profile-avatar" id="profile-avatar-preview">
                                     <img src="<?php echo $profileData["profile_picture"]; ?>" alt="Profile Picture">
                                 </div>
-                                <input type="file" id="profile-picture-input" name="profile_picture" class="form-control" accept="image/jpeg,image/png,image/gif,image/webp" />
+                                <input type="file" id="profile-picture-input" name="profile_picture" class="form-control" required accept="image/jpeg,image/png,image/gif,image/webp" />
                                 <small class="form-text text-muted">JPG, PNG, GIF, or WebP</small>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" id="edit-fullname" name="name" class="form-control" value="<?php echo $profileData["name"]; ?>" />
+                            <input type="text" id="edit-fullname" name="name" class="form-control" value="<?php echo $profileData["name"]; ?>" required />
                         </div>
                         <div class="form-group">
                             <label>Email Address</label>
-                            <input type="email" id="edit-email" name="email" class="form-control" value="<?php echo $profileData["email"]; ?>" />
+                            <input type="email" id="edit-email" name="email" class="form-control" value="<?php echo $profileData["email"]; ?>" required />
                         </div>
                         <?php if ($role === "Patient") { ?>
                             <div class="form-group">
                                 <label>IC Number</label>
-                                <input type="text" name="ic_number" class="form-control" value="<?php echo $profileData["ic_number"]; ?>" />
+                                <input type="text" name="ic_number" class="form-control" value="<?php echo $profileData["ic_number"]; ?>" required />
                             </div>
                         <?php } ?>
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input type="text" name="phone_no" class="form-control" value="<?php echo $profileData["phone_no"]; ?>" />
+                            <input type="text" name="phone_no" class="form-control" value="<?php echo $profileData["phone_no"]; ?>" required />
                         </div>
                         <div class="form-group">
                             <label>Gender</label>
@@ -105,21 +103,21 @@ $profileData = $result->fetch_assoc();
                         <?php if ($role === 'Patient') { ?>
                             <div class="form-group">
                                 <label>Date of Birth</label>
-                                <input type="date" id="edit-dob" name="date_of_birth" class="form-control" value="<?php echo $profileData["date_of_birth"]; ?>" />
+                                <input type="date" id="edit-dob" name="date_of_birth" class="form-control" value="<?php echo $profileData["date_of_birth"]; ?>" required />
                             </div>
                             <div class="form-group">
                                 <label>Address</label>
-                                <textarea name="address" rows="5" id="address" class="form-control"><?php echo $profileData["address"]; ?></textarea>
+                                <textarea name="address" rows="5" id="address" class="form-control" required><?php echo $profileData["address"]; ?></textarea>
                             </div>
                         <?php } ?>
                         <?php if ($role === 'Doctor' || $role === 'Admin') { ?>
                             <div class="form-group">
                                 <label>Specialty</label>
-                                <input type="text" id="edit-specialty" name="specialty" class="form-control" value="<?php echo $profileData["specialty"]; ?>" />
+                                <input type="text" id="edit-specialty" name="specialty" class="form-control" value="<?php echo $profileData["specialty"]; ?>" required />
                             </div>
                             <div class="form-group">
                                 <label>Bio</label>
-                                <textarea id="edit-bio" rows="5" name="bio" class="form-control"><?php echo $profileData["bio"]; ?></textarea>
+                                <textarea required id="edit-bio" rows="5" name="bio" class="form-control"><?php echo $profileData["bio"]; ?></textarea>
                             </div>
                         <?php } ?>
                         <div class="btns">

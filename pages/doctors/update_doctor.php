@@ -41,6 +41,16 @@ $bio = $_POST['bio'];
 $status = $_POST['status'];
 $gender = $_POST['gender'];
 
+if (!validatePhone($phone_no)) {
+    echo "
+        <script>
+            alert('Invalid phone format.');
+            window.location='add_doctor.php';
+        </script>
+        ";
+    exit();
+}
+
 // check if doctor with provided email and phone number exists
 $stmt = $conn->prepare("SELECT * FROM staff WHERE (email = ? OR phone_no = ?) AND staff_id != ?");
 $stmt->bind_param("sss", $email, $phone_no, $staff_id);
@@ -52,7 +62,7 @@ if ($result && $result->num_rows > 0) {
     echo "
         <script>
             alert('Email or phone number already taken.');
-            window.location='add_doctor.php';
+            window.location='doctor.php';
         </script>
         ";
     exit();
