@@ -10,6 +10,20 @@ if (isset($_POST['save'])) {
     $location = $_POST['location'];
     $status = $_POST['status'];
 
+    $stmt = $conn->prepare("SELECT * FROM department WHERE department_name = ?");
+    $stmt->bind_param("s", $department_name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result && $result->num_rows > 0) {
+        echo "
+        <script>
+            alert('Department with provided name already exists.');
+            window.location='add_dep.php';
+        </script>
+        ";
+        exit();
+    }
+
     $stmt = $conn->prepare("INSERT INTO department (department_id, department_name, description, location, status) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $department_id, $department_name, $description, $location, $status);
     $result = $stmt->execute();

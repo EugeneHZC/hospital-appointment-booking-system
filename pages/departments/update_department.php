@@ -28,6 +28,20 @@ if (isset($_POST['update'])) {
     $location = $_POST['location'];
     $status = $_POST['status'];
 
+    $stmt = $conn->prepare("SELECT * FROM department WHERE department_name = ? AND department_id != ?");
+    $stmt->bind_param("ss", $department_name, $department_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result && $result->num_rows > 0) {
+        echo "
+        <script>
+            alert('Department with provided name already exists.');
+            window.location='edit_dep.php';
+        </script>
+        ";
+        exit();
+    }
+
     $stmt = $conn->prepare("UPDATE department
         SET department_name = ?,
         description = ?,
