@@ -5,10 +5,10 @@ include('../../helper/generate_id.php');
 if (isset($_POST['save'])) {
     $department_id = generateId("department", 1, 7);
 
-    $department_name = $_POST['department_name'];
-    $description = $_POST['description'];
-    $location = $_POST['location'];
-    $status = $_POST['status'];
+    $department_name = htmlspecialchars($_POST['department_name']);
+    $description = htmlspecialchars($_POST['description']);
+    $location = htmlspecialchars($_POST['location']);
+    $status = htmlspecialchars($_POST['status']);
 
     $stmt = $conn->prepare("SELECT * FROM department WHERE department_name = ?");
     $stmt->bind_param("s", $department_name);

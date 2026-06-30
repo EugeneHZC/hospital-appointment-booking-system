@@ -114,7 +114,7 @@ $profileData = $result->fetch_assoc();
                 <div class="info-value"><?php echo htmlspecialchars($profileData["address"]); ?></div>
               </div>
             <?php } ?>
-            <?php if (($role === 'Doctor' || $role === 'Admin') && $profileData['bio'] && $profileData['bio']) { ?>
+            <?php if ($role === 'Doctor' || $role === 'Admin') { ?>
               <div class="info-row">
                 <div class="info-label">
                   <i class="fa-solid fa-stethoscope"></i> Specialty
@@ -139,7 +139,7 @@ $profileData = $result->fetch_assoc();
 
             <div class="profile-actions">
               <a class="btn btn-info" id="edit-btn" href="edit_profile.php">
-                <i class="fa-regular fa-pen-to-square"></i> Edit Profile
+                <i class="fa-solid fa-pen-to-square"></i> Edit Profile
               </a>
               <button class="btn btn-danger" id="logout-btn">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout

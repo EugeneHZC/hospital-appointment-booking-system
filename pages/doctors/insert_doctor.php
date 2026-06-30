@@ -34,14 +34,14 @@ if (
 
 $staff_id = generateId("staff", 1, 14);
 
-$name = $_POST['name'];
-$department_id = $_POST['department_id'];
-$specialty = $_POST['specialty'];
-$email = $_POST['email'];
-$phone_no = $_POST['phone_no'];
-$bio = $_POST['bio'];
-$status = $_POST['status'];
-$gender = $_POST['gender'];
+$name = htmlspecialchars($_POST['name']);
+$department_id = htmlspecialchars($_POST['department_id']);
+$specialty = htmlspecialchars($_POST['specialty']);
+$email = htmlspecialchars($_POST['email']);
+$phone_no = htmlspecialchars($_POST['phone_no']);
+$bio = htmlspecialchars($_POST['bio']);
+$status = htmlspecialchars($_POST['status']);
+$gender = htmlspecialchars($_POST['gender']);
 
 if (!validatePhone($phone_no)) {
     echo "

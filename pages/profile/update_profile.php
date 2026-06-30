@@ -27,10 +27,10 @@ if (!isset($_POST["name"]) || trim($_POST["name"]) == "" || !isset($_POST["email
   exit();
 }
 
-$name = $_POST["name"];
-$newEmail = $_POST["email"];
-$phone_no = $_POST["phone_no"];
-$gender = $_POST["gender"];
+$name = htmlspecialchars($_POST["name"]);
+$newEmail = htmlspecialchars($_POST["email"]);
+$phone_no = htmlspecialchars($_POST["phone_no"]);
+$gender = htmlspecialchars($_POST["gender"]);
 
 if (!validatePhone($phone_no)) {
   echo "
@@ -73,9 +73,9 @@ if ($role == "Patient") {
     exit();
   }
 
-  $ic_number = $_POST["ic_number"];
-  $date_of_birth = $_POST["date_of_birth"];
-  $address = $_POST["address"];
+  $ic_number = htmlspecialchars($_POST["ic_number"]);
+  $date_of_birth = htmlspecialchars($_POST["date_of_birth"]);
+  $address = htmlspecialchars($_POST["address"]);
 
   if (!validateIcNumber($ic_number)) {
     echo "
@@ -103,8 +103,8 @@ if ($role == "Patient") {
     exit();
   }
 
-  $specialty = $_POST["specialty"];
-  $bio = $_POST["bio"];
+  $specialty = htmlspecialchars($_POST["specialty"]);
+  $bio = htmlspecialchars($_POST["bio"]);
 
   if (!validateUnique("staff", "email", $newEmail)) {
     echo "

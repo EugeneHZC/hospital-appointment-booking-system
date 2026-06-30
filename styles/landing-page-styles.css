@@ -1,6 +1,5 @@
 /* ---------------------------- landing page styling ---------------------------- */
 #top-bar {
-  border-bottom: 1px solid black;
   width: 100%;
   padding: 20px;
 }
@@ -91,11 +90,6 @@
   border-radius: 25px;
 }
 
-#introduction img:hover {
-  transform: scale(1.1);
-  transition: 0.5s;
-}
-
 #introduction #intro-title {
   margin-bottom: 20px;
   font-size: 35px;
@@ -128,17 +122,28 @@
 }
 
 @media screen and (min-width: 468px) {
+  #landing-page-content {
+    margin-top: 80px;
+  }
+
   #top-bar {
     padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
   }
 
   #top-nav-bar {
     display: flex;
+    top: 0;
+    left: 0;
     justify-content: space-evenly;
     border: none;
     background-color: white;
     border-radius: 0;
-    position: inherit;
+    width: 100%;
+    border-bottom: 1px solid black;
   }
 
   #top-nav-bar .nav-links {

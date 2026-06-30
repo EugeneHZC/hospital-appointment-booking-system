@@ -7,15 +7,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $patient_id = generateId("patient", 1, 14);
 
-  $name = $_POST['name'];
-  $ic_number = $_POST['ic_number'];
-  $email = $_POST['email'];
-  $phone_no = $_POST['phone_no'];
-  $date_of_birth = $_POST['date_of_birth'];
-  $gender = $_POST['gender'];
-  $password = $_POST['password'];
-  $confirm_password = $_POST['confirm_password'];
-  $address = $_POST['address'];
+  $name = htmlspecialchars($_POST['name']);
+  $ic_number = htmlspecialchars($_POST['ic_number']);
+  $email = htmlspecialchars($_POST['email']);
+  $phone_no = htmlspecialchars($_POST['phone_no']);
+  $date_of_birth = htmlspecialchars($_POST['date_of_birth']);
+  $gender = htmlspecialchars($_POST['gender']);
+  $password = htmlspecialchars($_POST['password']);
+  $confirm_password = htmlspecialchars($_POST['confirm_password']);
+  $address = htmlspecialchars($_POST['address']);
 
   // check for ic number
   $stmt = $conn->prepare("SELECT * FROM patient WHERE ic_number = ?");

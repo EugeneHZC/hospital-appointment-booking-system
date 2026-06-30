@@ -27,6 +27,11 @@ $role = $_SESSION["role"];
           <a href="../../pages/appointments/appointments.php"><i class="fa-regular fa-clipboard"></i>Appointments</a>
         </li>
         <?php
+        if ($role == "Patient") {
+          echo "<li class='nav-link'><a href='../../pages/appointments/book-appointment.php'><i class='fa-regular fa-calendar-plus'></i>Book Appointment</a></li>";
+        }
+        ?>
+        <?php
         if ($role != "Patient") {
           echo "<li class='nav-link'><a href='../../pages/time-slots/time-slots.php'><i class='fa-regular fa-clock'></i>Time Slots</a></li>";
         }
@@ -42,7 +47,7 @@ $role = $_SESSION["role"];
         }
         ?>
         <li class="nav-link">
-          <a href="../../pages/forum/forum.php"><i class="fa-regular fa-newspaper"></i>Forum</a>
+          <a href="../../pages/forum/forum.php"><i class="fa-regular fa-newspaper"></i>Message Board</a>
         </li>
         <li class="nav-link">
           <a href="../../pages/profile/profile.php"><i class="fa-regular fa-user"></i>Profile</a>

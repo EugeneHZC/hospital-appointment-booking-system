@@ -80,7 +80,7 @@ $timeSlot = $result->fetch_assoc();
 
                                 <div class="form-group">
                                     <label for="time-slot">Time Slot</label>
-                                    <input required type="time" name="time_slot" id="time-slot" class="form-control" value="<?php echo $timeSlot["time"] ?>">
+                                    <input required type="time" name="time_slot" id="time-slot" class="form-control" value="<?php echo $timeSlot["time"] ?>" disabled>
                                 </div>
 
                                 <div class="form-group">

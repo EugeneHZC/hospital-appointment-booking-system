@@ -52,7 +52,7 @@ $profileData = $result->fetch_assoc();
             <header>
                 <button id="nav-toggle" class="btn btn-info"><i class="fa-solid fa-bars"></i></button>
                 <div>
-                    <h1>Profile</h1>
+                    <h1>Edit Profile</h1>
                     <p id="role-view">
                         <?php echo $role; ?>'s View
                     </p>
@@ -61,7 +61,6 @@ $profileData = $result->fetch_assoc();
             <div id="content">
                 <form action="update_profile.php" method="post" enctype="multipart/form-data">
                     <div class="edit-section card">
-                        <h3><i class="fa-regular fa-pen-to-square"></i> Edit Profile</h3>
                         <div class="form-row">
                             <div class="profile-upload-container">
                                 <div class="profile-avatar" id="profile-avatar-preview">

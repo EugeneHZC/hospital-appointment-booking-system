@@ -54,7 +54,7 @@ $article = $result->fetch_assoc();
   <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
   <script src="../../scripts/load-page.js"></script>
   <script src="../../scripts/forum.js"></script>
-  <title>Hospital Islam Azzahrah Appointment Booking System - Post Article</title>
+  <title>Hospital Islam Azzahrah Appointment Booking System - Edit Article</title>
 </head>
 
 <body>
@@ -64,7 +64,7 @@ $article = $result->fetch_assoc();
       <header>
         <button id="nav-toggle" class="btn btn-info"><i class="fa-solid fa-bars"></i></button>
         <div>
-          <h1>Post Article</h1>
+          <h1>Edit Article</h1>
           <p id="role-view">
             <?php echo $role; ?>'s View
           </p>

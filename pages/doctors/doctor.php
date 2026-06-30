@@ -82,7 +82,7 @@ $result = $stmt->get_result();
                     <?php
                     if ($role == "Admin") {
                         ?>
-                        <button type="button" class="btn btn-info" onclick="window.location.href='add_doctor.php'">
+                        <button type="button" class="btn btn-info" onclick="window.location.href='add_doctor.php'"><i class="fa-solid fa-plus"></i>
                             Add Doctor
                         </button>
                         <?php
@@ -116,7 +116,7 @@ $result = $stmt->get_result();
 
                             <div class="display-card-right">
                                 <div class="btns">
-                                    <button class="btn btn-info" onclick="window.location.href='edit_doctor.php?staff_id=<?php echo $row['staff_id']; ?>'">
+                                    <button class="btn btn-info" onclick="window.location.href='edit_doctor.php?staff_id=<?php echo $row['staff_id']; ?>'"><i class="fa-solid fa-pen-to-square"></i>
                                         Edit
                                     </button>
                                 </div>

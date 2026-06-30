@@ -56,7 +56,7 @@ $result = $stmt->get_result();
                     <?php
                     if ($role != "Patient") {
                         ?>
-                        <a type="button" class="btn btn-info" href="add_dep.php">
+                        <a type="button" class="btn btn-info" href="add_dep.php"><i class="fa-solid fa-plus"></i>
                             Add Department
                         </a>
                         <?php
@@ -100,7 +100,7 @@ $result = $stmt->get_result();
                                 </div>
                                 <div class="display-card-right">
                                     <div class="btns">
-                                        <button class="btn btn-info" onclick="window.location.href='edit_dep.php?id=<?php echo $row['department_id']; ?>'">
+                                        <button class="btn btn-info" onclick="window.location.href='edit_dep.php?id=<?php echo $row['department_id']; ?>'"><i class="fa-solid fa-pen-to-square"></i>
                                             Edit
                                         </button>
                                     </div>
