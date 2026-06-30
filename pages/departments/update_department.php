@@ -22,11 +22,11 @@ if (isset($_POST['update'])) {
         exit();
     }
 
-    $department_id = $_POST['department_id'];
-    $department_name = $_POST['department_name'];
-    $description = $_POST['description'];
-    $location = $_POST['location'];
-    $status = $_POST['status'];
+    $department_id = htmlspecialchars($_POST['department_id']);
+    $department_name = htmlspecialchars($_POST['department_name']);
+    $description = htmlspecialchars($_POST['description']);
+    $location = htmlspecialchars($_POST['location']);
+    $status = htmlspecialchars($_POST['status']);
 
     $stmt = $conn->prepare("SELECT * FROM department WHERE department_name = ? AND department_id != ?");
     $stmt->bind_param("ss", $department_name, $department_id);

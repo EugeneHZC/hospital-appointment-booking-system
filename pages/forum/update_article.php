@@ -33,7 +33,7 @@ if (!isset($_POST["article_title"]) || !isset($_POST["article_content"])) {
     exit();
 }
 
-$articleId = $_POST["article_id"];
+$articleId = htmlspecialchars($_POST["article_id"]);
 $title = $_POST["article_title"];
 $content = $_POST["article_content"];
 $currentDateTime = Date('Y-m-d H:m:s');

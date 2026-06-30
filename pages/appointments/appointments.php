@@ -200,12 +200,6 @@ $user = $result->fetch_assoc();
           ?>
         </div>
       </div>
-
-      <?php
-      if ($role == "Patient") {
-        echo "<button class='btn btn-info' id='book-appointment-btn'>Book Appointment</button>";
-      }
-      ?>
     </main>
   </div>
 </body>

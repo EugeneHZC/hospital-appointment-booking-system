@@ -40,8 +40,8 @@ if (!$result || $result->num_rows == 0) {
 
 $user = $result->fetch_assoc();
 $timeSlotId = generateId("time_slot", 2, 8);
-$time = $_POST["time_slot"];
-$status = $_POST["status"];
+$time = htmlspecialchars($_POST["time_slot"]);
+$status = htmlspecialchars($_POST["status"]);
 $staffId = $user["staff_id"];
 
 // check if the current time slot already exists for this staff

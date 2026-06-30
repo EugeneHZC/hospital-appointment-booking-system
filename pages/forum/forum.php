@@ -36,7 +36,7 @@ if ($role != "Patient") {
   <script src="https://kit.fontawesome.com/d29bed84f6.js" crossorigin="anonymous"></script>
   <script src="../../scripts/load-page.js"></script>
   <script src="../../scripts/forum.js"></script>
-  <title>Hospital Islam Azzahrah Appointment Booking System - Forum</title>
+  <title>Hospital Islam Azzahrah Appointment Booking System - Message Board</title>
 </head>
 
 <body>
@@ -46,7 +46,7 @@ if ($role != "Patient") {
       <header>
         <button id="nav-toggle" class="btn btn-info"><i class="fa-solid fa-bars"></i></button>
         <div>
-          <h1>Forum</h1>
+          <h1>Message Board</h1>
           <p id="role-view"><?php echo $role; ?>'s View</p>
         </div>
       </header>
@@ -126,7 +126,7 @@ if ($role != "Patient") {
                   </div>
 
                   <?php
-                  if (isset($staff) && $row["writer_staff_id"] == $staff["staff_id"]) {
+                  if (isset($staff) && $row["writer_staff_id"] == $staff["staff_id"] && !isset($row["approver_name"])) {
                     ?>
                     <div class="btns">
                       <a class="btn btn-info" type="button" href="edit-article.php?article_id=<?php echo $row["article_id"]; ?>"><i class="fa-solid fa-pen-to-square"></i>Edit</a>

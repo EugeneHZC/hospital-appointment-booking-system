@@ -7,8 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit();
 }
 
-$email = trim($_POST["email"] ?? "");
-$password = $_POST["password"] ?? "";
+$email = trim(htmlspecialchars($_POST["email"]) ?? "");
+$password = htmlspecialchars($_POST["password"]) ?? "";
 
 if ($email === "" || $password === "") {
     header("Location: Login.php?error=" . urlencode("Please enter your email and password."));
